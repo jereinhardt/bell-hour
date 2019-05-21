@@ -1,2 +1,12 @@
 <h1>Grades#index</h1>
 <p>Find me in app/views/grades/index.html.erb</p>
+<% @grades.each do |grade| %>
+<ul>
+  <li>
+    <h1><%= grade.name %></h1>
+    <% grade.teachers.each do |teacher| %>
+    <p><%= teacher.name %></p>
+    <% end %>
+  </li>
+</ul>
+<% end %>
