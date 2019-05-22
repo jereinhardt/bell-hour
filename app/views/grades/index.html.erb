@@ -5,7 +5,10 @@
   <li>
     <h1><%= grade.name %></h1>
     <% grade.teachers.each do |teacher| %>
-    <p><%= teacher.name %></p>
+    <h2><%= teacher.name %></h2>
+      <% teacher.students.each do |student| %>
+      <p><%= student.name %></p>
+      <% end %>
     <% end %>
   </li>
 </ul>
