@@ -1,11 +1,12 @@
+<h1><%= @grades.first.school.name %></h1>
 <% @grades.each do |grade| %>
 <ul>
   <h1><%= link_to "#{grade.name}", grade_path(grade.id) %></h1>
   <li>
     <% grade.teachers.each do |teacher| %>
-    <h2><%= teacher.name %></h2>
+    <h2><%= link_to "#{teacher.name}", teacher_path(teacher.id) %></h2>
       <% teacher.students.each do |student| %>
-      <p><%= student.name %></p>
+      <p><%= link_to "#{student.name}", student_path(student.id) %></p>
       <% end %>
     <% end %>
   </li>

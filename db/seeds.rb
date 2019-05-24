@@ -14,7 +14,7 @@ prefixes = ['Mr. ', 'Ms. ', 'Mrs. ']
     teacher.save!
     25.times do
       student = Student.new(
-        name: Faker::Name.first_name + Faker::Name.last_name,
+        name: Faker::Name.first_name + " " + Faker::Name.last_name,
         teacher_id: teacher.id
       )
       student.save!
