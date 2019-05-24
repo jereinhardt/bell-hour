@@ -1,16 +1,17 @@
 class GradesController < ApplicationController
+
   def index
     @grades = Grade.all
   end
 
   def show
-    @teachers = @grade.teachers
+    set_grade
   end
 
   private
 
   def set_grade
-
+    @grade = Grade.find(params[:id])
   end
 
 end
