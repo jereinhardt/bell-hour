@@ -1,9 +1,7 @@
-<h1>Grades#index</h1>
-<p>Find me in app/views/grades/index.html.erb</p>
 <% @grades.each do |grade| %>
 <ul>
+  <h1><%= link_to "#{grade.name}", grade_path(grade.id) %></h1>
   <li>
-    <h1><%= grade.name %></h1>
     <% grade.teachers.each do |teacher| %>
     <h2><%= teacher.name %></h2>
       <% teacher.students.each do |student| %>
