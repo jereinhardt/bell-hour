@@ -1,2 +1,3 @@
-<h1>Students#show</h1>
-<p>Find me in app/views/students/show.html.erb</p>
+<h1><%= @student.name %></h1>
+<h2>Grade: <%= link_to "#{@student.teacher.grade.name}", grade_path(@student.teacher.grade.id) %></h2>
+<h2>Teacher: <%= link_to "#{@student.teacher.name}", teacher_path(@student.teacher.id) %></h2>

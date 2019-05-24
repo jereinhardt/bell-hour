@@ -1,4 +1,6 @@
 <h1><%= @teacher.name %></h1>
+<h2>Grade: <%= link_to "#{@teacher.grade.name}", grade_path(@teacher.grade.id) %></h2>
+<h2>Student:</h2>
 <% @teacher.students.each do |student| %>
 <p><%= link_to "#{student.name}", student_path(student.id) %></p>
 <% end %>
