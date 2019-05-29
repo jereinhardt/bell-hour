@@ -10,13 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_21_170848) do
+ActiveRecord::Schema.define(version: 2019_05_29_025946) do
 
-  create_table "grades", force: :cascade do |t|
+  create_table "departments", force: :cascade do |t|
     t.string "name"
+    t.integer "school_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "school_id"
+    t.index ["school_id"], name: "index_departments_on_school_id"
+  end
+
+  create_table "guardian_relations", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "student_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["student_id"], name: "index_guardian_relations_on_student_id"
+    t.index ["user_id"], name: "index_guardian_relations_on_user_id"
   end
 
   create_table "schools", force: :cascade do |t|
@@ -26,17 +36,50 @@ ActiveRecord::Schema.define(version: 2019_05_21_170848) do
   end
 
   create_table "students", force: :cascade do |t|
-    t.string "name"
+    t.string "first_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "teacher_id"
+    t.string "last_name"
+    t.string "transportation_type"
+    t.boolean "present"
+    t.string "photo"
   end
 
-  create_table "teachers", force: :cascade do |t|
-    t.string "name"
+  create_table "teacher_relations", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "student_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "grade_id"
+    t.index ["student_id"], name: "index_teacher_relations_on_student_id"
+    t.index ["user_id"], name: "index_teacher_relations_on_user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "admin"
+    t.boolean "teacher"
+    t.boolean "guardian"
+    t.string "username"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "photo"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "with_teacher_relations", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "student_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["student_id"], name: "index_with_teacher_relations_on_student_id"
+    t.index ["user_id"], name: "index_with_teacher_relations_on_user_id"
   end
 
 end

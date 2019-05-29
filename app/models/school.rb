@@ -1,3 +1,3 @@
 class School < ApplicationRecord
-  has_many :grades
+  has_many :departments
 end
