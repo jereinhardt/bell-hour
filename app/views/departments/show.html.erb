@@ -1,1 +1,5 @@
-show.html.erb
+<h1><%= @department.name %></h1>
+<h4><%= link_to "Back to grades", departments_path %></h4>
+<% @department.users.each do |user| %>
+<h3><%= link_to "#{user.last_name}", user_path(user.id) %></h3>
+<% end %>

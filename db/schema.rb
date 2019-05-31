@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_29_064430) do
+ActiveRecord::Schema.define(version: 2019_05_31_041041) do
 
   create_table "departments", force: :cascade do |t|
     t.string "name"
     t.integer "school_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "grade"
     t.index ["school_id"], name: "index_departments_on_school_id"
   end
 
