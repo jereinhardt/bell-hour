@@ -1,4 +1,4 @@
-<h1><%= @user.last_name %></h1>
+<h1><%= @user.teacher_name %></h1>
 <h4><%= link_to "Back to #{@user.department.name}", department_path(@user.department.id) %></h4>
 <% @students.each do |student| %>
 <% if student.with_teacher_id == @user.id %>

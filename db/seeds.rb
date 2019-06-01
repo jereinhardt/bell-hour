@@ -11,15 +11,19 @@ teacher_email = 0
 
 transportation = ["pickup", "walker", "bus", "after-school"]
 
+prefix = ["Mr. ", "Ms. ", "Mrs. "]
+
 parent_email = 0
 
 grades.each do |grade_name|
   grade = Department.create!({name: "#{grade_name}", grade: true, school_id: school.id})
 
   3.times do
+    faker_last_name = Faker::Name.last_name
     teacher = User.create!({
       first_name: Faker::Name.first_name,
       last_name: Faker::Name.last_name,
+      teacher_name: "#{prefix.sample + faker_last_name}",
       username: Faker::Internet.username,
       email: "teacher#{teacher_email}@lewagon.com",
       password: "password",
@@ -34,7 +38,7 @@ grades.each do |grade_name|
     15.times do
       parent = User.create!({
         first_name: Faker::Name.first_name,
-        last_name: Faker::Name.last_name,
+        last_name: faker_last_name,
         username: Faker::Internet.username,
         email: "parent#{parent_email}@parents.com",
         password: "password",

@@ -2,7 +2,7 @@
 <% if department.grade  %>
 <h1><%= link_to "#{department.name}", department_path(department.id) %></h1>
 <% department.users.each do |teacher| %>
-<h3><%= link_to "#{teacher.last_name}", user_path(teacher.id) %></h3>
+<h3><%= link_to "#{teacher.teacher_name}", user_path(teacher.id) %></h3>
 <% end %>
 <% end %>
 <% end %>
