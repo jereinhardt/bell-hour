@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_03_073514) do
+ActiveRecord::Schema.define(version: 2019_06_03_174230) do
 
   create_table "departments", force: :cascade do |t|
     t.string "name"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 2019_06_03_073514) do
     t.integer "teacher_id"
     t.integer "guardian_id"
     t.integer "with_teacher_id"
+    t.integer "previously_with_id"
   end
 
   create_table "users", force: :cascade do |t|

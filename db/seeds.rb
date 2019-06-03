@@ -59,7 +59,8 @@ grades.each do |grade_name|
         present: true,
         teacher_id: teacher.id,
         with_teacher_id: teacher.id,
-        guardian_id: parent.id
+        guardian_id: parent.id,
+        previously_with_id: teacher.id
       })
 
     end

@@ -9,6 +9,8 @@ Rails.application.routes.draw do
       patch :take
       patch :dismiss
       patch :mark_present
+      patch :give_back
+      patch :give_to_teacher
     end
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

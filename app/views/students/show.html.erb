@@ -1,15 +1,31 @@
 <h1><%= @student.first_name %> <%= @student.last_name %></h1>
-<h4><%= link_to "Back to #{@student.with_teacher.teacher_name}", user_path(@student.with_teacher.id) %></h4>
+
 <h2><%= @student.present ? "Present" : "Absent" %></h2>
+
 <% if @student.present %>
 <h2>Currently with: <%= link_to "#{@student.with_teacher.teacher_name}", user_path(@student.with_teacher.id) %></h2>
 <% end %>
+
 <h2>Grade: <%= link_to "#{@student.teacher.department.name}", department_path(@student.teacher.department.id) %></h2>
+
 <h2>Teacher: <%= link_to "#{@student.teacher.teacher_name}", user_path(@student.teacher.id) %></h2>
+
 <h2>Transportation type: <%= @student.transportation_type %></h2>
+
+<% if @student.present %>
+
 <% if current_user.id != @student.with_teacher_id %>
 <h2><%= link_to "Take #{@student.first_name}", take_student_path(@student.id), method: "patch" %></h2>
+<% elsif current_user.id == @student.with_teacher_id && current_user.id != @student.previously_with_id && @student.previously_with_id != @student.teacher.id %>
+<h2><%= link_to "Return #{@student.first_name} back to #{@student.previously_with.teacher_name}", give_back_student_path(@student.id), method: "patch" %></h2>
 <% end %>
+
+<% if current_user.id == @student.with_teacher_id && @student.with_teacher_id != @student.teacher.id %>
+<h2><%= link_to "Return #{@student.first_name} to #{@student.teacher.teacher_name}", give_to_teacher_student_path(@student.id), method: "patch" %></h2>
+<% end %>
+
+<% end %>
+
 <% if @student.present %>
 <h2><%= link_to "Dismiss #{@student.first_name} from school", dismiss_student_path(@student.id), method: :patch, data: { confirm: "Are you sure you want to dismiss #{@student.first_name}?" } %></h2>
 <% else %>

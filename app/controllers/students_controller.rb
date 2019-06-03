@@ -1,5 +1,5 @@
 class StudentsController < ApplicationController
-  before_action :set_student, only: [:show, :update, :take, :dismiss, :mark_present]
+  before_action :set_student, except: [:index]
 
   def index
     @students = Student.all
@@ -15,12 +15,20 @@ class StudentsController < ApplicationController
 
   def take
     #current user takes student from other user(teacher)
-    @student.update(with_teacher_id: current_user.id)
+    @student.update(previously_with_id: @student.with_teacher_id, with_teacher_id: current_user.id)
     redirect_to student_path(@student.id)
   end
 
-  def release_to(other_user)
-    #current user releases student (gives student) to other user (teacher)
+  def give_back
+    #current user gives student back to previous teacher
+    @student.update(with_teacher_id: @student.previously_with_id, previously_with_id: current_user.id)
+    redirect_to student_path(@student.id)
+  end
+
+  def give_to_teacher
+    #current user gives student back to previous teacher
+    @student.update(with_teacher_id: @student.teacher.id, previously_with_id: current_user.id)
+    redirect_to student_path(@student.id)
   end
 
   def dismiss
@@ -41,6 +49,6 @@ class StudentsController < ApplicationController
   end
 
   def student_params
-    params.require(:student).permit(:with_teacher_id, :guardian_id, :teacher_id, :present, :transportation_type, :photo)
+    params.require(:student).permit(:with_teacher_id, :guardian_id, :teacher_id, :present, :transportation_type, :photo, :previously_with_id)
   end
 end
