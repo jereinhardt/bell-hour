@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_01_035638) do
+ActiveRecord::Schema.define(version: 2019_06_03_073514) do
 
   create_table "departments", force: :cascade do |t|
     t.string "name"
@@ -19,15 +19,6 @@ ActiveRecord::Schema.define(version: 2019_06_01_035638) do
     t.datetime "updated_at", null: false
     t.boolean "grade"
     t.index ["school_id"], name: "index_departments_on_school_id"
-  end
-
-  create_table "guardian_relations", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "student_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["student_id"], name: "index_guardian_relations_on_student_id"
-    t.index ["user_id"], name: "index_guardian_relations_on_user_id"
   end
 
   create_table "schools", force: :cascade do |t|
@@ -49,15 +40,6 @@ ActiveRecord::Schema.define(version: 2019_06_01_035638) do
     t.integer "with_teacher_id"
   end
 
-  create_table "teacher_relations", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "student_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["student_id"], name: "index_teacher_relations_on_student_id"
-    t.index ["user_id"], name: "index_teacher_relations_on_user_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -77,15 +59,6 @@ ActiveRecord::Schema.define(version: 2019_06_01_035638) do
     t.string "teacher_name"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-  end
-
-  create_table "with_teacher_relations", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "student_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["student_id"], name: "index_with_teacher_relations_on_student_id"
-    t.index ["user_id"], name: "index_with_teacher_relations_on_user_id"
   end
 
 end

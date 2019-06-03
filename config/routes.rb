@@ -1,9 +1,15 @@
 Rails.application.routes.draw do
-  get 'users/index'
-  get 'users/show'
+  root to: 'departments#index'
+
   devise_for :users
   resources :departments, only: [:index, :show]
   resources :users, only: [:index, :show]
-  resources :students, only: [:index, :show]
+  resources :students, only: [:index, :show] do
+    member do
+      patch :take
+      patch :dismiss
+      patch :mark_present
+    end
+  end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -1,15 +1,46 @@
 class StudentsController < ApplicationController
+  before_action :set_student, only: [:show, :update, :take, :dismiss, :mark_present]
+
   def index
     @students = Student.all
   end
 
   def show
-    set_student
+
+  end
+
+  def update
+    @student.update(student_params)
+  end
+
+  def take
+    #current user takes student from other user(teacher)
+    @student.update(with_teacher_id: current_user.id)
+    redirect_to student_path(@student.id)
+  end
+
+  def release_to(other_user)
+    #current user releases student (gives student) to other user (teacher)
+  end
+
+  def dismiss
+    #with_teacher dismisses student from school at the end of the day (present == false)
+    @student.update(present: false)
+    redirect_to student_path(@student.id)
+  end
+
+  def mark_present
+    @student.update(present: true)
+    redirect_to student_path(@student.id)
   end
 
   private
 
   def set_student
     @student = Student.find(params[:id])
+  end
+
+  def student_params
+    params.require(:student).permit(:with_teacher_id, :guardian_id, :teacher_id, :present, :transportation_type, :photo)
   end
 end
