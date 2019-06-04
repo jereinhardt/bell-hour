@@ -1,7 +1,13 @@
 <h1><%= @user.teacher_name %></h1>
 <h4><%= link_to "Back to #{@user.department.name}", department_path(@user.department.id) %></h4>
 <% @students.each do |student| %>
-<% if student.with_teacher_id == @user.id %>
+<% if student.with_teacher_id == @user.id && student.present %>
+<h3><%= link_to "#{student.first_name} #{student.last_name}", student_path(student.id) %></h3>
+<% end %>
+<% end %>
+<h2>Absent:</h2>
+<% @user.students.each do |student| %>
+<% if student.present == false %>
 <h3><%= link_to "#{student.first_name} #{student.last_name}", student_path(student.id) %></h3>
 <% end %>
 <% end %>

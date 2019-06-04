@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_03_174230) do
+ActiveRecord::Schema.define(version: 2019_06_04_005534) do
 
   create_table "departments", force: :cascade do |t|
     t.string "name"
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 2019_06_03_174230) do
     t.string "transportation_type"
     t.boolean "present"
     t.string "photo"
-    t.integer "teacher_id"
+    t.integer "user_id"
     t.integer "guardian_id"
     t.integer "with_teacher_id"
     t.integer "previously_with_id"
