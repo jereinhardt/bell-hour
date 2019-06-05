@@ -9,7 +9,7 @@ parents_department = Department.create!({name: "parents", grade: false, school_i
 grades = ["Kindergarten", "1st", "2nd", "3rd", "4th", "5th"]
 teacher_email = 0
 
-transportation = ["pickup", "walker", "bus", "after-school"]
+dismissal = ["pickup", "walker", "bus", "after-school"]
 
 prefix = ["Mr. ", "Ms. ", "Mrs. "]
 
@@ -55,9 +55,9 @@ grades.each do |grade_name|
         first_name: Faker::Name.first_name,
         last_name: Faker::Name.last_name,
         photo: " ",
-        transportation_type: transportation.sample,
+        dismissal_type: dismissal.sample,
         present: true,
-        teacher_id: teacher.id,
+        user_id: teacher.id,
         with_teacher_id: teacher.id,
         guardian_id: parent.id,
         previously_with_id: teacher.id
