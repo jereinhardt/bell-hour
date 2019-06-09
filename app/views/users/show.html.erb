@@ -6,8 +6,15 @@
 <h3><%= link_to "Dismiss all pickups currently with you", dismiss_all_pickup_user_path(current_user.id), method: "patch" %></h3>
 <h3><%= link_to "Dismiss all after school students currently with you", dismiss_all_as_user_path(current_user.id), method: "patch" %></h3>
 <% end %>
+<h2>Present:</h2>
 <% @students.each do |student| %>
-<% if student.with_teacher_id == @user.id && student.present %>
+<% if student.with_teacher_id == @user.id && student.present && student.user_id == @user.id %>
+<h3><%= link_to "#{student.first_name} #{student.last_name}", student_path(student.id) %></h3>
+<% end %>
+<% end %>
+<h2>Visiting:</h2>
+<% @students.each do |student| %>
+<% if student.with_teacher_id == @user.id && student.present && student.user_id != @user.id %>
 <h3><%= link_to "#{student.first_name} #{student.last_name}", student_path(student.id) %></h3>
 <% end %>
 <% end %>
