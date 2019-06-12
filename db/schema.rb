@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_05_034409) do
+ActiveRecord::Schema.define(version: 2019_06_12_025305) do
 
   create_table "departments", force: :cascade do |t|
     t.string "name"
@@ -19,6 +19,14 @@ ActiveRecord::Schema.define(version: 2019_06_05_034409) do
     t.datetime "updated_at", null: false
     t.boolean "grade"
     t.index ["school_id"], name: "index_departments_on_school_id"
+  end
+
+  create_table "dismissal_types", force: :cascade do |t|
+    t.string "name"
+    t.integer "school_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["school_id"], name: "index_dismissal_types_on_school_id"
   end
 
   create_table "schools", force: :cascade do |t|
@@ -32,13 +40,15 @@ ActiveRecord::Schema.define(version: 2019_06_05_034409) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "last_name"
-    t.string "dismissal_type"
+    t.integer "dismissal_type_id"
     t.boolean "present"
     t.string "photo"
     t.integer "user_id"
     t.integer "guardian_id"
     t.integer "with_teacher_id"
     t.integer "previously_with_id"
+    t.integer "department_id"
+    t.integer "school_id"
   end
 
   create_table "users", force: :cascade do |t|
