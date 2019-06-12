@@ -6,11 +6,11 @@
 <h2>Currently with: <%= link_to "#{@student.with_teacher.teacher_name}", user_path(@student.with_teacher.id) %></h2>
 <% end %>
 
-<h2>Grade: <%= link_to "#{@student.teacher.department.name}", department_path(@student.teacher.department.id) %></h2>
+<h2>Grade: <%= link_to "#{@student.department.name}", department_path(@student.department.id) %></h2>
 
 <h2>Teacher: <%= link_to "#{@student.teacher.teacher_name}", user_path(@student.teacher.id) %></h2>
 
-<h2>Dismissal type: <%= @student.dismissal_type %></h2>
+<h2>Dismissal type: <%= @student.dismissal_type.name %></h2>
 
 <% if @student.present %>
 

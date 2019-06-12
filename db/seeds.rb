@@ -7,9 +7,15 @@ school = School.create!({name: "Le Wagon Elementary"})
 parents_department = Department.create!({name: "parents", grade: false, school_id: school.id})
 
 grades = ["Kindergarten", "1st", "2nd", "3rd", "4th", "5th"]
-teacher_email = 0
 
-dismissal = ["pickup", "walker", "bus", "after-school"]
+bus = DismissalType.create!({name:"bus rider", school_id: school.id})
+car = DismissalType.create!({name:"car rider", school_id: school.id})
+walker = DismissalType.create!({name:"walker", school_id: school.id})
+after_school = DismissalType.create!({name:"after school", school_id: school.id})
+
+dismissal_types = [bus.id, car.id, walker.id, after_school.id]
+
+teacher_email = 0
 
 prefix = ["Mr. ", "Ms. ", "Mrs. "]
 
@@ -55,7 +61,9 @@ grades.each do |grade_name|
         first_name: Faker::Name.first_name,
         last_name: Faker::Name.last_name,
         photo: " ",
-        dismissal_type: dismissal.sample,
+        dismissal_type_id: dismissal_types.sample,
+        school_id: school.id,
+        department_id: grade.id,
         present: true,
         user_id: teacher.id,
         with_teacher_id: teacher.id,

@@ -1,4 +1,7 @@
 class Student < ApplicationRecord
+  belongs_to :school
+  belongs_to :department
+  belongs_to :dismissal_type
   belongs_to :teacher, class_name: :User, foreign_key: "user_id"
   belongs_to :guardian, class_name: :User, foreign_key: "guardian_id"
   belongs_to :with_teacher, class_name: :User, foreign_key: "with_teacher_id"
