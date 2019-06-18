@@ -1,23 +1,27 @@
 <h1><%= @user.teacher_name %></h1>
 <h4><%= link_to "Back to #{@user.department.name}", department_path(@user.department.id) %></h4>
-<% if current_user.id == @user.id %>
-<h3><%= link_to "Dismiss all bus riders currently with you", dismiss_all_bus_user_path(current_user.id), method: "patch" %></h3>
-<h3><%= link_to "Dismiss all walkers currently with you", dismiss_all_walker_user_path(current_user.id), method: "patch" %></h3>
-<h3><%= link_to "Dismiss all pickups currently with you", dismiss_all_pickup_user_path(current_user.id), method: "patch" %></h3>
-<h3><%= link_to "Dismiss all after school students currently with you", dismiss_all_as_user_path(current_user.id), method: "patch" %></h3>
+
+<% if current_user == @user %>
+<h2>Dismiss all: </h2>
+<% current_user.department.school.dismissal_types.each do |dt| %>
+<h3><%= link_to "#{dt.name}", dismiss_all_dismissal_type_path(dt.id), method: "patch" %></h3>
 <% end %>
+<% end %>
+
 <h2>Present:</h2>
 <% @students.each do |student| %>
 <% if student.with_teacher_id == @user.id && student.present && student.user_id == @user.id %>
 <h3><%= link_to "#{student.first_name} #{student.last_name}", student_path(student.id) %></h3>
 <% end %>
 <% end %>
+
 <h2>Visiting:</h2>
 <% @students.each do |student| %>
 <% if student.with_teacher_id == @user.id && student.present && student.user_id != @user.id %>
 <h3><%= link_to "#{student.first_name} #{student.last_name}", student_path(student.id) %></h3>
 <% end %>
 <% end %>
+
 <h2>Absent:</h2>
 <% @user.students.each do |student| %>
 <% if student.present == false %>

@@ -7,10 +7,8 @@ Rails.application.routes.draw do
 
   resources :users, only: [:index, :show] do
     member do
-      patch :dismiss_all_bus
-      patch :dismiss_all_as
-      patch :dismiss_all_walker
-      patch :dismiss_all_pickup
+      patch :dismiss
+      patch :dismiss_all
     end
   end
 
@@ -21,6 +19,12 @@ Rails.application.routes.draw do
       patch :mark_present
       patch :give_back
       patch :give_to_teacher
+    end
+  end
+
+  resources :dismissal_types, only: [:index, :show] do
+    member do
+      patch :dismiss_all
     end
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
