@@ -27,5 +27,12 @@ Rails.application.routes.draw do
       patch :dismiss_type_with
     end
   end
+
+  # [...]
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      resources :users, only: [ :index ]
+    end
+  end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
