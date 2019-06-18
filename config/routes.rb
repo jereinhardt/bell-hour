@@ -24,7 +24,7 @@ Rails.application.routes.draw do
 
   resources :dismissal_types, only: [:index, :show] do
     member do
-      patch :dismiss_all
+      patch :dismiss_type_with
     end
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

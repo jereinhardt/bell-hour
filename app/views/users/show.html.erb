@@ -4,7 +4,7 @@
 <% if current_user == @user %>
 <h2>Dismiss all: </h2>
 <% current_user.department.school.dismissal_types.each do |dt| %>
-<h3><%= link_to "#{dt.name}", dismiss_all_dismissal_type_path(dt.id), method: "patch" %></h3>
+<h3><%= link_to "#{dt.name}", dismiss_type_with_dismissal_type_path(dt.id), method: "patch" %></h3>
 <% end %>
 <% end %>
 
