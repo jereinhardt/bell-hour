@@ -5,27 +5,18 @@ class UsersController < ApplicationController
 
   def show
     set_user
-    @students = Student.all
+    @students = current_user.department.school.students
   end
 
-  def dismiss_all
-    current_user.department.school.students.each do |student|
-      if @dt == student.dismissal_type && student.with_teacher_id == current_user.id && student.present
-        student.update(present: false)
+  def give_class_to
+    set_user
+    current_user.students.each do |student|
+      if student.with_teacher == current_user
+        student.update(with_teacher_id: @user.id)
       end
     end
     redirect_to user_path(current_user.id)
   end
-
-  # def dismiss_all_bus
-  #   students = Student.all
-  #   students.each do |student|
-  #     if student.with_teacher_id == current_user.id && student.dismissal_type == "bus" && student.present
-  #       student.update(present: false)
-  #     end
-  #   end
-  #   redirect_to user_path(current_user.id)
-  # end
 
   private
 

@@ -7,8 +7,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:index, :show] do
     member do
-      patch :dismiss
-      patch :dismiss_all
+      patch :give_class_to
     end
   end
 

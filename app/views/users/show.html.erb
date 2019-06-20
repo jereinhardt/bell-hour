@@ -1,6 +1,8 @@
 <h1><%= @user.teacher_name %></h1>
 <h4><%= link_to "Back to #{@user.department.name}", department_path(@user.department.id) %></h4>
 
+<%= link_to "Give class to #{@user.teacher_name}", give_class_to_user_path(@user.id), method: "patch" %>
+
 <% if current_user == @user %>
 <h2>Dismiss all: </h2>
 <% current_user.department.school.dismissal_types.each do |dt| %>
