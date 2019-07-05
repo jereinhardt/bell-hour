@@ -28,7 +28,7 @@ grades.each do |grade_name|
     faker_last_name = Faker::Name.last_name
     teacher = User.create!({
       first_name: Faker::Name.first_name,
-      last_name: Faker::Name.last_name,
+      last_name: faker_last_name,
       teacher_name: "#{prefix.sample + faker_last_name}",
       username: Faker::Internet.username,
       email: "teacher#{teacher_email}@lewagon.com",
@@ -73,6 +73,118 @@ grades.each do |grade_name|
 
     end
   end
+end
+
+clinic = Department.create!({name: "Clinic", grade: false, school_id: school.id})
+
+library = Department.create!({name: "Library", grade: false, school_id: school.id})
+
+music = Department.create!({name: "Music", grade: false, school_id: school.id})
+
+art = Department.create!({name: "Art", grade: false, school_id: school.id})
+
+gym = Department.create!({name: "Gym", grade: false, school_id: school.id})
+
+office = Department.create!({name: "Office", grade: false, school_id: school.id})
+
+faker_last_name = Faker::Name.last_name
+User.create!({
+  first_name: Faker::Name.first_name,
+  last_name: faker_last_name,
+  teacher_name: "#{prefix.sample + faker_last_name}",
+  username: Faker::Internet.username,
+  email: "nurse@lewagon.com",
+  password: "password",
+  photo: " ",
+  admin: false,
+  guardian: false,
+  teacher: true,
+  department_id: clinic.id
+})
+
+librarian_email = 1
+
+2.times do
+  faker_last_name = Faker::Name.last_name
+  User.create!({
+    first_name: Faker::Name.first_name,
+    last_name: faker_last_name,
+    teacher_name: "#{prefix.sample + faker_last_name}",
+    username: Faker::Internet.username,
+    email: "librarian#{librarian_email}@lewagon.com",
+    password: "password",
+    photo: " ",
+    admin: false,
+    guardian: false,
+    teacher: true,
+    department_id: library.id
+  })
+  librarian_email += 1
+end
+
+faker_last_name = Faker::Name.last_name
+User.create!({
+  first_name: Faker::Name.first_name,
+  last_name: faker_last_name,
+  teacher_name: "#{prefix.sample + faker_last_name}",
+  username: Faker::Internet.username,
+  email: "musicteacher@lewagon.com",
+  password: "password",
+  photo: " ",
+  admin: false,
+  guardian: false,
+  teacher: true,
+  department_id: music.id
+})
+
+faker_last_name = Faker::Name.last_name
+User.create!({
+  first_name: Faker::Name.first_name,
+  last_name: faker_last_name,
+  teacher_name: "#{prefix.sample + faker_last_name}",
+  username: Faker::Internet.username,
+  email: "artteacher@lewagon.com",
+  password: "password",
+  photo: " ",
+  admin: false,
+  guardian: false,
+  teacher: true,
+  department_id: art.id
+})
+
+faker_last_name = Faker::Name.last_name
+User.create!({
+  first_name: Faker::Name.first_name,
+  last_name: faker_last_name,
+  teacher_name: "#{prefix.sample + faker_last_name}",
+  username: Faker::Internet.username,
+  email: "gymteacher@lewagon.com",
+  password: "password",
+  photo: " ",
+  admin: false,
+  guardian: false,
+  teacher: true,
+  department_id: gym.id
+})
+
+admin_email = 1
+
+2.times do
+  faker_last_name = Faker::Name.last_name
+  User.create!({
+    first_name: Faker::Name.first_name,
+    last_name: faker_last_name,
+    teacher_name: "#{prefix.sample + faker_last_name}",
+    username: Faker::Internet.username,
+    email: "admin#{admin_email}@lewagon.com",
+    password: "password",
+    photo: " ",
+    admin: false,
+    guardian: false,
+    teacher: true,
+    department_id: office.id
+  })
+  admin_email += 1
 end
 
 p 'Task completed!'

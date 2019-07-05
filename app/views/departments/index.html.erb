@@ -1,8 +1,16 @@
 <% @departments.each do |department| %>
-<% if department.grade  %>
-<h1><%= link_to "#{department.name}", department_path(department.id) %></h1>
-<% department.users.each do |teacher| %>
-<h3><%= link_to "#{teacher.teacher_name}", user_path(teacher.id) %></h3>
+  <% if department.grade  %>
+    <h1><%= link_to "#{department.name}", department_path(department.id) %></h1>
+    <% department.users.each do |teacher| %>
+      <h3><%= link_to "#{teacher.teacher_name}", user_path(teacher.id) %></h3>
+    <% end %>
+  <% end %>
 <% end %>
-<% end %>
+<% @departments.each do |department| %>
+  <% if department.grade == false  %>
+    <h1><%= link_to "#{department.name}", department_path(department.id) %></h1>
+    <% department.users.each do |teacher| %>
+      <h3><%= link_to "#{teacher.teacher_name}", user_path(teacher.id) %></h3>
+    <% end %>
+  <% end %>
 <% end %>
