@@ -4,7 +4,7 @@ p 'Seeding database...'
 
 school = School.create!({name: "Le Wagon Elementary"})
 
-parents_department = Department.create!({name: "parents", grade: false, school_id: school.id})
+parents_department = Department.create!({name: "parents", grade: false, school_id: school.id, parents_department: true})
 
 grades = ["Kindergarten", "1st", "2nd", "3rd", "4th", "5th"]
 
@@ -22,7 +22,7 @@ prefix = ["Mr. ", "Ms. ", "Mrs. "]
 parent_email = 0
 
 grades.each do |grade_name|
-  grade = Department.create!({name: "#{grade_name}", grade: true, school_id: school.id})
+  grade = Department.create!({name: "#{grade_name}", grade: true, school_id: school.id, parents_department: false})
 
   3.times do
     faker_last_name = Faker::Name.last_name
@@ -44,7 +44,7 @@ grades.each do |grade_name|
     15.times do
       parent = User.create!({
         first_name: Faker::Name.first_name,
-        last_name: faker_last_name,
+        last_name: Faker::Name.last_name,
         username: Faker::Internet.username,
         email: "parent#{parent_email}@parents.com",
         password: "password",
@@ -75,17 +75,17 @@ grades.each do |grade_name|
   end
 end
 
-clinic = Department.create!({name: "Clinic", grade: false, school_id: school.id})
+clinic = Department.create!({name: "Clinic", grade: false, school_id: school.id, parents_department: false})
 
-library = Department.create!({name: "Library", grade: false, school_id: school.id})
+library = Department.create!({name: "Library", grade: false, school_id: school.id, parents_department: false})
 
-music = Department.create!({name: "Music", grade: false, school_id: school.id})
+music = Department.create!({name: "Music", grade: false, school_id: school.id, parents_department: false})
 
-art = Department.create!({name: "Art", grade: false, school_id: school.id})
+art = Department.create!({name: "Art", grade: false, school_id: school.id, parents_department: false})
 
-gym = Department.create!({name: "Gym", grade: false, school_id: school.id})
+gym = Department.create!({name: "Gym", grade: false, school_id: school.id, parents_department: false})
 
-office = Department.create!({name: "Office", grade: false, school_id: school.id})
+office = Department.create!({name: "Office", grade: false, school_id: school.id, parents_department: false})
 
 faker_last_name = Faker::Name.last_name
 User.create!({
@@ -179,9 +179,9 @@ admin_email = 1
     email: "admin#{admin_email}@lewagon.com",
     password: "password",
     photo: " ",
-    admin: false,
+    admin: true,
     guardian: false,
-    teacher: true,
+    teacher: false,
     department_id: office.id
   })
   admin_email += 1

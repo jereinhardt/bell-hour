@@ -3,30 +3,31 @@
 
 <%= link_to "Give class to #{@user.teacher_name}", give_class_to_user_path(@user.id), method: "patch" %>
 
-<% if current_user == @user %>
-<h2>Dismiss all: </h2>
-<% current_user.department.school.dismissal_types.each do |dt| %>
-<h3><%= link_to "#{dt.name}", dismiss_type_with_dismissal_type_path(dt.id), method: "patch" %></h3>
-<% end %>
+<% if current_user == @user && current_user.department.grade %>
+  <h2>Dismiss all: </h2>
+  <% current_user.department.school.dismissal_types.each do |dt| %>
+    <h3><%= link_to "#{dt.name}", dismiss_type_with_dismissal_type_path(dt.id), method: "patch" %></h3>
+  <% end %>
 <% end %>
 
-<h2>Present:</h2>
-<% @students.each do |student| %>
-<% if student.with_teacher_id == @user.id && student.present && student.user_id == @user.id %>
-<h3><%= link_to "#{student.first_name} #{student.last_name}", student_path(student.id) %></h3>
-<% end %>
+<% if @user.department.grade %>
+  <h2>Present:</h2>
+  <% @user.students.each do |student| %>
+    <% if student.with_teacher_id == @user.id && student.present %>
+      <h3><%= link_to "#{student.first_name} #{student.last_name}", student_path(student.id) %></h3>
+    <% end %>
+  <% end %>
+  <h2>Absent:</h2>
+  <% @user.students.each do |student| %>
+    <% if student.present == false %>
+      <h3><%= link_to "#{student.first_name} #{student.last_name}", student_path(student.id) %></h3>
+    <% end %>
+  <% end %>
 <% end %>
 
 <h2>Visiting:</h2>
 <% @students.each do |student| %>
-<% if student.with_teacher_id == @user.id && student.present && student.user_id != @user.id %>
-<h3><%= link_to "#{student.first_name} #{student.last_name}", student_path(student.id) %></h3>
-<% end %>
-<% end %>
-
-<h2>Absent:</h2>
-<% @user.students.each do |student| %>
-<% if student.present == false %>
-<h3><%= link_to "#{student.first_name} #{student.last_name}", student_path(student.id) %></h3>
-<% end %>
+  <% if student.with_teacher_id == @user.id && student.present && student.user_id != @user.id %>
+    <h3><%= link_to "#{student.first_name} #{student.last_name}", student_path(student.id) %></h3>
+  <% end %>
 <% end %>

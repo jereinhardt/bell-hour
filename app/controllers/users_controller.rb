@@ -9,7 +9,6 @@ class UsersController < ApplicationController
   end
 
   def give_class_to
-    set_user
     current_user.students.each do |student|
       if student.with_teacher == current_user
         student.update(with_teacher_id: @user.id)
