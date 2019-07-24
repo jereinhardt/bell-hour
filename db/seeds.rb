@@ -37,6 +37,7 @@ grades.each do |grade_name|
       admin: false,
       guardian: false,
       teacher: true,
+      school_id: school.id,
       department_id: grade.id
     })
     teacher_email += 1
@@ -52,6 +53,7 @@ grades.each do |grade_name|
         admin: false,
         guardian: true,
         teacher: false,
+        school_id: school.id,
         department_id: parents_department.id
       })
 
@@ -99,6 +101,7 @@ User.create!({
   admin: false,
   guardian: false,
   teacher: true,
+  school_id: school.id,
   department_id: clinic.id
 })
 
@@ -117,6 +120,7 @@ librarian_email = 1
     admin: false,
     guardian: false,
     teacher: true,
+    school_id: school.id,
     department_id: library.id
   })
   librarian_email += 1
@@ -134,6 +138,7 @@ User.create!({
   admin: false,
   guardian: false,
   teacher: true,
+  school_id: school.id,
   department_id: music.id
 })
 
@@ -149,6 +154,7 @@ User.create!({
   admin: false,
   guardian: false,
   teacher: true,
+  school_id: school.id,
   department_id: art.id
 })
 
@@ -164,6 +170,7 @@ User.create!({
   admin: false,
   guardian: false,
   teacher: true,
+  school_id: school.id,
   department_id: gym.id
 })
 
@@ -182,6 +189,7 @@ admin_email = 1
     admin: true,
     guardian: false,
     teacher: false,
+    school_id: school.id,
     department_id: office.id
   })
   admin_email += 1

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :show] do
     member do
       patch :give_class_to
+      patch :take_back_class
     end
   end
 
