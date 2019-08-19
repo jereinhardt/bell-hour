@@ -1,9 +1,11 @@
-<h1><%= @user.teacher_name %></h1>
+<h1 class="teacher-name"><%= @user.teacher_name %></h1>
 <h4><%= link_to "Back to #{@user.department.name}", department_path(@user.department.id) %></h4>
 
 <% if current_user == @user && current_user.department.grade %>
-  <div class="classroom-dashboard">
-  <button type="button" class="btn btn-primary"><%= link_to 'Take back your class', take_back_class_user_path(current_user.id), method: "patch" %></button>
+  <div class="white-card">
+    <div class="btn-reddish">
+      <%= link_to 'Take back your class', take_back_class_user_path(current_user.id), method: "patch" %>
+    </div>
 
   <div class="dropdown-container">
     <input type="checkbox" id="drop" />
@@ -15,7 +17,6 @@
     </ul>
   </div>
 
-<!-- once you figure out dropdown for giving the class to a teacher, you need to update the dismissal types to do the same function in a dropdown as well -->
   <div class="dropdown-container">
     <input type="checkbox" id="drop" />
     <label for="drop">Dismiss all:</label>
@@ -28,28 +29,41 @@
   </div>
 <% end %>
 
-<!-- end of drop down for dismissal types -->
 
 <% if @user.department.grade %>
+
+  <div class="present">
   <h2>Present:</h2>
+  <div class="white-card">
   <% @user.students.each do |student| %>
     <% if student.with_teacher_id == @user.id && student.present %>
       <h3><%= link_to "#{student.first_name} #{student.last_name}", student_path(student.id) %></h3>
     <% end %>
   <% end %>
+  </div>
+  </div>
+
+  <div class="absent">
   <h2>Absent:</h2>
+  <div class="white-card">
   <% @user.students.each do |student| %>
     <% if student.present == false %>
       <h3><%= link_to "#{student.first_name} #{student.last_name}", student_path(student.id) %></h3>
     <% end %>
   <% end %>
+  </div>
+  </div>
 <% end %>
 
+<div class="visiting">
 <h2>Visiting:</h2>
+<div class="white-card">
 <% @students.each do |student| %>
   <% if student.with_teacher_id == @user.id && student.present && student.user_id != @user.id %>
     <h3><%= link_to "#{student.first_name} #{student.last_name}", student_path(student.id) %></h3>
   <% end %>
 <% end %>
+</div>
+</div>
 
 
