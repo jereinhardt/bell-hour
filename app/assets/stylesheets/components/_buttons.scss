@@ -1,7 +1,12 @@
-.btn-reddish {
-  background-color: $reddish;
+.btn-flat {
   color: white;
-  padding: 4px 24px;
+  padding: 8px 24px;
   border-radius: 4px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  background: $orange;
+  transition: background 0.3s ease;
+}
+
+.btn-flat:hover {
+  background: $reddish;
+  color: white;
 }
