@@ -12,28 +12,30 @@
 
 <% if current_user == @user && current_user.department.grade %>
   <div class="white-card">
-    <%= link_to "Take back your class", take_back_class_user_path(current_user.id), method: "patch", class: "btn btn-flat" %>
+    <h2>Class Actions:</h2>
+      <div class="holder">
 
-  <div class="dropdown-container">
-    <input type="checkbox" id="drop" />
-    <label for="drop">Give class to:</label>
-    <ul class="content">
-      <% @teachers.each do |teacher| %>
-      <li><%= link_to "#{teacher.teacher_name}", give_class_to_user_path(teacher.id), method: "patch", data: { confirm: "Are you sure you want to give your class to #{teacher.teacher_name}?" } %></li>
-      <% end %>
-    </ul>
-  </div>
+        <%= link_to "Take back your class", take_back_class_user_path(current_user.id), method: "patch", class: "btn btn-flat" %>
 
-  <div class="dropdown-container">
-    <input type="checkbox" id="drop" />
-    <label for="drop">Dismiss all:</label>
-    <ul class="content">
-    <% current_user.department.school.dismissal_types.each do |dt| %>
-      <li><%= link_to "#{dt.name}", dismiss_type_with_dismissal_type_path(dt.id), method: "patch" %></li>
-    <% end %>
-    </ul>
-  </div>
-  </div>
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Give class to:</button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <% @teachers.each do |teacher| %>
+              <%= link_to "#{teacher.teacher_name}", give_class_to_user_path(teacher.id), method: "patch", data: { confirm: "Are you sure you want to give your class to #{teacher.teacher_name}?" }, class: "dropdown-item" %>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dismiss all:</button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <% current_user.school.dismissal_types.each do |dt| %>
+              <%= link_to "#{dt.name}", dismiss_type_with_dismissal_type_path(dt.id), method: "patch", class: "dropdown-item" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
 <% end %>
 
 <% if @user.department.grade %>
