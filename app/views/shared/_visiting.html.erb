@@ -1,9 +1,9 @@
 <div class="white-card">
   <h2>Visiting:</h2>
-  <div class="student-holder">
+  <div class="holder">
     <% @students.each do |student| %>
       <% if student.with_teacher_id == @user.id && student.present && student.teacher != @user %>
-        <div class="student-thumbnail">
+        <div class="thumbnail">
           <%= image_tag student.photo, alt: "student picture", class: "avatar-large" %>
           <p><%= link_to "#{student.first_name} #{student.last_name}", student_path(student.id) %></p>
           <% if current_user != student.with_teacher %>

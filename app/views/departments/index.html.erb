@@ -1,16 +1,31 @@
 <% @departments.each do |department| %>
   <% if department.grade  %>
-    <h1><%= link_to "#{department.name}", department_path(department.id) %></h1>
-    <% department.users.each do |teacher| %>
-      <h3><%= link_to "#{teacher.teacher_name}", user_path(teacher.id) %></h3>
-    <% end %>
+    <div class="white-card">
+      <h2><%= link_to "#{department.name}", department_path(department.id) %></h2>
+      <div class="holder">
+        <% department.users.each do |teacher| %>
+          <div class="thumbnail">
+            <%= image_tag teacher.photo, alt: "Teacher Pic", class: "avatar-large" %>
+            <p><%= link_to "#{teacher.teacher_name}", user_path(teacher.id) %></p>
+          </div>
+        <% end %>
+      </div>
+    </div>
   <% end %>
 <% end %>
+
 <% @departments.each do |department| %>
   <% if department.grade == false && department.parents_department == false  %>
-    <h1><%= link_to "#{department.name}", department_path(department.id) %></h1>
-    <% department.users.each do |teacher| %>
-      <h3><%= link_to "#{teacher.teacher_name}", user_path(teacher.id) %></h3>
-    <% end %>
+    <div class="white-card">
+      <h2><%= link_to "#{department.name}", department_path(department.id) %></h2>
+      <div class="holder">
+        <% department.users.each do |teacher| %>
+          <div class="thumbnail">
+            <%= image_tag teacher.photo, alt: "Teacher Pic", class: "avatar-large" %>
+            <p><%= link_to "#{teacher.teacher_name}", user_path(teacher.id) %></p>
+          </div>
+        <% end %>
+      </div>
+    </div>
   <% end %>
 <% end %>

@@ -1,46 +1,44 @@
-<% if @user.department.grade %>
-  <div class="white-card">
-    <h2>Present:</h2>
-    <div class="student-holder">
-      <% @user.students.each do |student| %>
-        <% if student.with_teacher_id == @user.id && student.present %>
-          <div class="student-thumbnail">
-            <%= image_tag student.photo, alt: "student picture", class: "avatar-large" %>
-            <p><%= link_to "#{student.first_name} #{student.last_name}", student_path(student.id) %></p>
-            <% if current_user != student.teacher %>
-              <p><%= link_to "Take #{student.first_name}", take_student_path(student.id), method: "patch" %></p>
-            <% end %>
-          </div>
+<div class="white-card">
+  <h2>Present:</h2>
+  <div class="holder">
+    <% @user.students.each do |student| %>
+      <% if student.with_teacher_id == @user.id && student.present %>
+        <div class="thumbnail">
+          <%= image_tag student.photo, alt: "student picture", class: "avatar-large" %>
+          <p><%= link_to "#{student.first_name} #{student.last_name}", student_path(student.id) %></p>
+          <% if current_user != student.with_teacher %>
+            <p><%= link_to "Take #{student.first_name}", take_student_path(student.id), method: "patch" %></p>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<div class="white-card">
+  <h2>Absent:</h2>
+  <div class="holder">
+    <% @user.students.each do |student| %>
+      <% if student.present == false %>
+        <div class="thumbnail">
+          <%= image_tag student.photo, alt: "student picture", class: "avatar-large" %>
+          <p><%= link_to "#{student.first_name} #{student.last_name}", student_path(student.id) %></p>
+        </div>
         <% end %>
-      <% end %>
-    </div>
+    <% end %>
   </div>
+</div>
 
-  <div class="white-card">
-    <h2>Absent:</h2>
-    <div class="student-holder">
-      <% @user.students.each do |student| %>
-        <% if student.present == false %>
-          <div class="student-thumbnail">
-            <%= image_tag student.photo, alt: "student picture", class: "avatar-large" %>
-            <p><%= link_to "#{student.first_name} #{student.last_name}", student_path(student.id) %></p>
-          </div>
-          <% end %>
-      <% end %>
-    </div>
+<div class="white-card">
+  <h2>Away:</h2>
+  <div class="holder">
+    <% @user.students.each do |student| %>
+      <% if student.with_teacher != @user && student.present %>
+        <div class="thumbnail">
+          <%= image_tag student.photo, alt: "student picture", class: "avatar-large" %>
+          <p><%= link_to "#{student.first_name} #{student.last_name}", student_path(student.id) %></p>
+        </div>
+        <% end %>
+    <% end %>
   </div>
-
-  <div class="white-card">
-    <h2>Away:</h2>
-    <div class="student-holder">
-      <% @user.students.each do |student| %>
-        <% if student.with_teacher != @user && student.present %>
-          <div class="student-thumbnail">
-            <%= image_tag student.photo, alt: "student picture", class: "avatar-large" %>
-            <p><%= link_to "#{student.first_name} #{student.last_name}", student_path(student.id) %></p>
-          </div>
-          <% end %>
-      <% end %>
-    </div>
-  </div>
-<% end %>
+</div>

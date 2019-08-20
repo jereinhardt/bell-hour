@@ -1,5 +1,5 @@
 <div class="white-card">
-  <div class="class-header">
+  <div class="profile-header">
     <div>
       <h1 class="teacher-name"><%= @user.teacher_name %></h1>
       <h4><%= link_to "#{@user.department.name}", department_path(@user.department.id) %></h4>
@@ -36,7 +36,10 @@
   </div>
 <% end %>
 
-<%= render "shared/student-section" %>
+<% if @user.department.grade %>
+  <%= render "shared/student-section" %>
+<% end %>
+
 <%= render "shared/visiting" %>
 
 

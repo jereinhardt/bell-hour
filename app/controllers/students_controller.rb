@@ -38,7 +38,7 @@ class StudentsController < ApplicationController
   end
 
   def mark_present
-    @student.update(present: true)
+    @student.update(present: true, with_teacher_id: current_user.id)
     redirect_to student_path(@student.id)
   end
 
