@@ -13,11 +13,14 @@
 }
 
 #dropdownMenuButton {
-  padding: 8px;
+  padding: 8px 24px;
   background: $orange;
   transition: background 0.3s ease;
   margin-left: 8px;
+  border-color: $orange;
+  box-shadow: none;
 }
 #dropdownMenuButton:hover {
   background: $reddish;
+  border-color: $reddish;
 }
