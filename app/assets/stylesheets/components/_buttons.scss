@@ -24,3 +24,19 @@
   background: $reddish;
   border-color: $reddish;
 }
+
+.btn-ghost {
+  color: $orange;
+  border: 1px solid $orange;
+  padding: 4px 12px;
+  margin: 8px;
+  border-radius: 50px;
+  font-weight: lighter;
+  transition: opacity 0.3s ease;
+}
+
+.btn-ghost:hover {
+  color: $reddish;
+  border-color:$reddish;
+  text-decoration: none;
+}

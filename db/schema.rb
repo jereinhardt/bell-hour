@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_17_005116) do
+ActiveRecord::Schema.define(version: 2019_08_21_172248) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "departments", force: :cascade do |t|
     t.string "name"
@@ -18,7 +21,6 @@ ActiveRecord::Schema.define(version: 2019_07_17_005116) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "grade"
-    t.boolean "parents_department"
     t.index ["school_id"], name: "index_departments_on_school_id"
   end
 
@@ -45,7 +47,6 @@ ActiveRecord::Schema.define(version: 2019_07_17_005116) do
     t.boolean "present"
     t.string "photo"
     t.integer "user_id"
-    t.integer "guardian_id"
     t.integer "with_teacher_id"
     t.integer "previously_with_id"
     t.integer "department_id"
@@ -62,7 +63,6 @@ ActiveRecord::Schema.define(version: 2019_07_17_005116) do
     t.datetime "updated_at", null: false
     t.boolean "admin"
     t.boolean "teacher"
-    t.boolean "guardian"
     t.string "username"
     t.string "first_name"
     t.string "last_name"

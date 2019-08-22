@@ -15,7 +15,7 @@
 <% end %>
 
 <% @departments.each do |department| %>
-  <% if department.grade == false && department.parents_department == false  %>
+  <% if department.grade == false %>
     <div class="white-card">
       <h2><%= link_to "#{department.name}", department_path(department.id) %></h2>
       <div class="holder">

@@ -2,7 +2,11 @@ class StudentsController < ApplicationController
   before_action :set_student, except: [:index]
 
   def index
-    @students = Student.all
+    if params[:query].present?
+      @students = Student.search_by_name(params[:query])
+    else
+      @students = Student.all
+    end
   end
 
   def show

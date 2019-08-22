@@ -1,0 +1,12 @@
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <h2>Attendance:</h2>
+      <ul>
+        <% @user.students.each do |student| %>
+          <li><%= student.first_name %> <%= student.last_name %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
