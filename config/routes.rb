@@ -10,6 +10,11 @@ Rails.application.routes.draw do
       patch :give_class_to
       patch :take_back_class
     end
+    resources :students do
+      member do
+        patch :send_to_teacher
+      end
+    end
   end
 
   resources :students, only: [:index, :show] do
@@ -19,7 +24,6 @@ Rails.application.routes.draw do
       patch :mark_present
       patch :give_back
       patch :give_to_teacher
-      post :edit_individual
     end
     collection do
       put :take_attendance

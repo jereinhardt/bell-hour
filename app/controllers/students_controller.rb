@@ -1,5 +1,5 @@
 class StudentsController < ApplicationController
-  before_action :set_student, except: [:index, :take_attendance]
+  before_action :set_student, except: [:index, :take_attendance, :send_to_teacher]
 
   def index
     if params[:query].present?
@@ -15,11 +15,6 @@ class StudentsController < ApplicationController
 
   def update
     @student.update(student_params)
-  end
-
-  def take_attendance
-    Student.where(id: params[:student_ids]).update_all(present: true)
-    redirect_to user_path(current_user.id)
   end
 
   def take
@@ -48,6 +43,17 @@ class StudentsController < ApplicationController
 
   def mark_present
     @student.update(present: true, with_teacher_id: current_user.id)
+    redirect_to student_path(@student.id)
+  end
+
+  def take_attendance
+    Student.where(id: params[:student_ids]).update_all(present: true)
+    redirect_to user_path(current_user.id)
+  end
+
+  def send_to_teacher
+    set_user
+    @student.update(with_teacher_id: @user.id)
     redirect_to student_path(@student.id)
   end
 

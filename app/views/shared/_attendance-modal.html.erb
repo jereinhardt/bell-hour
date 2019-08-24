@@ -11,7 +11,7 @@
         <%= form_tag take_attendance_students_path, method: :put do %>
           <ul>
             <% @user.students.each do |student| %>
-              <li><h4><%= check_box_tag "student_ids[]", student.id %> <%= student.first_name %> <%= student.last_name %></h4></li>
+              <li><h4><%= check_box_tag "student_ids[]", student.id, {checked: true} %> <%= student.first_name %> <%= student.last_name %></h4></li>
             <% end %>
           </ul>
       </div>

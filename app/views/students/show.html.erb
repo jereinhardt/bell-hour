@@ -25,14 +25,17 @@
   <div class="student-action">
     <% if @student.present %>
 
-      <% if current_user.id != @student.with_teacher_id %>
+      <% if current_user == @student.with_teacher %>
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Send <%= @student.first_name %> to:</button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <% @student.school.users.each do |user| %>
+              <%= link_to "#{user.teacher_name}", send_to_teacher_student_user_path(user.id), method: "patch", class: "dropdown-item" %>
+            <% end %>
+          </div>
+        </div>
+      <% else %>
         <%= link_to "Take #{@student.first_name}", take_student_path(@student.id), method: "patch", class: "btn btn-flat" %>
-      <% elsif current_user.id == @student.with_teacher_id && current_user.id != @student.previously_with_id && @student.previously_with_id != @student.teacher.id %>
-        <%= link_to "Return #{@student.first_name} back to #{@student.previously_with.teacher_name}", give_back_student_path(@student.id), method: "patch", class: "btn btn-flat" %>
-      <% end %>
-
-      <% if current_user.id == @student.with_teacher_id && @student.with_teacher_id != @student.teacher.id %>
-        <%= link_to "Return #{@student.first_name} to #{@student.teacher.teacher_name}", give_to_teacher_student_path(@student.id), method: "patch", class: "btn btn-flat" %>
       <% end %>
 
     <% end %>
