@@ -1,5 +1,5 @@
 class StudentsController < ApplicationController
-  before_action :set_student, except: [:index]
+  before_action :set_student, except: [:index, :take_attendance]
 
   def index
     if params[:query].present?
@@ -15,6 +15,11 @@ class StudentsController < ApplicationController
 
   def update
     @student.update(student_params)
+  end
+
+  def take_attendance
+    Student.where(id: params[:student_ids]).update_all(present: true)
+    redirect_to user_path(current_user.id)
   end
 
   def take
@@ -53,6 +58,6 @@ class StudentsController < ApplicationController
   end
 
   def student_params
-    params.require(:student).permit(:with_teacher_id, :guardian_id, :teacher_id, :present, :transportation_type, :photo, :previously_with_id)
+    params.require(:student).permit(:with_teacher_id, :teacher_id, :present, :dismissal_type, :photo, :previously_with_id)
   end
 end

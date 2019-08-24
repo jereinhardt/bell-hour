@@ -5,7 +5,7 @@ class UsersController < ApplicationController
 
   def show
     set_user
-    @students = current_user.department.school.students
+    @students = current_user.students
     @teachers = []
     @user.department.school.users.each do |user|
       if user.teacher

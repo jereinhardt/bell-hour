@@ -1,7 +1,7 @@
 <div class="white-card">
   <h2>Visiting:</h2>
   <div class="holder">
-    <% @students.each do |student| %>
+    <% @user.school.students.each do |student| %>
       <% if student.with_teacher_id == @user.id && student.present && student.teacher != @user %>
         <div class="thumbnail">
           <%= image_tag student.photo, alt: "student picture", class: "avatar-large" %>

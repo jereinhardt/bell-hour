@@ -1,15 +1,18 @@
 <div class="white-card">
 <h2>Class Actions:</h2>
   <div class="holder">
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Take attendance</button>
+
+    <button type="button" class="btn-flat" data-toggle="modal" data-target="#exampleModal">Attendance</button>
 
     <%= render "shared/attendance-modal" %>
 
     <div class="dropdown">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Give class to:</button>
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Send class to:</button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <% @teachers.each do |teacher| %>
-          <%= link_to "#{teacher.teacher_name}", give_class_to_user_path(teacher.id), method: "patch", data: { confirm: "Are you sure you want to give your class to #{teacher.teacher_name}?" }, class: "dropdown-item" %>
+        <% @user.school.users.each do |user| %>
+          <% if user.admin == false %>
+            <%= link_to "#{user.teacher_name}", give_class_to_user_path(user.id), method: "patch", data: { confirm: "Are you sure you want to give your class to #{user.teacher_name}?" }, class: "dropdown-item" %>
+          <% end %>
         <% end %>
       </div>
     </div>

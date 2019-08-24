@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   resources :departments, only: [:index, :show]
 
-  resources :users, only: [:index, :show] do
+  resources :users, only: [:show] do
     member do
       patch :give_class_to
       patch :take_back_class
@@ -19,10 +19,14 @@ Rails.application.routes.draw do
       patch :mark_present
       patch :give_back
       patch :give_to_teacher
+      post :edit_individual
+    end
+    collection do
+      put :take_attendance
     end
   end
 
-  resources :dismissal_types, only: [:index, :show] do
+  resources :dismissal_types do
     member do
       patch :dismiss_type_with
     end
