@@ -5,12 +5,12 @@ Rails.application.routes.draw do
 
   resources :departments, only: [:index, :show]
 
-  resources :users, only: [:show] do
+  resources :users, only: :show do
     member do
       patch :give_class_to
       patch :take_back_class
     end
-    resources :students do
+    resources :students, only: [] do
       member do
         patch :send_to_teacher
       end

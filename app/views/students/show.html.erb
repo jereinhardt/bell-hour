@@ -22,7 +22,7 @@
 
 <div class="white-card">
   <h2>Student Actions:</h2>
-  <div class="student-action">
+  <div class="holder">
     <% if @student.present %>
 
       <% if current_user == @student.with_teacher %>
@@ -30,7 +30,7 @@
           <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Send <%= @student.first_name %> to:</button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <% @student.school.users.each do |user| %>
-              <%= link_to "#{user.teacher_name}", send_to_teacher_student_user_path(user.id), method: "patch", class: "dropdown-item" %>
+              <%= link_to "#{user.teacher_name}", send_to_teacher_user_student_path(user.id), method: "patch", class: "dropdown-item" %>
             <% end %>
           </div>
         </div>
