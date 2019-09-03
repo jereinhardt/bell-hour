@@ -1,0 +1,2861 @@
+<!DOCTYPE html>
+<!-- saved from url=(0056)https://gorails.com/episodes/in-app-navbar-notifications -->
+<html lang="en"><head prefix="og: //ogp.me/ns# fb: //ogp.me/ns/fb# website: //ogp.me/ns/website#"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta http-equiv="Content-Language" content="en_US">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>In-App Navbar Notifications (Example) | GoRails</title>
+<link rel="canonical" href="https://gorails.com/episodes/in-app-navbar-notifications">
+<meta name="stripe-key" content="pk_daFP6nPmDBA00HxJrslPhckbWUZ92">
+<meta name="google-site-verification" content="ju-3k3BBfiCNNz3Ug59RQi-dTrGY5uI4wG7L8SHNjRo">
+<meta name="keywords" content="rails, ruby on rails, screencasts, gorails, railscast, railscasts, tips, tricks, tutorials, training, podcasts, programming">
+<meta name="description" content="Learn how to add in-app notifications like Facebook and Twitter">
+
+<link rel="author" href="https://plus.google.com/106699287110566383664/posts">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@GoRails">
+<meta name="twitter:title" content="In-App Navbar Notifications (Example) | GoRails">
+<meta name="twitter:description" content="Learn how to add in-app notifications like Facebook and Twitter">
+<meta name="twitter:creator" content="@excid3">
+<meta name="twitter:image" content="https://embed-ssl.wistia.com/deliveries/12240431e76616438ace628be36fe78d04ba1746.jpg">
+<meta property="og:title" content="In-App Navbar Notifications (Example) | GoRails - GoRails">
+<meta property="og:url" content="https://gorails.com/episodes/in-app-navbar-notifications">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Learn how to add in-app notifications like Facebook and Twitter">
+<meta property="og:site_name" content="GoRails">
+<meta property="og:image" content="https://embed-ssl.wistia.com/deliveries/12240431e76616438ace628be36fe78d04ba1746.jpg">
+<link rel="stylesheet" href="./In-App Navbar Notifications (Example) _ GoRails_files/css">
+<link rel="stylesheet" href="./In-App Navbar Notifications (Example) _ GoRails_files/all.css" integrity="sha384-Bx4pytHkyTDy3aJKjGkGoHPt3tvv6zlwwjc3iqN7ktaiEMLDPqLSZYts2OjKcBx1" crossorigin="anonymous">
+<link rel="stylesheet" media="all" href="./In-App Navbar Notifications (Example) _ GoRails_files/application-b3a18fe9d49a343069529153fc2543f5c9e753a5e4274227fa00e0bfce651f62.css" data-turbolinks-track="reload">
+<script async="" src="./In-App Navbar Notifications (Example) _ GoRails_files/profitwell.js"></script><script async="" src="./In-App Navbar Notifications (Example) _ GoRails_files/analytics.js"></script><script src="./In-App Navbar Notifications (Example) _ GoRails_files/application-3c54ddc8347fcc76a7e36a2b897d1b3a0fc0c14d8090180257c9bc9b200f4b63.js" data-turbolinks-track="reload"></script>
+<script src="./In-App Navbar Notifications (Example) _ GoRails_files/saved_resource" data-turbolinks-track="reload"></script>
+<script src="./In-App Navbar Notifications (Example) _ GoRails_files/braintree.js" data-turbolinks-track="reload"></script>
+<meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="Te2TmhxlhmQlQBfjyvYpMHsyeagWCvG2DvZS9IoRqO2yd1b4IODqcOA3wSV5RG/3eGWqZyBlGWBxv0RsQCROfQ==">
+<meta name="apple-mobile-web-app-title" content="GoRails">
+<meta name="application-name" content="GoRails">
+<link rel="apple-touch-icon" sizes="180x180" href="https://gorails.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://gorails.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://gorails.com/favicon-16x16.png">
+<link rel="manifest" href="https://gorails.com/site.webmanifest">
+<link rel="mask-icon" href="https://gorails.com/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="https://gorails.com/blog.rss">
+<script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-8399719-16', 'auto');
+  </script>
+
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<link rel="amphtml" href="https://gorails.com/episodes/in-app-navbar-notifications.amp">
+</head>
+<body>
+<a class="sr-only" href="https://gorails.com/episodes/in-app-navbar-notifications#content">Skip to main content</a>
+<header id="header-main">
+
+<div id="search-main" class="navbar-search">
+<div class="container">
+
+<form class="navbar-search-form" action="https://gorails.com/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="✓">
+<div class="form-group">
+<div class="input-group input-group-transparent">
+<div class="input-group-prepend">
+<span class="input-group-text"><i class="fas fa-search"></i></span>
+</div>
+<input type="text" name="q" id="q" class="form-control" placeholder="What do you want to learn?">
+</div>
+</div>
+</form>
+
+</div>
+</div>
+
+<nav class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-dark bg-gradient-dark" id="navbar-main">
+<div class="container">
+<a class="navbar-brand mr-lg-5" href="https://gorails.com/">
+<img alt="GoRails Logo" title="GoRails" style="height: 20px;" src="./In-App Navbar Notifications (Example) _ GoRails_files/logo-white-2ff3ecfb6b8f3c5bf9a6679ad0b135529dad66478a5dd89718935c798886a505.svg">
+</a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-main-collapse" aria-controls="navbar-main-collapse" aria-expanded="false" aria-label="Toggle navigation">
+<span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbar-main-collapse">
+<ul class="navbar-nav align-items-lg-center">
+<li class="nav-item dropdown dropdown-animate" data-toggle="hover">
+<a class="nav-link" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Screencasts</a>
+<div class="dropdown-menu dropdown-menu-lg dropdown-menu-arrow py-0">
+<div class="list-group">
+<a class="list-group-item list-group-item-action" href="https://gorails.com/series">
+<div class="media d-flex align-items-center">
+<img class="img-saturate" style="width: 50px" src="./In-App Navbar Notifications (Example) _ GoRails_files/series-5681894893757c61d193ff3df71cf1884bf6d75adb9de2587469e18bf90decf9.png">
+<div class="media-body ml-3">
+<h6 class="mb-1">Tutorial Series</h6>
+<p class="mb-0">View screencasts by curated topics.</p>
+</div>
+</div>
+</a> <a class="list-group-item list-group-item-action" href="https://gorails.com/episodes">
+<div class="media d-flex align-items-center">
+<img class="img-saturate" style="width: 50px" src="./In-App Navbar Notifications (Example) _ GoRails_files/episodes-0a8a612f4492913d1b3b8c3fe894efdc785843d41b6118a3315d213c33b5761a.png">
+<div class="media-body ml-3">
+<h6 class="mb-1">All Episodes</h6>
+<p class="mb-0">Dive into the archive of all episodes.</p>
+</div>
+</div>
+</a>
+<h6 class="px-4 pt-3 mt-1 border-top text-sm text-uppercase text-muted">Latest Episode</h6>
+<a class="list-group-item list-group-item-action" href="https://gorails.com/episodes/handle-race-conditions-with-pessimistic-locking">
+<div class="media d-flex align-items-center">
+<img class="img-saturate" style="width: 50px" src="./In-App Navbar Notifications (Example) _ GoRails_files/c1fa0d567e7c171632efa306139457e4.jpg">
+<div class="media-body ml-3">
+<h6 class="mb-1">Handle Race Conditions with Pessimistic Locking</h6>
+<p class="mb-0">Race conditions can cause p...</p>
+</div>
+</div>
+</a> </div>
+</div>
+</li>
+<li class="nav-item dropdown dropdown-animate" data-toggle="hover">
+<a class="nav-link" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Guides</a>
+<div class="dropdown-menu dropdown-menu-lg dropdown-menu-arrow py-0">
+<div class="list-group">
+<a class="list-group-item list-group-item-action" href="https://gorails.com/setup">
+<div class="media d-flex align-items-center">
+<img class="img-saturate" style="width: 50px" src="./In-App Navbar Notifications (Example) _ GoRails_files/setup-7a21012cfeb7e60bf3f21acd484ac8e79e7d618acd9fd12735809b004b310abb.png">
+<div class="media-body ml-3">
+<h6 class="mb-1">Install Rails</h6>
+<p class="mb-0">Setup your development environment.</p>
+</div>
+</div>
+</a>
+<a class="list-group-item list-group-item-action" href="https://gorails.com/deploy/ubuntu">
+<div class="media d-flex align-items-center">
+<img class="img-saturate" style="width: 50px" src="./In-App Navbar Notifications (Example) _ GoRails_files/deploy-50cf6d62584a63b973f0c303e605040e6d398e535ee5c3469ddee777493eac2b.png">
+<div class="media-body ml-3">
+<h6 class="mb-1">Deploy Rails</h6>
+<p class="mb-0">Configure your production server.</p>
+</div>
+</div>
+</a>
+<a class="list-group-item list-group-item-action" href="https://gorails.com/deploy/actioncable">
+<div class="media d-flex align-items-center">
+<img class="img-saturate" style="width: 50px" src="./In-App Navbar Notifications (Example) _ GoRails_files/actioncable-87f4ab20f89ebb0089813e1cb39ab1c9afc28656f72a7ab6af49b237d721198e.png">
+<div class="media-body ml-3">
+<h6 class="mb-1">Deploy ActionCable</h6>
+<p class="mb-0">Learn how to modify production to run websockets.</p>
+</div>
+</div>
+</a>
+<div class="dropdown-divider"></div>
+<a class="dropdown-item text-center mb-2" href="https://gorails.com/guides">See All Guides</a>
+</div>
+</div>
+</li>
+<li class="nav-item "><a class="nav-link" href="https://gorails.com/forum">Community</a></li>
+<li class="nav-item">
+<a href="https://gorails.com/episodes/in-app-navbar-notifications#" class="nav-link" data-action="search-open" data-target="#search-main"><i class="far fa-search"></i></a>
+</li>
+</ul>
+<ul class="navbar-nav align-items-lg-center ml-lg-auto">
+<li class="nav-item"><a class="nav-link" href="https://gorails.com/pricing">Pricing</a></li>
+<li class="nav-item"><a class="nav-link" href="https://gorails.com/users/sign_in">Login</a></li>
+<li class="nav-item mr-0">
+<a class="nav-link d-lg-none" href="https://gorails.com/users/sign_up">Get started</a>
+<a class="btn btn-sm btn-info btn-circle btn-icon d-none d-lg-inline-flex" href="https://gorails.com/users/sign_up">
+<span class="btn-inner--text">Get started</span>
+<span class="btn-inner--icon"><i class="fas fa-angle-right"></i></span>
+</a> </li>
+</ul>
+</div>
+</div>
+</nav>
+</header>
+<div class="episode-video-wrapper bg-gradient-dark">
+<div class="video-player">
+<div class="embed-responsive embed-responsive-video">
+<iframe class="embed-responsive-item" src="./In-App Navbar Notifications (Example) _ GoRails_files/KOs8f8TnwZs.html" frameborder="0" allowfullscreen=""></iframe>
+</div>
+<div class="row">
+<div class="col">
+<ul class="nav nav-pills justify-content-end">
+<li class="nav-item"><a class="nav-link">Share</a></li>
+<li class="nav-item">
+<a target="blank" class="nav-link" title="" data-toggle="tooltip" href="https://www.twitter.com/share?text=I%20liked%20watching%20In-App%20Navbar%20Notifications%20on%20@GoRails&amp;url=https://gorails.com/episodes/in-app-navbar-notifications" data-original-title="Twitter">
+<i class="fab fa-twitter"></i>
+</a> </li>
+<li class="nav-item">
+<a target="blank" class="nav-link" title="" data-toggle="tooltip" href="https://www.facebook.com/sharer/sharer.php?u=https://gorails.com/episodes/in-app-navbar-notifications" data-original-title="Facebook">
+<i class="fab fa-facebook"></i>
+</a> </li>
+<li class="nav-item">
+<a target="blank" class="nav-link" title="" data-toggle="tooltip" href="https://www.reddit.com/submit?title=I%20liked%20watching%20In-App%20Navbar%20Notifications%20on%20@GoRails&amp;url=https://gorails.com/episodes/in-app-navbar-notifications" data-original-title="Reddit">
+<i class="fab fa-reddit-alien"></i>
+</a> </li>
+<li class="nav-item">
+<a target="blank" class="nav-link" title="" data-toggle="tooltip" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://gorails.com/episodes/in-app-navbar-notifications&amp;title=I%20liked%20watching%20In-App%20Navbar%20Notifications%20on%20@GoRails" data-original-title="LinkedIn">
+<i class="fab fa-linkedin"></i>
+</a> </li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-secondary pt-5">
+<div class="container" id="episode_96">
+<div class="row mb-4">
+<div class="col-sm-10">
+<a class="text-muted h5 underline--hover" href="https://gorails.com/series/common-features">Common Features:</a>
+<h1 class="h2" data-behavior="episode" data-name="In-App Navbar Notifications" data-id="96">
+In-App Navbar Notifications
+</h1> </div>
+<div class="col-sm-2">
+<span class="h2" id="hearts"> <a data-toggle="tooltip" data-placement="left" title="" href="https://gorails.com/users/sign_up" data-original-title="Sign up to heart this episode"><i class="fas fa-heart text-muted"></i></a>
+<span class="text-muted">101</span>
+</span>
+</div>
+</div>
+<div class="row">
+<div class="col-md-8">
+<div class="card mb-3 shadow shadow-lg--hover">
+<div class="card-body">
+<div class="row">
+<div class="col-sm-6">
+<p class="text-muted form-control-plaintext mb-3">
+Episode 96
+· December 5, 2015
+</p>
+</div>
+<div class="col-sm-6 text-right">
+<div class="btn-group">
+<a data-behavior="completed-status" class="btn btn-secondary btn-sm" data-remote="true" rel="nofollow" data-method="post" href="https://gorails.com/episodes/in-app-navbar-notifications/complete">Mark as Completed</a>
+<a data-behavior="watchlist-status" class="btn btn-secondary btn-sm" data-remote="true" rel="nofollow" data-method="post" href="https://gorails.com/episodes/in-app-navbar-notifications/watchlist"><i class="far fa-bookmark"></i></a>
+</div>
+</div>
+</div>
+<p>Learn how to add in-app notifications like Facebook and Twitter</p>
+<p>
+<a href="https://gorails.com/episodes/tagged/Javascript"><span class="badge badge-lg badge-pill badge-info">Javascript</span></a>
+<a href="https://gorails.com/episodes/tagged/Notifications"><span class="badge badge-lg badge-pill badge-info">Notifications</span></a>
+</p>
+<hr>
+<div><h2>Resources</h2>
+<ul>
+<li><a href="https://github.com/excid3/gorails-episode-96" target="_blank" rel="noopener noreferrer nofollow">Source code on Github</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="card mb-3">
+<div class="card-body">
+<h6>Transcripts</h6>
+<div>
+
+<ul class="nav nav-pills" role="tablist" data-behavior="transcript-tabs">
+<a class="nav-link" data-toggle="tab" href="https://gorails.com/episodes/in-app-navbar-notifications#english">English</a>
+</ul>
+
+<div class="tab-content">
+<div role="tabpanel" class="tab-pane" id="english" dir="auto">
+<p>What's up guys, this episode we're going to talk about In-App Notifications, because this is a feature I get requested almost every single week, so I thought it's about time we cover this. So what I'm talking about are those little notifications in the navbar that you usually see, and when you click on them you'll see the number, and you'll be able to mark them as read when you read them, and also they'll have links that will take you to the thing that created the notification. </p>
+<p>For example, in GoRails, mine is really simple, it needs some cleanup, but it's just a navigation item that generates a menu that links to forum questions, so anybody that posts a question in there, you receive a notification, or if you join a discussion, you'll automatically be subscribed to the comments for that thread. This is what we're going to be duplicating today, I'm going to talk about how we do this, we're going to load this with AJAX, so we'll create the database models, we'll add them to the record so that when you take an action, if you would like to notify the users, I'll show you how to create the record; and we'll also build the JavaScript functionality to load these through AJAX so your page can load quicker, it can load the notifications after the page does, just like Facebook does, and then we'll also use JavaScript to mark them as read, and then you're going to have a perfect foundation to pull these URLs for notifications every three seconds so that you get relatively real-time notifications if you would like and go ahead and do that, so we're going to talk about all of that in this episode so let's get started.</p>
+<p>What goes into creating a notification? Well, you've probably seen a lot of these things, such as: <em>Bob liked your photo</em> on Facebook, or you might see: <em>"Anthony shared a link on your wall"</em> or <em>"Suzy commented on your post"</em>, you're going to see a lot of these, various things where there's an action taken on some object, and all of these just have a user that took an action on something, and this one is actually a link, rather than your wall. So this is building a sentence that links to something and tells you a bit about who did what, and it's very generic. With that in mind, we can create a model to represent that in our database </p>
+<p>We're going to call it "Notification" of course and we're going to have five or six different fields of this (try to keep up): </p>
+<p><strong>1. recipient_id:integer</strong><br>
+The user who gets the notifications</p>
+<p><strong>2. actor_id:integer</strong><br>
+The user who took the action</p>
+<p><strong>3. read_at:datetime</strong><br>
+Field that can tell the user or the website that the notification has already been read</p>
+<p><strong>4. action:string</strong><br>
+Event that was recorded</p>
+<p><strong>5. notifiable_id:integer</strong><br>
+Part of the notifiable object</p>
+<p><strong>6. notofiable_type:string</strong><br>
+Part of the notifiable object</p>
+<blockquote>
+<p>You have to have a way of differentiating between the user that recieves the notification and the one who generated it, in this case, I chose to go with <strong>recipient</strong> and <strong>actor</strong>, and to intentionally not use <strong>user</strong> because it's too vague; but you're free to name it <strong>user</strong> or something else if it's clearer for you </p>
+</blockquote>
+<p>For the <strong>read_at</strong> you could also use booleans, but it doesn't really give you much useful information, <strong>read_at</strong> also may be a useful thing where you could set up functionality that maybe will email the user if they haven't read the post after three hours or something. This could help you a little bit with that, but in any case, <em>read_at</em> as datetime also helps you do analytics in the future, but you're only really treating it like a Boolean column you because you know the time that they read it at.</p>
+<p>All that aside, the last piece that you really need is the action, and that will be commented, shared, liked, whatever... That will just be a simple string, and then you need the trackable item, so you're going to use a polymorphic association for this because as you can see, there's photos, links, posts, so on. The list will probably will continue growing, but it's always going to be notifications for a vast number of different things. You don't need to create post notifications and link notifications and separate those because that would just get very confusing, this is where polymorphic associations come into play again, just like we talked about in our comments episode in the past. </p>
+<p>Here we have some sort of object that is the notifiable object, if we call it <em>notifiable_id</em> and <em>notifiable_type</em>, those two can comprise the polymorphic association for notifiable, and that will be the object that you're linking to when someone clicks the notification. That's all you need in order to run the notification model,</p>
+<p>We run:</p>
+<p><code>rails g model Notification recipient_id:integer actor_id:integer read_at:datetime action:string notifiable_id:integer notifiable_type:string</code></p>
+<p><code>rake db:migrate</code> </p>
+<p>And then jump into the model to set up the associations and then create those records anytime we need to in the create action. Adding those associations into the model is pretty simple: </p>
+<p><strong>app/models/notification.rb</strong></p>
+<div><pre><span></span><span>class</span> <span>Notification</span> <span>&lt;</span> <span>ActiveRecord</span><span>::</span><span>Base</span>
+    <span>belongs_to</span> <span>:recipient</span><span>,</span> <span>class_name</span><span>:</span> <span>"User"</span>
+    <span>belongs_to</span> <span>:actor</span><span>,</span> <span>class_name</span><span>:</span> <span>"User"</span>
+    <span>belongs_to</span> <span>:notifiable</span><span>,</span> <span>polymorphic</span><span>:</span> <span>true</span>
+<span>end</span>
+</pre></div>
+<p>This will set up your associations for the notification, and then you can also have the <code>has_many :notifications</code> in the <strong>user model</strong> and then this is going to take the option because it needs to be linked as the recipient on the has_many, and that way you need link that, it will automatically look for User, and that won't work because there is no user association, so we have to specify an option here to link to the recipient and this is as simple as adding <code>foreign_key: recipient_id</code> to the has many notifications, and that will take care of that. With that in mind, we can go to our <strong>forum_posts_controller.rb</strong> and add creating of notifications into that.</p>
+<p>When you're browsing a forum, you are browsing a thread and you're know the answer to somebody's question, and you type a message and click "Create Forum Post", that would take you to this action (create), it would create a new post in the thread, it would associate it to you and then save the post. Now here's where we need to create the notifications before the users. Now there's one trick to this that you have to be careful with, but we'll talk about that in just a second, first we need to just create the association to get all the users in the thread. We have one user, and if I post, I'll be another user, so we need some association on the forum thread to get all the users, and that's going to be rally simple:</p>
+<p><strong>app/models/forum_thread.rb</strong><br>
+<code>has_many :users, through: forum_posts</code></p>
+<p>because the forum posts <code>belong_to :user</code> we can grab those users on the thread. This will allow us to create the notification in the <strong>forum_posts_controller</strong></p>
+<div><pre><span></span><span>@forum_thread</span><span>.</span><span>users</span><span>.</span><span>each</span> <span>do</span> <span>|</span><span>user</span><span>|</span>
+    <span>Notification</span><span>.</span><span>create</span><span>(</span><span>recipient</span><span>.</span><span>user</span><span>,</span> <span>actor</span><span>:</span> <span>current_user</span><span>,</span> <span>action</span><span>:</span> <span>"posted"</span><span>,</span> <span>notifiable</span><span>:</span> <span>@forum_post</span><span>)</span>
+<span>end</span> 
+</pre></div>
+<p>For each user we'll create a new notification with that user as the recipient, and that's pretty cool, because that allows us to loop through all of those users, notify everybody, and then redirect the user back, and this will be really fast because we're just creating a handful of records in the database, we're not actually sending out emails or anything, which you would want to do in a background job like the previous episode on sidekick. </p>
+<p>The other options that we need to pass in for the notifications are the actor, so we'll pass in the current user as the actor, because you're logged in, you clicked "Submit", so you're the one that made the post, and that means you would be current user, and then the action will be "posted", and then we'll have the actual notifiable object, the thing we'll want to link to when you click on the notifications, that's why we're linking that instead of the thread, and that's all you have to do to create those notifications. The important thing that I mentioned we would talk about is that there's a little trick to this, because <em>@forum_thread.users</em> is not actually what you want, because this is going to get you everybody, and because you just created a thread, or a post in the thread, that will include you and that's not what you want, because you would get a notification as well if someone posted twice in the thread, they would get notified twice, so you want to call <em>unique</em> method on this to get the unique users, no duplicates and then you also want to remove an array of current_user:</p>
+<div><pre><span></span><span>(</span><span>@forum_thread</span><span>.</span><span>users</span><span>.</span><span>uniq</span> <span>-</span> <span>[</span><span>current_user</span><span>]</span><span>)</span><span>.</span><span>each</span> <span>do</span> <span>|</span><span>user</span><span>|</span>
+</pre></div>
+<p>If you're ever subtracting two arrays, you need to take the first array, which unique should return and then remove an array of these items, which is just one, which is your user. That should give you a unique array, and we should be able to jump into our application, click "Submit", everything worked fine, and then in the console and look at <code>Notification.all</code> and see if we got multiple notifications or if it worked right.</p>
+<p>I was logged in as user number two, and you can see the actor_id is 2, it's not read, (which is good), posted the post number 6 and this is a notification for recipient user number 1. So that worked correctly. </p>
+<p>excid3 is user number one and Chris is user number two and when Chris posts, excid3 get a notification but Chris does not, and then if I go in here and make another post and we submit that, then we should see a new notification, and I still haven’t gotten duplicate notifications as Chris.</p>
+<p>This is something that you can use pretty much in any location that you would like you would be able to take this notification line and then pass this around and put it maybe in the forum thread, maybe you want it on likes, or maybe you want it on sharing photos. Anything like that, you have the freedom to take this line of code and reproduce it pretty much anywhere you would like to add notifications into your app. You can take this and move it around and use it in multiple places, which is pretty useful. Now that we have our notifications on our database, what do we actually do with them? How do we get these notifications into the UI and make it something that's flexible?</p>
+<p>If you're building notifications, I would recommend building a notifications endpoint for JSON so I would make a sort of notifications resource, maybe you would consider even a little API in and of itself for your JavaScript to access it. One thing that you would have to do every single time that the page was loaded was look if the users signed in, and then display the notifications in the navbar, but that's one of those things that could be deferred into JavaScript and that would be totally fine. </p>
+<p>That's what we're going to do, we're going to load those notifications with JavaScript and we're going to provide that with a resources :notifications in our <strong>routes file</strong>, so we're going to have</p>
+<p><code>resources :notifications</code></p>
+<p>We're just going to use the index there but we'll define that in our controller, so we'll open up:</p>
+<p><strong>app/controllers/notifications_controllers.rb</strong></p>
+<div><pre><span></span><span>class</span> <span>NotificationsController</span> <span>&lt;</span> <span>ApplicationController</span>
+    <span>def</span> <span>index</span> 
+        <span>@notifications</span> <span>=</span> <span>Notification</span><span>.</span><span>where</span><span>(</span><span>recipient</span><span>:</span> <span>current_user</span><span>)</span>
+    <span>end</span> 
+<span>end</span>
+</pre></div>
+<blockquote>
+<p>We need to make sure that the user is logged in </p>
+</blockquote>
+<p>We will load up the notifications and then we'll probably want to limit those, so we probably want to only do maybe the unread notifications in the navbar so we can use the scope called "unread" for notification. If we open up <strong>models/notification.rb</strong>:</p>
+<p><code>scope :unread, -&gt;{where read_at: nil}</code></p>
+<p>That's all you need to do to make a nifty little notification controller, so we'll load up all the unread notifications for the current user, and then we'll return some JSON for that. If we make a directory for <strong>app/views/notifications</strong> we can edit <strong>app/views/notifications/index.json.jbuilder</strong>, and here we're going to have to design our json that we're going to return to the JavaScript, and there's going to be a few helpers that we can do in here that make creating the links easier, for example. And we'll go through the notifications array, and pull out some JSON for each of those. So we can use the jbuilder helpers here and pass in the notifications and a block that takes each one of the notifications themselves and then we'll have our various things here so we'll have:</p>
+<p><strong>app/views/notifications/index.json.jbuilder</strong></p>
+<div><pre><span></span><span>json.array!</span> <span>@notifications</span> <span>do</span> <span>|notification|</span> 
+    <span>json.recipient</span> <span>notification.recipient</span> 
+    <span>json.actor</span> <span>notification.actor</span> 
+    <span>json.action</span> <span>notification.action</span> 
+    <span>json.notifiable</span> <span>notification.notifiable</span> 
+    <span>json.url</span> <span>forum_thread_path(notification.notifiable.forum_thread,</span> <span>anchor:</span> <span>dom_id(notification.notifiable))</span> 
+<span>end</span> 
+</pre></div>
+<p>The url line will generate the path to the forum thread and then take us down to the notifiable forum post so that will be a little shortcut to help us generate this URL, we'll do it in Rails, then our JavaScript doesn't have to worry about trying to build urls. Our JavaScript can just simply take the url and then put it in the html. To test and see if this is working, we just want to open up the /notifications.json url in our browser and we should get a json response back, but because we're logged in as Chris instead of excid, I don't have notifications on this user account but our other user does. So let's just log out and log back in, and then check this out from the other users perspective, </p>
+<p>If we open that up now, we can see that there is are two notifications here with the JSON related to it, so you'll see the recipient, you'll get some information about the recipient, it might just easier to pass in the username for the recipient, because we're going to be linking to the post itself and not the user. If you add more complicated formatting, you could pass in this extra data, but we're going to keep it simple an only link to the URL that we added at the bottom. </p>
+<p>Let's adjust that (already adjusted in the code block above). The recipient we might actually may not need to include this whatsoever because we know that it's for you, so we can comment this out or just delete it, and simplify our JSON response a lot. Now the other thing you might have noticed is that we have:</p>
+<p><code>[{"actor":"chris"."action":"posted","notifiable:...}]</code></p>
+<p>So we've got this really big piece of JSON here that's every attribute about the notifiable object. We don't need all that stuff because it doesn't make it easy for us to say <em>Chris posted a comment in a thread</em> or something like that. It doesn't help us really easily pull that out. So I would recommend modifying your JSON to do something that's more flexible, so we have this notification notifiable object array, and we can simply add a type:</p>
+<div><pre><span></span><span>json.notifiable</span> <span>do</span> <span>#notification_notifiable</span> 
+    <span>json.type</span> <span>"a comment"</span>
+<span>end</span>
+</pre></div>
+<p>So you can have your JavaScript really easy put the actor, action and the type together and say that Chris posted a comment, that would be much much easier for your JavaScript to put together in the notification and then combine these, if you ever wanted to say that Chris and Bob posted a comment, then you could combine those nicely.</p>
+<p>This is the design of your JavaScript and your JSON, you want to make it easy for you to write simple JavaScript because there's going to be a bunch of different types potentially:</p>
+<ol>
+<li>you liked a photo </li>
+<li>you shared a link </li>
+<li>you commented on a status </li>
+</ol>
+<p>all of these are going to be different, and if you give it a really basic format here, then your JavaScript can just run through these, and it is really fast. And it doesn't have to know as much about the server side stuff which is a huge huge improvement, so wouldn't it be nice if you could just take the notifiable thing and said <em>Chris posted a forum post</em>? We could actually interpolate a string here and say </p>
+<p><code>json.type "a #{notification.notifiable.class.to_s.underscore.humanize.downcase}"</code></p>
+<p>The methods above converts</p>
+<p><em>ForumPost</em> to <em>forum_post</em> to <em>Forum post</em> and finally to <em>forum post</em></p>
+<p>And that allows us to automatically generate a forum post as the type string which is awesome. This way, you can pass in any type of object and as long as it had a reasonable name as your model name, then if you add photo or user, all of those would be converted dynamically into a nice readable string that you JavaScript can render and that is probably what I would suggest. Now the next piece that we need to think about in our JSON data structure is what you're going to do for marking these as read. Personally, I want to make this work like Facebook and Twitter, where you click the notifications here at the top and might have a number next to it when I make it so that when you click that it would remove the number and mark all those as read. That's going to be as simple as when you click it, it will send a mark as read thing to the server, and that means that you don't need to include the id's of the individual items as arguments to that, because you're marking everything as read, but if you ever want to mark individual items as read, you can just say <code>json.id notification.id</code> and that will add the ID number into each of these which might be useful to pass in anyways, that will allow you to reference specific notifications from your JavaScript. </p>
+<p>Digital Ocean has notifications, you can mark individual ones as read or not, so you can pass in the id's if you ever want to build functionality like that. That's pretty cool, and you have complete control to customize this to however you want this experience to work. </p>
+<p>The other thing we need to do is we're going to need to make a POST request for the notifications that allows us to mark them as read.</p>
+<p>If we do everything, we can do a collection action, we can make a mark as read action, and then that would map to the notifications controller and a mark as read method, and we're going to look for the notifications where recipient is the current user, and we're going to want the unread ones just like before, and this time, we're going to update all and we're going to read at the recipient's time zone and you can render json back and signal that success is true </p>
+<p><strong>config/routes.rb</strong></p>
+<div><pre><span></span><span>resources</span> <span>:notifications</span> <span>do</span> 
+    <span>collection</span> <span>do</span> 
+        <span>post</span> <span>:mark_as_read</span>
+    <span>end</span> 
+<span>end</span>
+</pre></div>
+<p><strong>app/controllers/notification_controller.rb</strong> </p>
+<div><pre><span></span><span>def</span> <span>mark_as</span> <span>read</span> 
+    <span>@notifications</span> <span>=</span> <span>Notification</span><span>.</span><span>where</span><span>(</span><span>recipient</span><span>:</span> <span>current</span><span>)</span><span>.</span><span>unread</span> 
+    <span>@notifications</span><span>.</span><span>update</span><span>.</span><span>all</span><span>(</span><span>read_at</span><span>:</span> <span>Time</span><span>.</span><span>zone</span><span>.</span><span>now</span><span>)</span>
+    <span>render</span> <span>json</span><span>:</span> <span>{</span><span>success</span><span>:</span> <span>true</span><span>}</span>
+<span>end</span> 
+</pre></div>
+<blockquote>
+<p>In the section of the video Chris makes a typo, and corrects it later on, it's already corrected in this transcript, to save you some annoyance </p>
+</blockquote>
+<p>You'll use HTTP response codes if it fails, and then if it's successful then they will have the 200 back and then also have a little data in the JSON to parse and see if it was successful or not. So that is as simple as that. It's going to mark all of those as read and that's it. Now we need to connect the JavaScript to the front end, so we need to load up the JavaScript when you view this page, display the notifications here and then we need to go ahead and mark those as read. To create the HTML to interact within the JavaScript, I'm just going to paste in some example code that I've found for bootstrap 4 alpha. This isn't going to be the prettiest, because bootstrap 4 is still alpha so the dropdowns don't actually align properly which you'll see in a second, but this is sort of what you're html will look like for notifications. If we save this and just refresh the page, you're going to see the notifications show up in the navigation, and you'll see them show up when you click on the dropdown. These are hard coded, and we're going to need load those up dynamically on the page load.</p>
+<p>This is working, and that's basically what we want, but now we need to make it dynamic.</p>
+<p>We're going to create a file in <strong>app/assets/javascripts/notification.js.coffee</strong></p>
+<p>The html is set up to only run if the user is signed in, so we're only going to see the notification bar when the user is signed in which is good because then we can load the JavaScript for it only if this is on the page. </p>
+<p>We will need a new class in CoffeeScript called notifications and in the constructor, we'll set it up so that we'll only call the setup method if there's the notifications on the page. Now I'm going to use the data behavior stuff that I've talked about in the past, and the length should be greater than zero if it's actually on the page. </p>
+<p>We will also create a setup method when it's actually available and then we'll be able to reference that. That means that we're going to need <code>data-behavior="notifications"</code> over in the html and that should make it referencable there </p>
+<blockquote>
+<p>You can test that your browser is actually detecting the notifications if you console.log your notifications in the JavaScript. If you see a jQuery array, you're good to go.</p>
+</blockquote>
+<p>Using jQuery to make an AJAX request to the notifications.json url, the data type is json and it's a get request and on success, we can call a different method. (@handlesuccess). </p>
+<p>For the <em>handlesuccess</em> method we can use a thick arrow so that we can reference the variables the same way as before and here, we'll have the code to actually get the data back. The first parameter that you'll get with this is the notifications in JavaScript format. If we refresh this page now, we can see the array notifications on the console printed out, but they've been parsed into JavaScript objects for us because of the AJAX request specifying the data type is JSON. So it parses those out into an array for us which is <strong>HANDY DANDY</strong> <img> And we can map this array into a set of string that we can insert into the page. </p>
+<p>If we take each notification here and we convert them into this anchor tag. Take the elements of the array (action, actor, notifiable type, url) and convert that into the html that we need to display </p>
+<p>Up to this point, the JavaScript bit looks like this:</p>
+<div><pre><span></span><span>class</span> <span>Notifications</span>
+    <span>constructor</span><span>:</span> <span>-&gt;</span>
+        <span>@</span><span>notifications</span> <span>=</span> <span>$</span><span>(</span><span>"[data-behavior='notifications']"</span><span>)</span>
+        <span>@</span><span>setup</span><span>()</span> <span>if</span> <span>@</span><span>notifications</span><span>.</span><span>length</span> <span>&gt;</span> <span>0</span> 
+
+    <span>setup</span><span>:</span> <span>-&gt;</span> 
+        <span>$</span><span>.</span><span>ajax</span><span>(</span>
+            <span>url</span><span>:</span> <span>"/notifications.json"</span>
+            <span>dataType</span><span>:</span> <span>"JSON"</span>
+            <span>method</span><span>:</span> <span>"GET"</span>
+            <span>success</span><span>:</span> <span>@</span><span>handleSuccess</span>
+        <span>)</span>
+
+    <span>handleSuccess</span><span>:</span> <span>(</span><span>data</span><span>)</span> <span>=&gt;</span>
+        <span>items</span> <span>=</span> <span>$</span><span>.</span><span>map</span><span>.</span><span>data</span><span>,</span> <span>(</span><span>notification</span><span>)</span> <span>-&gt;</span>
+            <span>"&lt;a class='dropdown-item' href='#{notification.url}&gt;#{notification.action} #{notification.notifiable.type}&lt;/a&gt;"</span>
+
+        <span>$</span><span>(</span><span>"[data-behavior='unread-count']"</span><span>).</span><span>text</span><span>(</span><span>items</span><span>.</span><span>length</span><span>)</span>
+        <span>$</span><span>(</span><span>"[data-behavior='notification-items']"</span><span>).</span><span>html</span><span>(</span><span>items</span><span>)</span>
+
+<span>jQuery</span> <span>-&gt;</span>
+    <span>new</span> <span>Notifications</span> 
+</pre></div>
+<blockquote>
+<p>Since we want our own elements on the dropdown, instead of the hard coded ones (duh), we're going to add in the html the data behavior of notifications in the html in the dropdown menu div and if we didn't screw up, refreshing the page and clicking on the notifications should show us <em>Chris posted a forum post</em>. <strong>You might want to check out Chris's final code <a href="https://github.com/excid3/gorails-episode-124/blob/master/app/assets/javascripts/notifications.js.coffee" target="_blank" rel="noopener noreferrer nofollow">here</a>, there are differences with the one written to this point in the video and also no errors, but I just transcripted it the way it is</strong></p>
+</blockquote>
+<p>The CSS is still a little broken and it goes off the page, but if we look at it, we're getting the dropdown items, they're linking to the correct place. If you click on them, they will take you to the thread and everything that you would expect out of your notifications. </p>
+<p>Another cool thing that we could do here is add to the handleSuccess:</p>
+<div><pre><span></span><span>$</span><span>(</span><span>"data-behavior='unread-count']"</span><span>).</span><span>text</span><span>(</span><span>items</span><span>.</span><span>length</span><span>)</span>
+</pre></div>
+<p>and if we add a span behind the bell that's data-behavior="unread-count", leave it empty by default. And if you refresh the page you can see that it's empty for a second and then it changes to two notifications that have been loaded and you are good to go. </p>
+<p>The last piece of this puzzle is to clear out when you click on this dropdown, so when you click on it, we need to send a notification to the server to mark these as read so that next time that you load a page they don't show up. </p>
+<p>We do the initial load in the setup, and the other thing that you want to do is to grab the anchor type that is the button type, add `data-behavior="notifications-link" and over in the javascript:</p>
+<div><pre><span></span><span>setup</span> <span>-&gt;</span>
+    <span>$</span><span>(</span><span>"[data-behavior='notifications-link']"</span><span>).</span><span>on</span> <span>"click"</span><span>,</span> <span>@</span><span>handleClick</span>
+
+<span>//some code </span>
+
+<span>handleClick</span> <span>(</span><span>e</span><span>)</span> <span>=&gt;</span> 
+    <span>$</span><span>.</span><span>ajax</span><span>(</span>
+    <span>url</span><span>:</span><span>"/notifications/mark_as_read"</span><span>)</span>
+    <span>dataType</span><span>:</span> <span>"JSON"</span>
+    <span>method</span><span>:</span> <span>"POST"</span>
+    <span>success</span><span>:</span> <span>-&gt;</span> 
+        <span>$</span><span>(</span><span>"data-behavior='unread-count']"</span><span>).</span><span>text</span><span>(</span><span>0</span><span>)</span>
+</pre></div>
+<blockquote>
+<p>You can check that out if you rake routes and see the POST request <strong>notifications/mark_as_read</strong> it is very important to notice that we're sending a POST request</p>
+</blockquote>
+<p>This last bit of code that we added allows us to fire that request off to the server when you click on it, and if we do that, you should see in the network anytime this is clicked, you'll see a post-request go over at the bottom, anytime you click this you'll see the mark as read post request. </p>
+<p>If we click this (And didn't make any typos), it should change to zero, and it does. Server side you'll see the POST request, to mark as read, and we'll update all those notifications and set the read at to the current timestamp. That's all that it takes to mark those as read and now you'll see that there are zero unread notifications and you could put in placeholder text, whatever you would like, all you would have to do really is to modify your <strong>notifications.js.coffee</strong> file and put in some extra code around the handlesuccess. In a way that checks if the length of items is 0 and maybe you put in a different message like there are no new unread notifications, you can fully modify that here, this is just a good little class to handle that functionality and your JavaScript doesn't do very much of the UI, it just manipulates it as necessary.</p>
+<p>This could be a really good episode that we could clone in react and see how this would interact with it. And really the backend of JSON API that we have for notifications probably would stay the same, you would just end up writing react instead of jQuery more or less. </p>
+<p>If you're interested in seeing something like that in the future leave a note in the comments below and we'll get to that, if you guys really want to see it, I would love to do more react stuff anyways. That's basically the whirlwind tour for all the sort of things to think about when you're building notifications. Keep them simple, definitely don't try to overdo it. Don't tailor them too closely to specific things, try to keep them generic because you know that you will use that in other places in your application in the future, things are bound to change, so if you can make things sort of generic and sort of simple at the same time, then awesome <img>, you have foundation for notifications that you could probably pull out even into a gem that you could reuse, maybe this is something that you guys would like to see as a gem. I dunno, let me know, until next time, I will talk to you next week, peace <img></p>
+<p><em>Transcript written by <a href="https://github.com/mickeytgl" target="_blank" rel="noopener noreferrer nofollow">Miguel</a></em></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="discussion" data-behavior="discussion" data-id="in-app-navbar-notifications-gorails-gorails"><h5 class="mb-4">Comments</h5>
+
+<div class="p-3 bg-secondary border rounded">
+    
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_8504">
+    <div class="d-none d-md-block"><a href="https://gorails.com/users/3845"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/e5c8c1e04ba0d23d74878af605ac37a0.png"></a></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/8504/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user"><a class="text-dark" href="https://gorails.com/users/3845">Francisco Quinones</a></strong>
+            <span class="badge badge-warning text-sm mx-2">7,370 XP</span>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_8504"><time datetime="2015-12-05T19:06:17Z" data-local="time-ago" title="December 5, 2015 at 1:06pm CST" aria-label="on Dec 5, 2015">on Dec 5, 2015</time></a></small>
+        </div>
+
+          <p>Thank you thank you thank you!</p>
+
+
+      </div>
+
+      <div class="replies">
+      </div>
+
+      <ul class="list-inline">
+        <li class="list-inline-item">
+            <a class="text-muted" href="https://gorails.com/users/sign_in"><i class="fas fa-reply "></i> Reply</a>
+        </li>
+      </ul>
+
+      
+
+  </div>
+</div>
+
+    <hr>
+    
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_8505">
+    <div class="d-none d-md-block"><a href="https://gorails.com/users/4966"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/7eb8affe35963c36f376f5f1b50d02dc.jpeg"></a></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/8505/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user"><a class="text-dark" href="https://gorails.com/users/4966">Ken Hibino</a></strong>
+            <span class="badge badge-warning text-sm mx-2">220 XP</span>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_8505"><time datetime="2015-12-05T19:52:14Z" data-local="time-ago" title="December 5, 2015 at 1:52pm CST" aria-label="on Dec 5, 2015">on Dec 5, 2015</time></a></small>
+        </div>
+
+          <p>This is exactly what I was looking for!! Thank you so much!!! I'd love to see how you integrate React to this feature too.</p>
+
+
+      </div>
+
+      <div class="replies">
+            <div>
+                <div class="mt-3">
+                  
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_8506">
+    <div class="d-none d-md-block"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/d735fa57f7025f658d4f70a792146348.png"></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/8506/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user">Rich Everts</strong>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_8506"><time datetime="2015-12-05T20:02:24Z" data-local="time-ago" title="December 5, 2015 at 2:02pm CST" aria-label="on Dec 5, 2015">on Dec 5, 2015</time></a></small>
+        </div>
+
+          <p>Me too. I'm using React on the front-end.</p>
+
+
+      </div>
+
+      <div class="replies">
+      </div>
+
+
+  </div>
+</div>
+
+                </div>
+            </div>
+      </div>
+
+      <ul class="list-inline">
+        <li class="list-inline-item">
+            <a class="text-muted" href="https://gorails.com/users/sign_in"><i class="fas fa-reply "></i> Reply</a>
+        </li>
+      </ul>
+
+      
+
+  </div>
+</div>
+
+    <hr>
+    
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_8507">
+    <div class="d-none d-md-block"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/865f83fe940d1fe48097d02e65c4fb1f.png"></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/8507/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user">Himesh</strong>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_8507"><time datetime="2015-12-06T12:18:09Z" data-local="time-ago" title="December 6, 2015 at 6:18am CST" aria-label="on Dec 6, 2015">on Dec 6, 2015</time></a></small>
+        </div>
+
+          <p>Thank You..</p>
+
+
+      </div>
+
+      <div class="replies">
+      </div>
+
+      <ul class="list-inline">
+        <li class="list-inline-item">
+            <a class="text-muted" href="https://gorails.com/users/sign_in"><i class="fas fa-reply "></i> Reply</a>
+        </li>
+      </ul>
+
+      
+
+  </div>
+</div>
+
+    <hr>
+    
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_8508">
+    <div class="d-none d-md-block"><a href="https://gorails.com/users/123"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/548f99ee6bcc59c96a1f94acbd2aa726.jpeg"></a></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/8508/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user"><a class="text-dark" href="https://gorails.com/users/123">Gareth Kavanagh</a></strong>
+            <span class="badge badge-warning text-sm mx-2">10 XP</span>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_8508"><time datetime="2015-12-06T17:22:33Z" data-local="time-ago" title="December 6, 2015 at 11:22am CST" aria-label="on Dec 6, 2015">on Dec 6, 2015</time></a></small>
+        </div>
+
+          <p>Hi Chris, thanks so much for all your videos, I always enjoy them. I'm curious how you handle your testing, when you're working on implementing a feature like In-App Navbar Notifications do you use TDD or do you write tests at the end? If you do use TDD I'd love to see you implement a feature using it!</p>
+
+
+      </div>
+
+      <div class="replies">
+      </div>
+
+      <ul class="list-inline">
+        <li class="list-inline-item">
+            <a class="text-muted" href="https://gorails.com/users/sign_in"><i class="fas fa-reply "></i> Reply</a>
+        </li>
+      </ul>
+
+      
+
+  </div>
+</div>
+
+    <hr>
+    
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_8509">
+    <div class="d-none d-md-block"><a href="https://gorails.com/users/3803"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/d5b87af3621bd16385a386558b32644e.jpeg"></a></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/8509/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user"><a class="text-dark" href="https://gorails.com/users/3803">Mohamad El-Husseini</a></strong>
+            <span class="badge badge-warning text-sm mx-2">20 XP</span>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_8509"><time datetime="2015-12-07T11:38:48Z" data-local="time-ago" title="December 7, 2015 at 5:38am CST" aria-label="on Dec 7, 2015">on Dec 7, 2015</time></a></small>
+        </div>
+
+          <p>Great episode, Chris. A cleaner and easier way to set the type node in your jbuilder template would be to use Rails' built in I18n support. So instead of `"a #{notification.notifiable.class.to_s.underscore.humanize.downcase}"`,  you can do:</p><p>`"a #{notifiable.model_name.human}"`</p><p>This is cleaner and easier, and ensures that if the model name changes, the change will be reflected in your entire app. For this to work  you need to set the model name in your I18n file. So en.yml would have:</p><p>```<br>en:<br>  activerecord:</p><p>    models:<br>      post: "post"<br>```</p><p>PS: I would love to see this in React.</p>
+
+
+      </div>
+
+      <div class="replies">
+      </div>
+
+      <ul class="list-inline">
+        <li class="list-inline-item">
+            <a class="text-muted" href="https://gorails.com/users/sign_in"><i class="fas fa-reply "></i> Reply</a>
+        </li>
+      </ul>
+
+      
+
+  </div>
+</div>
+
+    <hr>
+    
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_8510">
+    <div class="d-none d-md-block"><a href="https://gorails.com/users/1246"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/dd11cb49b52a8d629e8ce8880d7392f6.jpeg"></a></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/8510/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user"><a class="text-dark" href="https://gorails.com/users/1246">Scott Knight</a></strong>
+            <span class="badge badge-warning text-sm mx-2">120 XP</span>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_8510"><time datetime="2015-12-08T03:31:31Z" data-local="time-ago" title="December 7, 2015 at 9:31pm CST" aria-label="on Dec 7, 2015">on Dec 7, 2015</time></a></small>
+        </div>
+
+          <p>React! Yes! Do it!<br>I've been learning React just this week but tying it to Rails is still a bit of a mystery to me. This would be a perfect example to port over that I would love to see.<br>Your videos are great, keep on rockin it Chris! Thanks.</p>
+
+
+      </div>
+
+      <div class="replies">
+      </div>
+
+      <ul class="list-inline">
+        <li class="list-inline-item">
+            <a class="text-muted" href="https://gorails.com/users/sign_in"><i class="fas fa-reply "></i> Reply</a>
+        </li>
+      </ul>
+
+      
+
+  </div>
+</div>
+
+    <hr>
+    
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_8511">
+    <div class="d-none d-md-block"><a href="https://gorails.com/users/2413"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/7a0701f73e80da8b466634f58a0dcb33.jpeg"></a></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/8511/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user"><a class="text-dark" href="https://gorails.com/users/2413">Nick McNeany</a></strong>
+            <span class="badge badge-warning text-sm mx-2">7,390 XP</span>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_8511"><time datetime="2015-12-10T23:45:29Z" data-local="time-ago" title="December 10, 2015 at 5:45pm CST" aria-label="on Dec 10, 2015">on Dec 10, 2015</time></a></small>
+        </div>
+
+          <p>You're the man Chris, great video!!!</p><p>Yes, I would love to see some videos about React, and I would love it even more if you packaged this into a gem!!!</p><p>Thanks again for all your great videos!</p>
+
+
+      </div>
+
+      <div class="replies">
+      </div>
+
+      <ul class="list-inline">
+        <li class="list-inline-item">
+            <a class="text-muted" href="https://gorails.com/users/sign_in"><i class="fas fa-reply "></i> Reply</a>
+        </li>
+      </ul>
+
+      
+
+  </div>
+</div>
+
+    <hr>
+    
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_8512">
+    <div class="d-none d-md-block"><a href="https://gorails.com/users/5606"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/13943b3657745dbad62b8df917939577.jpeg"></a></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/8512/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user"><a class="text-dark" href="https://gorails.com/users/5606">Max Mulatz</a></strong>
+            <span class="badge badge-warning text-sm mx-2">10 XP</span>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_8512"><time datetime="2015-12-14T19:06:22Z" data-local="time-ago" title="December 14, 2015 at 1:06pm CST" aria-label="on Dec 14, 2015">on Dec 14, 2015</time></a></small>
+        </div>
+
+          <p>Awesome episode!<br>I'd also be super interested in learning how to port this to React!</p>
+
+
+      </div>
+
+      <div class="replies">
+      </div>
+
+      <ul class="list-inline">
+        <li class="list-inline-item">
+            <a class="text-muted" href="https://gorails.com/users/sign_in"><i class="fas fa-reply "></i> Reply</a>
+        </li>
+      </ul>
+
+      
+
+  </div>
+</div>
+
+    <hr>
+    
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_8513">
+    <div class="d-none d-md-block"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/e7c0029c70d00549d6ae3cdf282b211a.jpeg"></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/8513/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user">Amit Feldman</strong>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_8513"><time datetime="2015-12-14T19:45:27Z" data-local="time-ago" title="December 14, 2015 at 1:45pm CST" aria-label="on Dec 14, 2015">on Dec 14, 2015</time></a></small>
+        </div>
+
+          <p>Super cool Chris, thank you.<br>You're awesome! (as usual)</p>
+
+
+      </div>
+
+      <div class="replies">
+      </div>
+
+      <ul class="list-inline">
+        <li class="list-inline-item">
+            <a class="text-muted" href="https://gorails.com/users/sign_in"><i class="fas fa-reply "></i> Reply</a>
+        </li>
+      </ul>
+
+      
+
+  </div>
+</div>
+
+    <hr>
+    
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_8514">
+    <div class="d-none d-md-block"><a href="https://gorails.com/users/2236"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/c958077eb82b0a9014c911312e4f65f7.jpeg"></a></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/8514/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user"><a class="text-dark" href="https://gorails.com/users/2236">Chris Collinsworth</a></strong>
+            <span class="badge badge-warning text-sm mx-2">2,500 XP</span>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_8514"><time datetime="2015-12-16T16:13:51Z" data-local="time-ago" title="December 16, 2015 at 10:13am CST" aria-label="on Dec 16, 2015">on Dec 16, 2015</time></a></small>
+        </div>
+
+          <p>great video! Seeing it done in React would be great.</p>
+
+
+      </div>
+
+      <div class="replies">
+      </div>
+
+      <ul class="list-inline">
+        <li class="list-inline-item">
+            <a class="text-muted" href="https://gorails.com/users/sign_in"><i class="fas fa-reply "></i> Reply</a>
+        </li>
+      </ul>
+
+      
+
+  </div>
+</div>
+
+    <hr>
+    
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_8515">
+    <div class="d-none d-md-block"><a href="https://gorails.com/users/1545"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/dff442b2192921f04f324948d263e001.png"></a></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/8515/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user"><a class="text-dark" href="https://gorails.com/users/1545">Jerome .</a></strong>
+            <span class="badge badge-warning text-sm mx-2">100 XP</span>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_8515"><time datetime="2016-01-03T09:42:19Z" data-local="time-ago" title="January 3, 2016 at 3:42am CST" aria-label="on Jan 3, 2016">on Jan 3, 2016</time></a></small>
+        </div>
+
+          <p>Very useful and good pacing/progression of arguments.</p><p>Two questions. <br>1) the onClick handler is going to go to an object, so the page is going to be refreshed anyways.  To make a counter decrement by 1, several options are available: one is to check the object and find Notification with equivalent object_id and type and recipient = current_user and update that.  The other is to have routing as member and have the coffee script call `url: "notifications/#{id}/mark_as_read` and update there.  I am not sure of which avenue is better (I believe the second may be faster), nor the proper syntax to generate the notification id in the url</p><p>2) you mentioned polling.  Websockets would be the best solution for one with a server. This has two caveats. As a user, I have seen notifications be browser tab-dependant (I use a lot and do not always get notifications); it is a worry.  In an exploratory phase (i.e. no significant traffic numbers), one could reason: 'let the user decide'.   what would be a quick and dirty way to have a fa refresh icon update the notification status?</p>
+
+
+      </div>
+
+      <div class="replies">
+      </div>
+
+      <ul class="list-inline">
+        <li class="list-inline-item">
+            <a class="text-muted" href="https://gorails.com/users/sign_in"><i class="fas fa-reply "></i> Reply</a>
+        </li>
+      </ul>
+
+      
+
+  </div>
+</div>
+
+    <hr>
+    
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_8516">
+    <div class="d-none d-md-block"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/b9d6ba19ff9b320346c8f00405c2a874.png"></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/8516/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user">oon</strong>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_8516"><time datetime="2016-01-09T10:40:30Z" data-local="time-ago" title="January 9, 2016 at 4:40am CST" aria-label="on Jan 9, 2016">on Jan 9, 2016</time></a></small>
+        </div>
+
+          <p>Great !! Fore some reasons i had to add as: :notifiable to the User model in order to make the notifiable attribute to be recognised. Any idea ?</p>
+
+
+      </div>
+
+      <div class="replies">
+      </div>
+
+      <ul class="list-inline">
+        <li class="list-inline-item">
+            <a class="text-muted" href="https://gorails.com/users/sign_in"><i class="fas fa-reply "></i> Reply</a>
+        </li>
+      </ul>
+
+      
+
+  </div>
+</div>
+
+    <hr>
+    
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_8517">
+    <div class="d-none d-md-block"><a href="https://gorails.com/users/4777"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/edc3ba0402ce92a5f140e0aca1bfec2d.png"></a></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/8517/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user"><a class="text-dark" href="https://gorails.com/users/4777">Mathias Spurr</a></strong>
+            <span class="badge badge-warning text-sm mx-2">50 XP</span>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_8517"><time datetime="2016-01-23T18:20:15Z" data-local="time-ago" title="January 23, 2016 at 12:20pm CST" aria-label="on Jan 23, 2016">on Jan 23, 2016</time></a></small>
+        </div>
+
+          <p>Im getting missing template error when going to the url /notifications.json</p><p>not sure why.....</p>
+
+
+      </div>
+
+      <div class="replies">
+            <div>
+                <div class="mt-3">
+                  
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_8518">
+    <div class="d-none d-md-block"><a href="https://gorails.com/users/4777"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/edc3ba0402ce92a5f140e0aca1bfec2d.png"></a></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/8518/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user"><a class="text-dark" href="https://gorails.com/users/4777">Mathias Spurr</a></strong>
+            <span class="badge badge-warning text-sm mx-2">50 XP</span>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_8518"><time datetime="2016-01-23T18:29:45Z" data-local="time-ago" title="January 23, 2016 at 12:29pm CST" aria-label="on Jan 23, 2016">on Jan 23, 2016</time></a></small>
+        </div>
+
+          <p>Fixed the issue by adding the Jbuilder gem</p>
+
+
+      </div>
+
+      <div class="replies">
+      </div>
+
+
+  </div>
+</div>
+
+                </div>
+            </div>
+      </div>
+
+      <ul class="list-inline">
+        <li class="list-inline-item">
+            <a class="text-muted" href="https://gorails.com/users/sign_in"><i class="fas fa-reply "></i> Reply</a>
+        </li>
+      </ul>
+
+      
+
+  </div>
+</div>
+
+    <hr>
+    
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_8519">
+    <div class="d-none d-md-block"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/372a118c1fd9c225f004522ef3a2020a.png"></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/8519/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user">buchmihir</strong>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_8519"><time datetime="2016-02-16T10:44:05Z" data-local="time-ago" title="February 16, 2016 at 4:44am CST" aria-label="on Feb 16, 2016">on Feb 16, 2016</time></a></small>
+        </div>
+
+          <p>hi! Thanks for the great post. There's a problem as I click on the bell icon all the notifications disappear. Can anyone please help me with that?</p>
+
+
+      </div>
+
+      <div class="replies">
+      </div>
+
+      <ul class="list-inline">
+        <li class="list-inline-item">
+            <a class="text-muted" href="https://gorails.com/users/sign_in"><i class="fas fa-reply "></i> Reply</a>
+        </li>
+      </ul>
+
+      
+
+  </div>
+</div>
+
+    <hr>
+    
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_8520">
+    <div class="d-none d-md-block"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/1f8800572c0fcc4072029965ced06172.png"></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/8520/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user">Dan</strong>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_8520"><time datetime="2016-03-09T18:50:35Z" data-local="time-ago" title="March 9, 2016 at 12:50pm CST" aria-label="on Mar 9, 2016">on Mar 9, 2016</time></a></small>
+        </div>
+
+          <p>Hi Chris, quick question. I'm new to coffescript. How would we add placeholder text stating, "No new notifications" IF new getNewNotifications = 0, using the <a href="http://notifications.js.coffee/" rel="nofollow noopener" title="notifications.js.coffee">notifications.js.coffee</a> file and the example code you provided for the navbar layout. I have been trying for a while with no luck...</p>
+
+
+      </div>
+
+      <div class="replies">
+            <div>
+                <div class="mt-3">
+                  
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_8521">
+    <div class="d-none d-md-block"><a href="https://gorails.com/users/1"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/ce795239ba5dd2384fc2f88ffaff5451.jpeg"></a></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/8521/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user"><a class="text-dark" href="https://gorails.com/users/1">Chris Oliver</a></strong>
+            <span class="badge badge-warning text-sm mx-2">205,710 XP</span>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_8521"><time datetime="2016-03-09T19:52:46Z" data-local="time-ago" title="March 9, 2016 at 1:52pm CST" aria-label="on Mar 9, 2016">on Mar 9, 2016</time></a></small>
+        </div>
+
+          <p>Hey Dan! I'd change it to something like this: <a href="https://gist.github.com/excid3/ac0d362ddae46746c219" rel="nofollow noopener" title="https://gist.github.com/excid3/ac0d362ddae46746c219">https://gist.github.com/exc...</a></p>
+
+
+      </div>
+
+      <div class="replies">
+      </div>
+
+
+  </div>
+</div>
+      
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_8522">
+    <div class="d-none d-md-block"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/1f8800572c0fcc4072029965ced06172.png"></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/8522/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user">Dan</strong>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_8522"><time datetime="2016-03-10T01:19:59Z" data-local="time-ago" title="March 9, 2016 at 7:19pm CST" aria-label="on Mar 9, 2016">on Mar 9, 2016</time></a></small>
+        </div>
+
+          <p>Ahhh...Thank you so much for sharing! I'll keep sending students to your site.</p>
+
+
+      </div>
+
+      <div class="replies">
+      </div>
+
+
+  </div>
+</div>
+      
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_8523">
+    <div class="d-none d-md-block"><a href="https://gorails.com/users/1"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/ce795239ba5dd2384fc2f88ffaff5451.jpeg"></a></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/8523/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user"><a class="text-dark" href="https://gorails.com/users/1">Chris Oliver</a></strong>
+            <span class="badge badge-warning text-sm mx-2">205,710 XP</span>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_8523"><time datetime="2016-03-10T01:22:55Z" data-local="time-ago" title="March 9, 2016 at 7:22pm CST" aria-label="on Mar 9, 2016">on Mar 9, 2016</time></a></small>
+        </div>
+
+          <p>I appreciate it! :)</p>
+
+
+      </div>
+
+      <div class="replies">
+      </div>
+
+
+  </div>
+</div>
+
+
+
+                </div>
+            </div>
+      </div>
+
+      <ul class="list-inline">
+        <li class="list-inline-item">
+            <a class="text-muted" href="https://gorails.com/users/sign_in"><i class="fas fa-reply "></i> Reply</a>
+        </li>
+      </ul>
+
+      
+
+  </div>
+</div>
+
+    <hr>
+    
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_8524">
+    <div class="d-none d-md-block"><a href="https://gorails.com/users/3224"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/a8cc118ed11a3b118bff73675b35bddd.jpeg"></a></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/8524/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user"><a class="text-dark" href="https://gorails.com/users/3224">Ariff Munshi</a></strong>
+            <span class="badge badge-warning text-sm mx-2">11,280 XP</span>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_8524"><time datetime="2016-03-10T07:21:18Z" data-local="time-ago" title="March 10, 2016 at 1:21am CST" aria-label="on Mar 10, 2016">on Mar 10, 2016</time></a></small>
+        </div>
+
+          <p>Hey Chris Oliver thanks again for another awesome tutorial! If noticed a bug after implementing this. If a user does an action and then the user is destroyed later, this will raise a error when the receiver loads his notifications. For example, it will give an 'undefined method for nil:NilClass' when loading the notifications as the user no longer exist.</p><p>I guess the question is how more on polymorphic associations and how do I implement a dependent destroy for the notifications. I tried:</p><p>  has_many :notifications, foreign_key: :receiver_id, dependent: :destroy<br>  has_many :notifications, foreign_key: :actor_id, dependent: :destroy</p><p>but both won't work.</p><p>Is there a quick way to implement this or can I just do an after delete callback to remove all notifications?</p><p>Cheers!</p>
+
+
+      </div>
+
+      <div class="replies">
+            <div>
+                <div class="mt-3">
+                  
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_8525">
+    <div class="d-none d-md-block"><a href="https://gorails.com/users/1"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/ce795239ba5dd2384fc2f88ffaff5451.jpeg"></a></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/8525/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user"><a class="text-dark" href="https://gorails.com/users/1">Chris Oliver</a></strong>
+            <span class="badge badge-warning text-sm mx-2">205,710 XP</span>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_8525"><time datetime="2016-03-10T20:33:15Z" data-local="time-ago" title="March 10, 2016 at 2:33pm CST" aria-label="on Mar 10, 2016">on Mar 10, 2016</time></a></small>
+        </div>
+
+          <p>Hey Ariff,</p><p>Since the notifications include two users (the receiver and the actor) you need to make sure that if a user gets destroyed, then it removes notifications on both sides. What you've written should work, except that you need to give one of the two has_many assocations a different name because the second one overrides the first one. I would rename the second to something like </p><pre>has_many :sent_notifications, class_name: "Notification", foreign_key: :actor_id, dependent: :destroy</pre><p> This will give you the association that can still get automatically deleted without overriding the original one. Plus we rename this one so that you can still use the common "current_user.notifications" to get the ones where you are the receiver.</p>
+
+
+      </div>
+
+      <div class="replies">
+      </div>
+
+
+  </div>
+</div>
+      
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_8526">
+    <div class="d-none d-md-block"><a href="https://gorails.com/users/3224"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/a8cc118ed11a3b118bff73675b35bddd.jpeg"></a></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/8526/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user"><a class="text-dark" href="https://gorails.com/users/3224">Ariff Munshi</a></strong>
+            <span class="badge badge-warning text-sm mx-2">11,280 XP</span>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_8526"><time datetime="2016-03-11T13:26:18Z" data-local="time-ago" title="March 11, 2016 at 7:26am CST" aria-label="on Mar 11, 2016">on Mar 11, 2016</time></a></small>
+        </div>
+
+          <p>Thanks @excid3:disqus! Works great!</p>
+
+
+      </div>
+
+      <div class="replies">
+      </div>
+
+
+  </div>
+</div>
+
+
+                </div>
+            </div>
+      </div>
+
+      <ul class="list-inline">
+        <li class="list-inline-item">
+            <a class="text-muted" href="https://gorails.com/users/sign_in"><i class="fas fa-reply "></i> Reply</a>
+        </li>
+      </ul>
+
+      
+
+  </div>
+</div>
+
+    <hr>
+    
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_8527">
+    <div class="d-none d-md-block"><a href="https://gorails.com/users/3281"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/540e618436a70b22bcca98cf1d231da2.jpeg"></a></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/8527/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user"><a class="text-dark" href="https://gorails.com/users/3281">ABHILASH VR</a></strong>
+            <span class="badge badge-warning text-sm mx-2">20 XP</span>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_8527"><time datetime="2016-05-02T00:54:21Z" data-local="time-ago" title="May 1, 2016 at 7:54pm CDT" aria-label="on May 1, 2016">on May 1, 2016</time></a></small>
+        </div>
+
+          <p>Isn't it better to index the notifications to users table?? But as here user can be either actor or recipient making me confused..</p>
+
+
+      </div>
+
+      <div class="replies">
+      </div>
+
+      <ul class="list-inline">
+        <li class="list-inline-item">
+            <a class="text-muted" href="https://gorails.com/users/sign_in"><i class="fas fa-reply "></i> Reply</a>
+        </li>
+      </ul>
+
+      
+
+  </div>
+</div>
+
+    <hr>
+    
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_8528">
+    <div class="d-none d-md-block"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/6b86ccf44ae929b1854e8d58eba81b0b.png"></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/8528/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user">Chris Haack</strong>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_8528"><time datetime="2016-10-20T19:13:05Z" data-local="time-ago" title="October 20, 2016 at 2:13pm CDT" aria-label="on Oct 20, 2016">on Oct 20, 2016</time></a></small>
+        </div>
+
+          <p>I would love to see this integrated with React or, really, ActionCable Notifications + React. Great episode.</p>
+
+
+      </div>
+
+      <div class="replies">
+            <div>
+                <div class="mt-3">
+                  
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_8529">
+    <div class="d-none d-md-block"><a href="https://gorails.com/users/1"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/ce795239ba5dd2384fc2f88ffaff5451.jpeg"></a></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/8529/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user"><a class="text-dark" href="https://gorails.com/users/1">Chris Oliver</a></strong>
+            <span class="badge badge-warning text-sm mx-2">205,710 XP</span>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_8529"><time datetime="2016-10-20T19:17:26Z" data-local="time-ago" title="October 20, 2016 at 2:17pm CDT" aria-label="on Oct 20, 2016">on Oct 20, 2016</time></a></small>
+        </div>
+
+          <p>React stuff is coming soon! :)</p>
+
+
+      </div>
+
+      <div class="replies">
+      </div>
+
+
+  </div>
+</div>
+      
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_8530">
+    <div class="d-none d-md-block"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/6b86ccf44ae929b1854e8d58eba81b0b.png"></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/8530/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user">Chris Haack</strong>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_8530"><time datetime="2016-10-20T19:34:57Z" data-local="time-ago" title="October 20, 2016 at 2:34pm CDT" aria-label="on Oct 20, 2016">on Oct 20, 2016</time></a></small>
+        </div>
+
+          <p>Awesome!</p>
+
+
+      </div>
+
+      <div class="replies">
+      </div>
+
+
+  </div>
+</div>
+
+
+                </div>
+            </div>
+      </div>
+
+      <ul class="list-inline">
+        <li class="list-inline-item">
+            <a class="text-muted" href="https://gorails.com/users/sign_in"><i class="fas fa-reply "></i> Reply</a>
+        </li>
+      </ul>
+
+      
+
+  </div>
+</div>
+
+    <hr>
+    
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_8531">
+    <div class="d-none d-md-block"><a href="https://gorails.com/users/9229"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/e6d626dd7b5ca9864cbaa196082c0ec0.png"></a></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/8531/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user"><a class="text-dark" href="https://gorails.com/users/9229">Jesse Chavez</a></strong>
+            <span class="badge badge-warning text-sm mx-2">110 XP</span>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_8531"><time datetime="2016-10-30T03:15:13Z" data-local="time-ago" title="October 29, 2016 at 10:15pm CDT" aria-label="on Oct 29, 2016">on Oct 29, 2016</time></a></small>
+        </div>
+
+          <p>How do you prevent the numbers from "flickering" every time the page refreshes?</p>
+
+
+      </div>
+
+      <div class="replies">
+            <div>
+                <div class="mt-3">
+                  
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_8532">
+    <div class="d-none d-md-block"><a href="https://gorails.com/users/1"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/ce795239ba5dd2384fc2f88ffaff5451.jpeg"></a></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/8532/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user"><a class="text-dark" href="https://gorails.com/users/1">Chris Oliver</a></strong>
+            <span class="badge badge-warning text-sm mx-2">205,710 XP</span>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_8532"><time datetime="2016-11-01T16:25:23Z" data-local="time-ago" title="November 1, 2016 at 11:25am CDT" aria-label="on Nov 1, 2016">on Nov 1, 2016</time></a></small>
+        </div>
+
+          <p>Just render them in your navigation snippet so that they're already there when the page loads. It adds query time which slows down your page load, but won't make them appear later. The other option is to just style your CSS with that space already taken up so the view doesn't shift and cause your eye to look at it.</p>
+
+
+      </div>
+
+      <div class="replies">
+      </div>
+
+
+  </div>
+</div>
+
+                </div>
+            </div>
+      </div>
+
+      <ul class="list-inline">
+        <li class="list-inline-item">
+            <a class="text-muted" href="https://gorails.com/users/sign_in"><i class="fas fa-reply "></i> Reply</a>
+        </li>
+      </ul>
+
+      
+
+  </div>
+</div>
+
+    <hr>
+    
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_8533">
+    <div class="d-none d-md-block"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/860628d9a007d80b72581c22125eaf58.png"></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/8533/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user">Wassef Bouchrit</strong>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_8533"><time datetime="2016-12-13T15:18:27Z" data-local="time-ago" title="December 13, 2016 at 9:18am CST" aria-label="on Dec 13, 2016">on Dec 13, 2016</time></a></small>
+        </div>
+
+          <p>I wonder if this works like actioncable notification I have planted..because as I see you need to refresh the page in order to load the new notifications...</p>
+
+
+      </div>
+
+      <div class="replies">
+            <div>
+                <div class="mt-3">
+                  
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_11954">
+    <div class="d-none d-md-block"><a href="https://gorails.com/users/18152"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/c880a26049b66b156b0d489ff2e43aaf.jpeg"></a></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/11954/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user"><a class="text-dark" href="https://gorails.com/users/18152">Monroe Mann</a></strong>
+            <span class="badge badge-warning text-sm mx-2">5,430 XP</span>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_11954"><time datetime="2018-09-08T18:49:19Z" data-local="time-ago" title="September 8, 2018 at 1:49pm CDT" aria-label="on Sep 8, 2018">on Sep 8, 2018</time></a></small>
+        </div>
+
+          <p>I believe Chris created a newer video that shows how to do this using actioncable.</p>
+
+
+      </div>
+
+      <div class="replies">
+      </div>
+
+
+  </div>
+</div>
+
+                </div>
+                <div class="mt-3">
+                  
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_12423">
+    <div class="d-none d-md-block"><a href="https://gorails.com/users/13230"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/1016193aaa3bfa728aa0f5949896bffc.jpeg"></a></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/12423/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user"><a class="text-dark" href="https://gorails.com/users/13230">Ariel Wulkan</a></strong>
+            <span class="badge badge-warning text-sm mx-2">70 XP</span>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_12423"><time datetime="2018-11-20T20:54:49Z" data-local="time-ago" title="November 20, 2018 at 2:54pm CST" aria-label="on Nov 20, 2018">on Nov 20, 2018</time></a></small>
+        </div>
+
+          <p>Any ideas on solving this issue?</p>
+
+
+      </div>
+
+      <div class="replies">
+      </div>
+
+
+  </div>
+</div>
+
+                </div>
+            </div>
+      </div>
+
+      <ul class="list-inline">
+        <li class="list-inline-item">
+            <a class="text-muted" href="https://gorails.com/users/sign_in"><i class="fas fa-reply "></i> Reply</a>
+        </li>
+      </ul>
+
+      
+
+  </div>
+</div>
+
+    <hr>
+    
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_8534">
+    <div class="d-none d-md-block"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/6c12559423298611bdcdf146fe1f413b.png"></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/8534/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user">Bush</strong>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_8534"><time datetime="2017-01-27T22:51:58Z" data-local="time-ago" title="January 27, 2017 at 4:51pm CST" aria-label="on Jan 27, 2017">on Jan 27, 2017</time></a></small>
+        </div>
+
+          <p>Is there another way than checking the db every few seconds? Sounds like it could be taxing. Also I implemented this in a web app I am working on that uses React on the front end (via react rails) and there seems to be a few second delay before the notification appears. I guess moving the  logic from jQuery into React itself may help. I was just wondering if there are any other ways. Thank you.</p>
+
+
+      </div>
+
+      <div class="replies">
+            <div>
+                <div class="mt-3">
+                  
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_11953">
+    <div class="d-none d-md-block"><a href="https://gorails.com/users/18152"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/c880a26049b66b156b0d489ff2e43aaf.jpeg"></a></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/11953/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user"><a class="text-dark" href="https://gorails.com/users/18152">Monroe Mann</a></strong>
+            <span class="badge badge-warning text-sm mx-2">5,430 XP</span>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_11953"><time datetime="2018-09-08T18:45:17Z" data-local="time-ago" title="September 8, 2018 at 1:45pm CDT" aria-label="on Sep 8, 2018">on Sep 8, 2018</time></a></small>
+        </div>
+
+          <p>I have noticed this same issue.  The bell itself doesn't appear for about 2 seconds, and then 3 seconds later, the notification number appears...  If anyone has a fix, that would be great.</p>
+
+
+      </div>
+
+      <div class="replies">
+      </div>
+
+
+  </div>
+</div>
+
+                </div>
+            </div>
+      </div>
+
+      <ul class="list-inline">
+        <li class="list-inline-item">
+            <a class="text-muted" href="https://gorails.com/users/sign_in"><i class="fas fa-reply "></i> Reply</a>
+        </li>
+      </ul>
+
+      
+
+  </div>
+</div>
+
+    <hr>
+    
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_8536">
+    <div class="d-none d-md-block"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/ac7eae0380998b3cd352b381008f1acb.png"></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/8536/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user">Diana</strong>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_8536"><time datetime="2017-07-29T10:23:59Z" data-local="time-ago" title="July 29, 2017 at 5:23am CDT" aria-label="on Jul 29, 2017">on Jul 29, 2017</time></a></small>
+        </div>
+
+          <p>I have followed the steps in the tutorial, however, when i check the rails console, no notification is not being created when i create a comment (forum_thread) on a post (forum_post).</p>
+
+
+      </div>
+
+      <div class="replies">
+      </div>
+
+      <ul class="list-inline">
+        <li class="list-inline-item">
+            <a class="text-muted" href="https://gorails.com/users/sign_in"><i class="fas fa-reply "></i> Reply</a>
+        </li>
+      </ul>
+
+      
+
+  </div>
+</div>
+
+    <hr>
+    
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_8537">
+    <div class="d-none d-md-block"><a href="https://gorails.com/users/12758"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/1b69a554460396ec726e5f345371173a.jpeg"></a></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/8537/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user"><a class="text-dark" href="https://gorails.com/users/12758">Tolase Kelvin Adegbite</a></strong>
+            <span class="badge badge-warning text-sm mx-2">940 XP</span>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_8537"><time datetime="2017-12-13T20:35:59Z" data-local="time-ago" title="December 13, 2017 at 2:35pm CST" aria-label="on Dec 13, 2017">on Dec 13, 2017</time></a></small>
+        </div>
+
+          <p>Thanks for this course Chris. I'm trying to implement this to an app am building (I want to create the notifications for comments where the comment belongs to episode and episode belongs to story and genre)... When i checked out Notification.all in my console it outputted it but when i navigated to http://localhost:3000/notifications.json i got an error telling me that "undefined method `episode_path' for #&lt;#&lt;class:0x157f1538&gt;:0x15149e68&gt;"</p><p>Here is my index.json.jbuilder<br> <a href="https://uploads.disquscdn.com/images/08c2e949b83117b1d7d54aabd22dfc52cce2e55350748c626544b3011b08bbb8.jpg" rel="nofollow noopener" title="https://uploads.disquscdn.com/images/08c2e949b83117b1d7d54aabd22dfc52cce2e55350748c626544b3011b08bbb8.jpg">https://uploads.disquscdn.c...</a></p>
+
+
+      </div>
+
+      <div class="replies">
+      </div>
+
+      <ul class="list-inline">
+        <li class="list-inline-item">
+            <a class="text-muted" href="https://gorails.com/users/sign_in"><i class="fas fa-reply "></i> Reply</a>
+        </li>
+      </ul>
+
+      
+
+  </div>
+</div>
+
+    <hr>
+    
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_8538">
+    <div class="d-none d-md-block"><a href="https://gorails.com/users/1818"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/cfd85b1c08381799df2f3b2d04384386.jpeg"></a></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/8538/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user"><a class="text-dark" href="https://gorails.com/users/1818">Obed Lorisson</a></strong>
+            <span class="badge badge-warning text-sm mx-2">10 XP</span>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_8538"><time datetime="2018-01-14T03:52:15Z" data-local="time-ago" title="January 13, 2018 at 9:52pm CST" aria-label="on Jan 13, 2018">on Jan 13, 2018</time></a></small>
+        </div>
+
+          <p>i'm having this error "undefined method `underscore' for nil:NilClass" , i can't quite figure it out , Error happen ,when rendering the json template</p><p>  json.template render partial: "notifications/#{notification.notifiable_type.underscore.pluralize}/#{notification.action}", locals: {notification: notification}, formats: [:html]</p>
+
+
+      </div>
+
+      <div class="replies">
+      </div>
+
+      <ul class="list-inline">
+        <li class="list-inline-item">
+            <a class="text-muted" href="https://gorails.com/users/sign_in"><i class="fas fa-reply "></i> Reply</a>
+        </li>
+      </ul>
+
+      
+
+  </div>
+</div>
+
+    <hr>
+    
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_10231">
+    <div class="d-none d-md-block"><a href="https://gorails.com/users/15341"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/05d45f38e178f1c854938992de726299.jpeg"></a></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/10231/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user"><a class="text-dark" href="https://gorails.com/users/15341">Dennis Brown</a></strong>
+            <span class="badge badge-warning text-sm mx-2">1,210 XP</span>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_10231"><time datetime="2018-02-19T01:57:55Z" data-local="time-ago" title="February 18, 2018 at 7:57pm CST" aria-label="on Feb 18, 2018">on Feb 18, 2018</time></a></small>
+        </div>
+
+          <div>I did find myself having issues with the jQuery map method in the handleSuccess using Rails 5.1 (with jQuery). Instead I found the Ruby map works just fine:<br><br>
+</div><pre>items = data.map (notification) -&gt;
+  "&lt;li&gt;&lt;a class='dropdown-item' href='#{notification.<em>url</em>}'&gt;'#{notification.sender} #{notification.<em>action</em>} a #{notification.notifiable.<em>type</em>}'&lt;/a&gt;&lt;/li&gt;"</pre><div>
+<br><br>
+</div>
+
+
+      </div>
+
+      <div class="replies">
+      </div>
+
+      <ul class="list-inline">
+        <li class="list-inline-item">
+            <a class="text-muted" href="https://gorails.com/users/sign_in"><i class="fas fa-reply "></i> Reply</a>
+        </li>
+      </ul>
+
+      
+
+  </div>
+</div>
+
+    <hr>
+    
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_11361">
+    <div class="d-none d-md-block"><a href="https://gorails.com/users/12307"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/2c05c6388b339e0feab5439b77b0cdca.jpeg"></a></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/11361/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user"><a class="text-dark" href="https://gorails.com/users/12307">Rui Freitas</a></strong>
+            <span class="badge badge-warning text-sm mx-2">50 XP</span>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_11361"><time datetime="2018-06-12T11:14:53Z" data-local="time-ago" title="June 12, 2018 at 6:14am CDT" aria-label="on Jun 12, 2018">on Jun 12, 2018</time></a></small>
+        </div>
+
+          <div>Hey Chris, I was wondering how you would tackle the notification type in cases where the text you want to render isn't exactly the class name and there's more text that depends on the notifiable object. For example, let's say I want to have the following two notifications:<br><br>
+</div><ul>
+<li>"John D started following you"</li>
+<li>"Jane D sent you a friend request"</li>
+</ul><div>
+<br>I did a quick test and added a `notification_to_s` method to my `Follow` and `FriendRequest` models like so:<br><br>
+</div><pre># follow.rb
+  def notification_to_s
+    "following you"
+  end</pre><div><br></div><pre># friend_request.rb
+  def notification_to_s
+    "you a friend request"
+  end</pre><div>
+<br>And then adapted the jbuilder method like this:<br><br>
+</div><pre># index.json.jbuilder
+# ...
+  json.notifiable do
+    json.type notification.notifiable.notification_to_s
+  end</pre><div>
+<br>This doesn't seem as dynamic as your example. Can you think of a better way to do this?</div>
+
+
+      </div>
+
+      <div class="replies">
+      </div>
+
+      <ul class="list-inline">
+        <li class="list-inline-item">
+            <a class="text-muted" href="https://gorails.com/users/sign_in"><i class="fas fa-reply "></i> Reply</a>
+        </li>
+      </ul>
+
+      
+
+  </div>
+</div>
+
+    <hr>
+    
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_11845">
+    <div class="d-none d-md-block"><a href="https://gorails.com/users/18040"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/1cedf7d3d91fdad95b0ec5e3fe1b87e7.png"></a></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/11845/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user"><a class="text-dark" href="https://gorails.com/users/18040">Brandon McCulligh</a></strong>
+            <span class="badge badge-warning text-sm mx-2">10 XP</span>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_11845"><time datetime="2018-08-25T17:52:29Z" data-local="time-ago" title="August 25, 2018 at 12:52pm CDT" aria-label="on Aug 25, 2018">on Aug 25, 2018</time></a></small>
+        </div>
+
+          <p>Did you end up doing a react version of this? I am having a hard time integrating my redux module into the rails header.</p>
+
+
+      </div>
+
+      <div class="replies">
+      </div>
+
+      <ul class="list-inline">
+        <li class="list-inline-item">
+            <a class="text-muted" href="https://gorails.com/users/sign_in"><i class="fas fa-reply "></i> Reply</a>
+        </li>
+      </ul>
+
+      
+
+  </div>
+</div>
+
+    <hr>
+    
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_11879">
+    <div class="d-none d-md-block"><a href="https://gorails.com/users/18112"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/f5abb26d5f9b2727ecd193c5df19e677.jpeg"></a></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/11879/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user"><a class="text-dark" href="https://gorails.com/users/18112">Emanuel</a></strong>
+            <span class="badge badge-warning text-sm mx-2">10 XP</span>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_11879"><time datetime="2018-08-31T11:11:09Z" data-local="time-ago" title="August 31, 2018 at 6:11am CDT" aria-label="on Aug 31, 2018">on Aug 31, 2018</time></a></small>
+        </div>
+
+          <p>Hi Chris!</p>
+
+<p>I am trying to implement the notification feature and it works perfectly up to the point where I try to fetch the @notifications div in notifications.js.coffee file.</p>
+<div><pre><span></span><span>class</span> <span>Notifications</span>
+  <span>constructor</span><span>:</span> <span>-&gt;</span>
+    <span>@notifications</span> <span>=</span> <span>$</span><span>(</span><span>"[data-behavior='notifications']"</span><span>)</span>
+    <span>@setup</span><span>()</span>
+
+  <span>setup</span><span>:</span> <span>-&gt;</span>
+    <span>console</span><span>.</span><span>log</span><span>(</span><span>@notifications</span><span>)</span>
+
+  <span>jQuery</span> <span>-&gt;</span>
+    <span>new</span> <span>Notifications</span>
+</pre></div>
+<p>I know that the file loads because if I put an alert message it executes on page load. But when I do the code above it dont get anything consoled..</p>
+
+
+      </div>
+
+      <div class="replies">
+      </div>
+
+      <ul class="list-inline">
+        <li class="list-inline-item">
+            <a class="text-muted" href="https://gorails.com/users/sign_in"><i class="fas fa-reply "></i> Reply</a>
+        </li>
+      </ul>
+
+      
+
+  </div>
+</div>
+
+    <hr>
+    
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_11952">
+    <div class="d-none d-md-block"><a href="https://gorails.com/users/18152"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/c880a26049b66b156b0d489ff2e43aaf.jpeg"></a></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/11952/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user"><a class="text-dark" href="https://gorails.com/users/18152">Monroe Mann</a></strong>
+            <span class="badge badge-warning text-sm mx-2">5,430 XP</span>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_11952"><time datetime="2018-09-08T18:42:13Z" data-local="time-ago" title="September 8, 2018 at 1:42pm CDT" aria-label="on Sep 8, 2018">on Sep 8, 2018</time></a></small>
+        </div>
+
+          <p>Hi Chris!</p>
+
+<p>The notifications are working.  What you call threads, we call posts, and what you call posts, we call comments.</p>
+
+<p>Two issues:</p>
+
+<p>1) It only works when the json.url line is commented out:</p>
+<div><pre><span></span>json.url post_path(notification.notifiable.post, anchor: dom_id(notification.notifiable)) 
+</pre></div>
+<p>As soon I uncomment, notifications totally stop working--the number disappears from the bell, and the notification messages themselves also disappear.  Once I comment out the line again, the bell numbers return, and so do the notifications.  Thoughts on how to get that to work?  We definitely would like each notification to be linkable to that particular event.</p>
+
+<p>2) we are showing messages for both posts (post_path) and also comments (comment_path).  But how will index.json.builder know when to follow the post_path, and when to follow the comment_path?  And then again, once we add other notifiable events, like reaching a higher level, etc.?  </p>
+
+<p>Thanks very much!<br>
+-Monroe</p>
+
+
+      </div>
+
+      <div class="replies">
+            <div>
+                <div class="mt-3">
+                  
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_11955">
+    <div class="d-none d-md-block"><a href="https://gorails.com/users/1"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/ce795239ba5dd2384fc2f88ffaff5451.jpeg"></a></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/11955/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user"><a class="text-dark" href="https://gorails.com/users/1">Chris Oliver</a></strong>
+            <span class="badge badge-warning text-sm mx-2">205,710 XP</span>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_11955"><time datetime="2018-09-08T18:55:57Z" data-local="time-ago" title="September 8, 2018 at 1:55pm CDT" aria-label="on Sep 8, 2018">on Sep 8, 2018</time></a></small>
+        </div>
+
+          <p>If it works commented out, then you're probably throwing an error on that line. Read the logs to debug it. :)</p>
+
+
+      </div>
+
+      <div class="replies">
+      </div>
+
+
+  </div>
+</div>
+
+                </div>
+                <div class="mt-3">
+                  
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_11956">
+    <div class="d-none d-md-block"><a href="https://gorails.com/users/18152"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/c880a26049b66b156b0d489ff2e43aaf.jpeg"></a></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/11956/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user"><a class="text-dark" href="https://gorails.com/users/18152">Monroe Mann</a></strong>
+            <span class="badge badge-warning text-sm mx-2">5,430 XP</span>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_11956"><time datetime="2018-09-08T18:57:37Z" data-local="time-ago" title="September 8, 2018 at 1:57pm CDT" aria-label="on Sep 8, 2018">on Sep 8, 2018</time></a></small>
+        </div>
+
+          <p>Okay!  I'll try that. :D</p>
+
+
+      </div>
+
+      <div class="replies">
+      </div>
+
+
+  </div>
+</div>
+
+                </div>
+                <div class="mt-3">
+                  
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_11957">
+    <div class="d-none d-md-block"><a href="https://gorails.com/users/18152"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/c880a26049b66b156b0d489ff2e43aaf.jpeg"></a></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/11957/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user"><a class="text-dark" href="https://gorails.com/users/18152">Monroe Mann</a></strong>
+            <span class="badge badge-warning text-sm mx-2">5,430 XP</span>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_11957"><time datetime="2018-09-08T19:04:59Z" data-local="time-ago" title="September 8, 2018 at 2:04pm CDT" aria-label="on Sep 8, 2018">on Sep 8, 2018</time></a></small>
+        </div>
+
+          <p>This is the error in the rails console:</p>
+
+<p><a href="https://gyazo.com/c14ed47cb5fbe8dbf3cb7158c4865407" target="_blank" rel="noopener noreferrer nofollow">https://gyazo.com/c14ed47cb5fbe8dbf3cb7158c4865407</a></p>
+
+<p>Does this mean I forgot to create a post method somewhere?</p>
+
+
+      </div>
+
+      <div class="replies">
+      </div>
+
+
+  </div>
+</div>
+
+                </div>
+                <div class="mt-3">
+                  
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_11958">
+    <div class="d-none d-md-block"><a href="https://gorails.com/users/1"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/ce795239ba5dd2384fc2f88ffaff5451.jpeg"></a></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/11958/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user"><a class="text-dark" href="https://gorails.com/users/1">Chris Oliver</a></strong>
+            <span class="badge badge-warning text-sm mx-2">205,710 XP</span>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_11958"><time datetime="2018-09-08T19:16:39Z" data-local="time-ago" title="September 8, 2018 at 2:16pm CDT" aria-label="on Sep 8, 2018">on Sep 8, 2018</time></a></small>
+        </div>
+
+          <p>No, it says you tried to call the "post" method on a Post object. It's not a Comment, it's a Post.</p>
+
+
+      </div>
+
+      <div class="replies">
+      </div>
+
+
+  </div>
+</div>
+
+                </div>
+            </div>
+      </div>
+
+      <ul class="list-inline">
+        <li class="list-inline-item">
+            <a class="text-muted" href="https://gorails.com/users/sign_in"><i class="fas fa-reply "></i> Reply</a>
+        </li>
+      </ul>
+
+      
+
+  </div>
+</div>
+
+    <hr>
+    
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_11996">
+    <div class="d-none d-md-block"><a href="https://gorails.com/users/18319"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/92f90d15a5b31e874bf331d09f2f1bfe.png"></a></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/11996/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user"><a class="text-dark" href="https://gorails.com/users/18319">Joseph</a></strong>
+            <span class="badge badge-warning text-sm mx-2">10 XP</span>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_11996"><time datetime="2018-09-14T18:43:38Z" data-local="time-ago" title="September 14, 2018 at 1:43pm CDT" aria-label="on Sep 14, 2018">on Sep 14, 2018</time></a></small>
+        </div>
+
+          <p>Hi Chris, I'm learning alot from this tutorial. I really appreciate the throughness that you have for this tutorial. I am however, facing an issue where I am unable to retrieve the jQuery from the index page. My console is unable to detect anything from the console.log.</p>
+
+<p>Could you advise me what would be the possible scenario where I made a mistake?</p>
+
+
+      </div>
+
+      <div class="replies">
+            <div>
+                <div class="mt-3">
+                  
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_12323">
+    <div class="d-none d-md-block"><a href="https://gorails.com/users/18978"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/591b4f7a0a640b6a1d2a1360bfd5d653.jpeg"></a></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/12323/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user"><a class="text-dark" href="https://gorails.com/users/18978">Pedro Zavitoski</a></strong>
+            <span class="badge badge-warning text-sm mx-2">10 XP</span>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_12323"><time datetime="2018-11-05T18:16:18Z" data-local="time-ago" title="November 5, 2018 at 12:16pm CST" aria-label="on Nov 5, 2018">on Nov 5, 2018</time></a></small>
+        </div>
+
+          <p>Joseph, I had a similar issue, and solved it by adding a '//= require_tree' line at the application.js. </p>
+
+
+      </div>
+
+      <div class="replies">
+      </div>
+
+
+  </div>
+</div>
+
+                </div>
+            </div>
+      </div>
+
+      <ul class="list-inline">
+        <li class="list-inline-item">
+            <a class="text-muted" href="https://gorails.com/users/sign_in"><i class="fas fa-reply "></i> Reply</a>
+        </li>
+      </ul>
+
+      
+
+  </div>
+</div>
+
+    <hr>
+    
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_12264">
+    <div class="d-none d-md-block"><a href="https://gorails.com/users/13230"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/1016193aaa3bfa728aa0f5949896bffc.jpeg"></a></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/12264/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user"><a class="text-dark" href="https://gorails.com/users/13230">Ariel Wulkan</a></strong>
+            <span class="badge badge-warning text-sm mx-2">70 XP</span>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_12264"><time datetime="2018-10-24T23:02:09Z" data-local="time-ago" title="October 24, 2018 at 6:02pm CDT" aria-label="on Oct 24, 2018">on Oct 24, 2018</time></a></small>
+        </div>
+
+          <p>Having trouble implementing it with Bulma. Any ideas?</p>
+
+
+      </div>
+
+      <div class="replies">
+      </div>
+
+      <ul class="list-inline">
+        <li class="list-inline-item">
+            <a class="text-muted" href="https://gorails.com/users/sign_in"><i class="fas fa-reply "></i> Reply</a>
+        </li>
+      </ul>
+
+      
+
+  </div>
+</div>
+
+    <hr>
+    
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_12312">
+    <div class="d-none d-md-block"><a href="https://gorails.com/users/18915"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/10e86f2f8b9ac1e8839ebda176463296.png"></a></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/12312/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user"><a class="text-dark" href="https://gorails.com/users/18915">raji</a></strong>
+            <span class="badge badge-warning text-sm mx-2">10 XP</span>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_12312"><time datetime="2018-11-01T07:00:21Z" data-local="time-ago" title="November 1, 2018 at 2:00am CDT" aria-label="on Nov 1, 2018">on Nov 1, 2018</time></a></small>
+        </div>
+
+          <p>Hi,</p>
+
+<p>this is working good for me. but in other localhost applications also calling /notifications.json.<br>
+And getting error ActionController::RoutingError (No route matches [GET] "/notifications.json").</p>
+
+
+      </div>
+
+      <div class="replies">
+      </div>
+
+      <ul class="list-inline">
+        <li class="list-inline-item">
+            <a class="text-muted" href="https://gorails.com/users/sign_in"><i class="fas fa-reply "></i> Reply</a>
+        </li>
+      </ul>
+
+      
+
+  </div>
+</div>
+
+    <hr>
+    
+<div class="forum_post d-flex flex-row media mt-5" id="forum_post_12422">
+    <div class="d-none d-md-block"><a href="https://gorails.com/users/13230"><img class="rounded avatar" height="36" width="36" src="./In-App Navbar Notifications (Example) _ GoRails_files/1016193aaa3bfa728aa0f5949896bffc.jpeg"></a></div>
+
+  <div class="ml-3 min-width-0 flex-grow-1">
+      <div class="media-body ">
+        <div class="h6 mt-0">
+          <div class="dropdown float-right">
+            <a class="dropdown-toggle text-muted" href="https://gorails.com/episodes/in-app-navbar-notifications#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" data-confirm="Are you sure you want to mark this post as spam?" rel="nofollow" data-method="put" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails/forum_posts/12422/report">Report spam</a>
+            </div>
+          </div>
+
+            <strong class="forum-post-user"><a class="text-dark" href="https://gorails.com/users/13230">Ariel Wulkan</a></strong>
+            <span class="badge badge-warning text-sm mx-2">70 XP</span>
+          <small class="text-sm text-muted"><a class="text-muted" href="https://gorails.com/forum/in-app-navbar-notifications-gorails-gorails#forum_post_12422"><time datetime="2018-11-20T20:50:52Z" data-local="time-ago" title="November 20, 2018 at 2:50pm CST" aria-label="on Nov 20, 2018">on Nov 20, 2018</time></a></small>
+        </div>
+
+          <p>It seems to be a problem when following the links on the notifications dropdpwn (actually following all the links in the app). *<em>When following the links the notifications feature doesn't work anymore :( Only on refreshing the page! *</em><br>
+Any ideas on solving this issue?<br>
+Cheers</p>
+
+
+      </div>
+
+      <div class="replies">
+      </div>
+
+      <ul class="list-inline">
+        <li class="list-inline-item">
+            <a class="text-muted" href="https://gorails.com/users/sign_in"><i class="fas fa-reply "></i> Reply</a>
+        </li>
+      </ul>
+
+      
+
+  </div>
+</div>
+
+    <hr>
+
+  
+  <div class="text-center">
+  <a class="btn btn-outline-primary btn-circle btn-icon mx-2" href="https://gorails.com/users/sign_in">
+    <span class="btn-inner--text">Login</span>
+    <span class="btn-inner--icon"><i class="fas fa-angle-right"></i></span>
+</a>  or
+  <a class="btn btn-primary btn-circle btn-icon mx-2" href="https://gorails.com/users/sign_up">
+    <span class="btn-inner--text">Create An Account</span>
+    <span class="btn-inner--icon"><i class="fas fa-angle-right"></i></span>
+</a>  to join the conversation.
+</div>
+
+</div>
+</div>
+</div>
+<div class="col-md-4">
+<div class="card episode-actions shadow shadow-lg--hover">
+<div class="card-body">
+<h5 class="page-header"><a class="text-dark underline--hover" href="https://gorails.com/series/common-features">Common Features Series</a></h5>
+<div>
+<i class="fas fa-check-circle-o text-muted"></i>
+<small class="text-dark"><strong class="text-muted" style="display: inline-block; min-width: 1.25rem">1.</strong>
+<a class="text-muted underline--hover" data-behavior="episode-complete" data-episode-id="24" href="https://gorails.com/episodes/liking-posts?autoplay=1">
+Liking Posts
+</a> </small>
+</div>
+<div>
+<i class="fas fa-check-circle-o text-muted"></i>
+<small class="text-dark"><strong class="text-muted" style="display: inline-block; min-width: 1.25rem">2.</strong>
+<a class="text-muted underline--hover" data-behavior="episode-complete" data-episode-id="32" href="https://gorails.com/episodes/markdown-emoji-with-html-pipeline-gem?autoplay=1">
+Markdown and Emoji with the html-pipeline gem
+</a> </small>
+</div>
+<div>
+<i class="fas fa-check-circle-o text-muted"></i>
+<small class="text-dark"><strong class="text-muted" style="display: inline-block; min-width: 1.25rem">3.</strong>
+<a class="text-muted underline--hover" data-behavior="episode-complete" data-episode-id="36" href="https://gorails.com/episodes/comments-with-polymorphic-associations?autoplay=1">
+Comments With Polymorphic Associations
+</a> </small>
+</div>
+<div>
+<i class="fas fa-check-circle-o text-muted"></i>
+<small class="text-dark"><strong class="text-muted" style="display: inline-block; min-width: 1.25rem">4.</strong>
+<a class="text-muted underline--hover" data-behavior="episode-complete" data-episode-id="70" href="https://gorails.com/episodes/activity-feed-from-scratch?autoplay=1">
+Activity Feed From Scratch
+</a> </small>
+</div>
+<div>
+<i class="fas fa-check-circle-o text-muted"></i>
+<small class="text-dark"><strong class="text-muted" style="display: inline-block; min-width: 1.25rem">5.</strong>
+<a class="text-muted underline--hover" data-behavior="episode-complete" data-episode-id="78" href="https://gorails.com/episodes/at-mentions?autoplay=1">
+@Mentions, Autocomplete, Notifications, and Links
+</a> </small>
+</div>
+<div>
+<i class="fas fa-check-circle-o text-muted"></i>
+<small class="text-dark"><strong class="text-muted" style="display: inline-block; min-width: 1.25rem">6.</strong>
+<a class="text-muted underline--hover" data-behavior="episode-complete" data-episode-id="86" href="https://gorails.com/episodes/scheduling-posts?autoplay=1">
+Scheduling Posts
+</a> </small>
+</div>
+<div>
+<i class="fas fa-check-circle-o text-muted"></i>
+<small class="text-dark"><strong class="text-muted" style="display: inline-block; min-width: 1.25rem">7.</strong>
+<a class="text-muted underline--hover" data-behavior="episode-complete" data-episode-id="96" href="https://gorails.com/episodes/in-app-navbar-notifications?autoplay=1">
+In-App Navbar Notifications
+</a> </small>
+</div>
+<div>
+<i class="fas fa-check-circle-o text-muted"></i>
+<small class="text-dark"><strong class="text-muted" style="display: inline-block; min-width: 1.25rem">8.</strong>
+<a class="text-muted underline--hover" data-behavior="episode-complete" data-episode-id="119" href="https://gorails.com/episodes/reposting-retweeting-reblogging?autoplay=1">
+Repost / Retweet / Reblog
+</a> </small>
+</div>
+<div>
+<i class="fas fa-check-circle-o text-muted"></i>
+<small class="text-dark"><strong class="text-muted" style="display: inline-block; min-width: 1.25rem">9.</strong>
+<a class="text-muted underline--hover" data-behavior="episode-complete" data-episode-id="123" href="https://gorails.com/episodes/message-templates?autoplay=1">
+Message Templates
+</a> </small>
+</div>
+<div>
+<i class="fas fa-check-circle-o text-muted"></i>
+<small class="text-dark"><strong class="text-muted" style="display: inline-block; min-width: 1.25rem">10.</strong>
+<a class="text-muted underline--hover" data-behavior="episode-complete" data-episode-id="125" href="https://gorails.com/episodes/improving-in-app-notifications?autoplay=1">
+Improving In-App Notifications
+</a> </small>
+</div>
+<div>
+<i class="fas fa-check-circle-o text-muted"></i>
+<small class="text-dark"><strong class="text-muted" style="display: inline-block; min-width: 1.25rem">11.</strong>
+<a class="text-muted underline--hover" data-behavior="episode-complete" data-episode-id="172" href="https://gorails.com/episodes/devise-masquerade?autoplay=1">
+Devise Masquerade as another User
+</a> </small>
+</div>
+<div>
+<i class="fas fa-check-circle-o text-muted"></i>
+<small class="text-dark"><strong class="text-muted" style="display: inline-block; min-width: 1.25rem">12.</strong>
+<a class="text-muted underline--hover" data-behavior="episode-complete" data-episode-id="180" href="https://gorails.com/episodes/select-or-create-with-selectize-js?autoplay=1">
+Select Or Create Field With Selectize.js
+</a> </small>
+</div>
+<div>
+<i class="fas fa-check-circle-o text-muted"></i>
+<small class="text-dark"><strong class="text-muted" style="display: inline-block; min-width: 1.25rem">13.</strong>
+<a class="text-muted underline--hover" data-behavior="episode-complete" data-episode-id="193" href="https://gorails.com/episodes/preferences-settings-with-activerecord-store?autoplay=1">
+Preferences &amp; Settings with ActiveRecord::Store
+</a> </small>
+</div>
+<div>
+<i class="fas fa-check-circle-o text-muted"></i>
+<small class="text-dark"><strong class="text-muted" style="display: inline-block; min-width: 1.25rem">14.</strong>
+<a class="text-muted underline--hover" data-behavior="episode-complete" data-episode-id="194" href="https://gorails.com/episodes/global-autocomplete-search?autoplay=1">
+Global Autocomplete Search
+</a> </small>
+</div>
+<div>
+<i class="fas fa-check-circle-o text-muted"></i>
+<small class="text-dark"><strong class="text-muted" style="display: inline-block; min-width: 1.25rem">15.</strong>
+<a class="text-muted underline--hover" data-behavior="episode-complete" data-episode-id="196" href="https://gorails.com/episodes/charts-with-chartkick-and-groupdate?autoplay=1">
+Charts with Chartkick and Groupdate
+</a> </small>
+</div>
+<div>
+<i class="fas fa-check-circle-o text-muted"></i>
+<small class="text-dark"><strong class="text-muted" style="display: inline-block; min-width: 1.25rem">16.</strong>
+<a class="text-muted underline--hover" data-behavior="episode-complete" data-episode-id="197" href="https://gorails.com/episodes/analytics-with-segment?autoplay=1">
+Analytics with Segment
+</a> </small>
+</div>
+<div>
+<i class="fas fa-check-circle-o text-muted"></i>
+<small class="text-dark"><strong class="text-muted" style="display: inline-block; min-width: 1.25rem">17.</strong>
+<a class="text-muted underline--hover" data-behavior="episode-complete" data-episode-id="198" href="https://gorails.com/episodes/internal-metrics-with-ahoy-and-blazer?autoplay=1">
+Tracking Metrics with Ahoy and Blazer
+</a> </small>
+</div>
+<div>
+<i class="fas fa-check-circle-o text-muted"></i>
+<small class="text-dark"><strong class="text-muted" style="display: inline-block; min-width: 1.25rem">18.</strong>
+<a class="text-muted underline--hover" data-behavior="episode-complete" data-episode-id="209" href="https://gorails.com/episodes/sortable-drag-and-drop?autoplay=1">
+Sortable Drag and Drop
+</a> </small>
+</div>
+<div>
+<i class="fas fa-check-circle-o text-muted"></i>
+<small class="text-dark"><strong class="text-muted" style="display: inline-block; min-width: 1.25rem">19.</strong>
+<a class="text-muted underline--hover" data-behavior="episode-complete" data-episode-id="211" href="https://gorails.com/episodes/trix-editor?autoplay=1">
+Using the Trix Editor plus File Upload Attachments
+</a> </small>
+</div>
+<div>
+<i class="fas fa-check-circle-o text-muted"></i>
+<small class="text-dark"><strong class="text-muted" style="display: inline-block; min-width: 1.25rem">20.</strong>
+<a class="text-muted underline--hover" data-behavior="episode-complete" data-episode-id="213" href="https://gorails.com/episodes/administrate-custom-fields?autoplay=1">
+Administrate Custom Fields and the Trix Editor
+</a> </small>
+</div>
+<div>
+<i class="fas fa-check-circle-o text-muted"></i>
+<small class="text-dark"><strong class="text-muted" style="display: inline-block; min-width: 1.25rem">21.</strong>
+<a class="text-muted underline--hover" data-behavior="episode-complete" data-episode-id="214" href="https://gorails.com/episodes/inbound-email-with-rails?autoplay=1">
+Handling Inbound Email Parsing with Rails
+</a> </small>
+</div>
+<div>
+<i class="fas fa-check-circle-o text-muted"></i>
+<small class="text-dark"><strong class="text-muted" style="display: inline-block; min-width: 1.25rem">22.</strong>
+<a class="text-muted underline--hover" data-behavior="episode-complete" data-episode-id="216" href="https://gorails.com/episodes/two-factor-auth-with-devise?autoplay=1">
+Two Factor Authentication With Devise
+</a> </small>
+</div>
+<div>
+<i class="fas fa-check-circle-o text-muted"></i>
+<small class="text-dark"><strong class="text-muted" style="display: inline-block; min-width: 1.25rem">23.</strong>
+<a class="text-muted underline--hover" data-behavior="episode-complete" data-episode-id="217" href="https://gorails.com/episodes/rails-error-tracking-with-errbit?autoplay=1">
+Error Tracking with Errbit
+</a> </small>
+</div>
+<div>
+<i class="fas fa-check-circle-o text-muted"></i>
+<small class="text-dark"><strong class="text-muted" style="display: inline-block; min-width: 1.25rem">24.</strong>
+<a class="text-muted underline--hover" data-behavior="episode-complete" data-episode-id="218" href="https://gorails.com/episodes/ab-split-testing?autoplay=1">
+A/B Split Testing with the Split gem
+</a> </small>
+</div>
+<div>
+<i class="fas fa-check-circle-o text-muted"></i>
+<small class="text-dark"><strong class="text-muted" style="display: inline-block; min-width: 1.25rem">25.</strong>
+<a class="text-muted underline--hover" data-behavior="episode-complete" data-episode-id="228" href="https://gorails.com/episodes/handle-404-using-rescue_from?autoplay=1">
+Handle 404s Better Using Rescue_from
+</a> </small>
+</div>
+<div>
+<i class="fas fa-check-circle-o text-muted"></i>
+<small class="text-dark"><strong class="text-muted" style="display: inline-block; min-width: 1.25rem">26.</strong>
+<a class="text-muted underline--hover" data-behavior="episode-complete" data-episode-id="232" href="https://gorails.com/episodes/undo-sending-button-like-gmail?autoplay=1">
+Undo Sending Button like GMail
+</a> </small>
+</div>
+<div>
+<i class="fas fa-check-circle-o text-muted"></i>
+<small class="text-dark"><strong class="text-muted" style="display: inline-block; min-width: 1.25rem">27.</strong>
+<a class="text-muted underline--hover" data-behavior="episode-complete" data-episode-id="262" href="https://gorails.com/episodes/auto-detect-user-time-zones-in-rails?autoplay=1">
+Auto-detect User Time Zones in Rails
+</a> </small>
+</div>
+<div>
+<i class="fas fa-check-circle-o text-muted"></i>
+<small class="text-dark"><strong class="text-muted" style="display: inline-block; min-width: 1.25rem">28.</strong>
+<a class="text-muted underline--hover" data-behavior="episode-complete" data-episode-id="260" href="https://gorails.com/episodes/referral-program-from-scratch?autoplay=1">
+User Referral Program From Scratch
+</a> </small>
+</div>
+<div>
+<i class="fas fa-check-circle-o text-muted"></i>
+<small class="text-dark"><strong class="text-muted" style="display: inline-block; min-width: 1.25rem">29.</strong>
+<a class="text-muted underline--hover" data-behavior="episode-complete" data-episode-id="263" href="https://gorails.com/episodes/pagination-with-pagy-gem?autoplay=1">
+How to Add Pagination with Pagy
+</a> </small>
+</div>
+<div>
+<i class="fas fa-check-circle-o text-muted"></i>
+<small class="text-dark"><strong class="text-muted" style="display: inline-block; min-width: 1.25rem">30.</strong>
+<a class="text-muted underline--hover" data-behavior="episode-complete" data-episode-id="269" href="https://gorails.com/episodes/name-of-person?autoplay=1">
+Handling First &amp; Last Name with the name_of_person gem
+</a> </small>
+</div>
+<div>
+<i class="fas fa-check-circle-o text-muted"></i>
+<small class="text-dark"><strong class="text-muted" style="display: inline-block; min-width: 1.25rem">31.</strong>
+<a class="text-muted underline--hover" data-behavior="episode-complete" data-episode-id="274" href="https://gorails.com/episodes/user-avatars-with-rails-active-storage?autoplay=1">
+User Avatars with ActiveStorage
+</a> </small>
+</div>
+<div>
+<i class="fas fa-check-circle-o text-muted"></i>
+<small class="text-dark"><strong class="text-muted" style="display: inline-block; min-width: 1.25rem">32.</strong>
+<a class="text-muted underline--hover" data-behavior="episode-complete" data-episode-id="283" href="https://gorails.com/episodes/autosave-draft-records?autoplay=1">
+Autosave Draft Records - Part 1
+</a> </small>
+</div>
+<div>
+<i class="fas fa-check-circle-o text-muted"></i>
+<small class="text-dark"><strong class="text-muted" style="display: inline-block; min-width: 1.25rem">33.</strong>
+<a class="text-muted underline--hover" data-behavior="episode-complete" data-episode-id="284" href="https://gorails.com/episodes/autosave-draft-records-part-2?autoplay=1">
+Autosave Draft Records - Part 2
+</a> </small>
+</div>
+<div>
+<i class="fas fa-check-circle-o text-muted"></i>
+<small class="text-dark"><strong class="text-muted" style="display: inline-block; min-width: 1.25rem">34.</strong>
+<a class="text-muted underline--hover" data-behavior="episode-complete" data-episode-id="291" href="https://gorails.com/episodes/user-onboarding-progress-bar?autoplay=1">
+User Onboarding Progress Bar
+</a> </small>
+</div>
+<div>
+<i class="fas fa-check-circle-o text-muted"></i>
+<small class="text-dark"><strong class="text-muted" style="display: inline-block; min-width: 1.25rem">35.</strong>
+<a class="text-muted underline--hover" data-behavior="episode-complete" data-episode-id="309" href="https://gorails.com/episodes/optimistic-locking-with-rails?autoplay=1">
+Preventing Conflicts with Optimistic Locking
+</a> </small>
+</div>
+<div>
+<i class="fas fa-check-circle-o text-muted"></i>
+<small class="text-dark"><strong class="text-muted" style="display: inline-block; min-width: 1.25rem">36.</strong>
+<a class="text-muted underline--hover" data-behavior="episode-complete" data-episode-id="310" href="https://gorails.com/episodes/handle-race-conditions-with-pessimistic-locking?autoplay=1">
+Handle Race Conditions with Pessimistic Locking
+</a> </small>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<section class="slice slice-lg bg-dark mt-5">
+<span class="tongue tongue-top"><i class="far fa-angle-down"></i></span>
+<div class="container">
+<script src="./In-App Navbar Notifications (Example) _ GoRails_files/ck.5.js"></script>
+<div class="mb-md text-center">
+<h3 data-element="header" class="heading h3 text-white">Subscribe to the newsletter</h3>
+<div class="fluid-paragraph text-center mt-4">
+<p data-element="subheader" class="lead lh-180 text-muted">Join 22,346+ developers who get early access to new screencasts, articles, guides, updates, and more.</p>
+</div>
+</div>
+<div class="row justify-content-center">
+<div class="col-lg-8">
+<form action="https://app.convertkit.com/forms/947399/subscriptions" method="post" data-sv-form="947399" data-uid="24c30e2af0" data-format="inline" data-version="5" data-options="{&quot;settings&quot;:{&quot;after_subscribe&quot;:{&quot;action&quot;:&quot;message&quot;,&quot;success_message&quot;:&quot;Thanks for subscribing!&quot;,&quot;redirect_url&quot;:&quot;&quot;},&quot;modal&quot;:{&quot;trigger&quot;:null,&quot;scroll_percentage&quot;:null,&quot;timer&quot;:null,&quot;devices&quot;:null,&quot;show_once_every&quot;:null},&quot;recaptcha&quot;:{&quot;enabled&quot;:false},&quot;return_visitor&quot;:{&quot;action&quot;:&quot;hide&quot;,&quot;custom_content&quot;:null},&quot;slide_in&quot;:{&quot;display_in&quot;:null,&quot;trigger&quot;:null,&quot;scroll_percentage&quot;:null,&quot;timer&quot;:null,&quot;devices&quot;:null,&quot;show_once_every&quot;:null}}}" min-width="400 500 600 700">
+<div data-element="fields">
+<ul class="text-danger" data-element="errors" data-group="alert"></ul>
+<div class="row">
+<div class="col-md-6">
+<div class="form-group">
+<input aria-label="First Name" name="fields[first_name]" required="" placeholder="First Name" type="text" class="form-control form-control-lg">
+</div>
+</div>
+<div class="col-md-6">
+<div class="form-group">
+<input name="email_address" placeholder="Email Address" required="" type="text" class="form-control form-control-lg">
+</div>
+</div>
+</div>
+<div class="form-group">
+<p class="text-center font-italic">By clicking this button, you agree to the GoRails <a class="underline text-muted" target="_blank" href="https://gorails.com/terms">Terms of Service</a> and <a class="underline text-muted" target="_blank" href="https://gorails.com/privacy">Privacy Policy</a>.</p>
+<button data-element="submit" class="btn btn-lg btn-block btn-primary btn-icon">
+<div class="formkit-spinner">
+<div></div>
+<div></div>
+<div></div>
+</div>
+<span>Subscribe</span>
+</button>
+</div>
+</div>
+<div class="mt-5 text-center font-weight-bold">More of a social being? We're also on <a class="underline text-muted" target="_blank" href="https://twitter.com/gorails">Twitter</a> and <a class="underline text-muted" target="_blank" href="https://youtube.com/gorailstv">YouTube</a>.<p></p>
+
+</div></form>
+</div>
+</div>
+</div></section>
+<footer class="footer footer-light bg-white">
+<div class="container">
+<div class="row pt-md">
+<div class="col-lg-4 mb-5 mb-lg-0">
+<a href="https://gorails.com/"><img data-src="https://d2i2nj5el4wq1j.cloudfront.net/assets/logo-603a6fca4061e4f05b3c6aa366499601ed24e78bc2becd559fed2ddbb1b7fb33.svg" class="mb-3" style="max-height:24px" src="./In-App Navbar Notifications (Example) _ GoRails_files/logo-603a6fca4061e4f05b3c6aa366499601ed24e78bc2becd559fed2ddbb1b7fb33.svg"></a>
+<p class="text-sm">Ruby on Rails guides, screencasts, and tutorials for web developers learning Ruby, Rails, Javascript, Turbolinks, Stimulus.js, Vue.js, and more.</p>
+<div class="copyright"><small>Icons by <a target="_blank" rel="noopener noreferrer" href="https://icons8.com/">Icons8</a></small></div>
+</div>
+<div class="col-lg-2 col-6 col-sm-4 ml-lg-auto mb-5 mb-lg-0">
+<h6 class="heading mb-3">Platform</h6>
+<ul class="list-unstyled">
+<li><a href="https://gorails.com/pricing">Pricing</a></li>
+<li><a href="https://gorails.com/testimonials">Testimonials</a></li>
+<li><a href="https://gorails.com/tool_categories">Rails Tools</a></li>
+<li><a href="https://gorails.com/blog">Blog</a></li>
+</ul>
+</div>
+<div class="col-lg-2 col-6 col-sm-4 mb-5 mb-lg-0">
+<h6 class="heading mb-3">Extras</h6>
+<ul class="list-unstyled text-small">
+<li><a target="_blank" rel="noopener" href="https://hatchbox.io/">Deploy Rails</a></li>
+<li><a target="_blank" rel="noopener" href="https://courses.gorails.com/">Courses</a></li>
+<li><a target="_blank" rel="noopener" href="https://remoteruby.transistor.fm/?utm_source=gorails&amp;utm_medium=homepage">Podcast</a></li>
+<li><a target="_blank" rel="noopener noreferrer" href="http://gorails.storenvy.com/">T-Shirts</a></li>
+</ul>
+</div>
+<div class="col-lg-2 col-sm-4 mb-5 mb-lg-0">
+<h6 class="heading mb-3">Company</h6>
+<ul class="list-unstyled">
+<li><a target="_blank" rel="noopener" href="https://gorails.uservoice.com/forums/259979-general">Support</a></li>
+<li><a href="https://gorails.com/terms">Terms</a></li>
+<li><a href="https://gorails.com/privacy">Privacy</a></li>
+<li><a href="https://gorails.com/about">About</a></li>
+</ul>
+</div>
+</div>
+<div class="row align-items-center justify-content-md-between py-4 mt-4 delimiter-top">
+<div class="col-md-6">
+<div class="copyright text-sm font-weight-bold text-center text-md-left">
+© 2019 <a href="https://gorails.com/" class="font-weight-bold" target="_blank">GoRails, LLC</a>. All rights reserved.
+</div>
+</div>
+<div class="col-md-6">
+<ul class="nav justify-content-center justify-content-md-end mt-3 mt-md-0">
+<li class="nav-item">
+<a class="nav-link" href="https://github.com/gorails-screencasts" target="_blank">
+<i class="fab fa-github"></i>
+</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="https://twitter.com/gorails" target="_blank">
+<i class="fab fa-twitter"></i>
+</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="https://www.facebook.com/gorails" target="_blank">
+<i class="fab fa-facebook"></i>
+</a>
+</li>
+ <li class="nav-item">
+<a class="nav-link" href="https://www.youtube.com/gorailstv" target="_blank">
+<i class="fab fa-youtube"></i>
+</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</footer>
+<script>
+  (function(i,s,o,g,r,a,m){i['ProfitWellObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m);
+  })(window,document,'script','https://dna8twue3dlxq.cloudfront.net/js/profitwell.js','profitwell');
+  profitwell('auth_token', '631ab5d1fb3171ff43ec050548d320b7'); // Your unique Profitwell public API token
+</script>
+
+<script>
+document.addEventListener("turbolinks:load", function() {
+var imgDefer = document.getElementsByTagName('img');
+for (var i=0; i<imgDefer.length; i++) {
+if(imgDefer[i].getAttribute('data-src')) {
+imgDefer[i].setAttribute('src',imgDefer[i].getAttribute('data-src'));
+} } });
+</script>
+
+
+<iframe frameborder="0" allowtransparency="true" scrolling="no" name="__privateStripeMetricsController0" allowpaymentrequest="true" src="./In-App Navbar Notifications (Example) _ GoRails_files/outer.html" aria-hidden="true" tabindex="-1" style="border: none !important; margin: 0px !important; padding: 0px !important; width: 1px !important; min-width: 100% !important; overflow: hidden !important; display: block !important; visibility: hidden !important; position: fixed !important; height: 1px !important; pointer-events: none !important; user-select: none !important;"></iframe></body></html>

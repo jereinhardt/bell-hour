@@ -16,3 +16,6 @@
 // const imagePath = (name) => images(name, true)
 
 import 'bootstrap';
+import Notifications from '../plugins/notifications';
+
+let x = new Notifications()

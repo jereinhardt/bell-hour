@@ -19,6 +19,7 @@ class StudentsController < ApplicationController
 
   def take
     #current user takes student from other user(teacher)
+    Notification.create(recipient: @student.with_teacher, faculty: current_user, action: "took", notifiable: @student)
     @student.update(previously_with_id: @student.with_teacher_id, with_teacher_id: current_user.id)
     redirect_to student_path(@student.id)
   end
@@ -37,7 +38,7 @@ class StudentsController < ApplicationController
 
   def dismiss
     #with_teacher dismisses student from school at the end of the day (present == false)
-    @student.update(present: false)
+    @student.update(present: false, with_teacher_id: @student.teacher)
     redirect_to student_path(@student.id)
   end
 

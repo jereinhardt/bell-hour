@@ -40,6 +40,11 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       resources :users, only: [ :index ]
+      resources :notifications, only: [ :index ] do
+        collection do
+          post :mark_as_read
+        end
+      end
     end
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

@@ -2,7 +2,7 @@
   <h2>Present:</h2>
   <div class="holder">
     <% @user.students.each do |student| %>
-      <% if student.with_teacher_id == @user.id && student.present %>
+      <% if student.with_teacher == @user && student.present %>
         <div class="thumbnail">
           <%= image_tag student.photo, alt: "student picture", class: "avatar-large" %>
           <p><%= link_to "#{student.first_name} #{student.last_name}", student_path(student.id) %></p>
