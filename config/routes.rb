@@ -22,8 +22,6 @@ Rails.application.routes.draw do
       patch :take
       patch :dismiss
       patch :mark_present
-      patch :give_back
-      patch :give_to_teacher
     end
     collection do
       put :take_attendance
@@ -39,7 +37,6 @@ Rails.application.routes.draw do
   # [...]
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      resources :users, only: [ :index ]
       resources :notifications, only: [ :index ] do
         collection do
           post :mark_as_read

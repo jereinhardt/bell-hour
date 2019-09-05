@@ -1,4 +1,5 @@
 class DismissalTypesController < ApplicationController
+
   def dismiss_type_with
     set_dt
     current_user.school.students.each do |student|
@@ -13,6 +14,7 @@ class DismissalTypesController < ApplicationController
 
   def set_dt
     @dt = DismissalType.find(params[:id])
+    authorize @dt
   end
 
 

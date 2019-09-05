@@ -1,6 +1,6 @@
 class DepartmentsController < ApplicationController
   def index
-    @departments = Department.all
+    @departments = policy_scope(Department) #.order(id: :asc) <-- example
   end
 
   def show
@@ -11,5 +11,6 @@ class DepartmentsController < ApplicationController
 
   def set_department
     @department = Department.find(params[:id])
+    authorize @department
   end
 end

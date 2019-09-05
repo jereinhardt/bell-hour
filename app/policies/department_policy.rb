@@ -1,11 +1,11 @@
 class DepartmentPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      scope.all
+      scope.where(:school => user.school)
     end
   end
 
-  def index?
-    user.guardian ? false : true
+  def show?
+    record.school == user.school
   end
 end

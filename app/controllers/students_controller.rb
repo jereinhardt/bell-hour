@@ -2,11 +2,12 @@ class StudentsController < ApplicationController
   before_action :set_student, except: [:index, :take_attendance]
 
   def index
-    if params[:query].present?
-      @students = Student.search_by_name(params[:query])
-    else
-      @students = Student.all
-    end
+    students = policy_scope(Student)
+      if params[:query].present?
+        @students = students.search_by_name(params[:query])
+      else
+        @students = []
+      end
   end
 
   def show
@@ -15,25 +16,6 @@ class StudentsController < ApplicationController
 
   def update
     @student.update(student_params)
-  end
-
-  def take
-    #current user takes student from other user(teacher)
-    Notification.create(recipient: @student.with_teacher, faculty: current_user, action: "took", notifiable: @student)
-    @student.update(previously_with_id: @student.with_teacher_id, with_teacher_id: current_user.id)
-    redirect_to student_path(@student.id)
-  end
-
-  def give_back
-    #current user gives student back to previous teacher
-    @student.update(with_teacher_id: @student.previously_with_id, previously_with_id: current_user.id)
-    redirect_to student_path(@student.id)
-  end
-
-  def give_to_teacher
-    #current user gives student back to previous teacher
-    @student.update(with_teacher_id: @student.teacher.id, previously_with_id: current_user.id)
-    redirect_to student_path(@student.id)
   end
 
   def dismiss
@@ -48,8 +30,20 @@ class StudentsController < ApplicationController
   end
 
   def take_attendance
-    Student.where(id: params[:student_ids]).update_all(present: true)
+    @students = policy_scope(Student).where(id: params[:student_ids])
+    @students.each do |student|
+      student.present == false ? student.update(present: true) : nil
+    end
+    first_student = @students.first
+    authorize first_student
     redirect_to user_path(current_user.id)
+  end
+
+  def take
+    #current user takes student from other user
+    Notification.create(recipient: @student.with_teacher, faculty: current_user, action: "took", notifiable: @student)
+    @student.update(previously_with_id: @student.with_teacher_id, with_teacher_id: current_user.id)
+    redirect_to student_path(@student.id)
   end
 
   def send_to_teacher
@@ -66,6 +60,7 @@ class StudentsController < ApplicationController
 
   def set_student
     @student = Student.find(params[:id])
+    authorize @student
   end
 
   def student_params
