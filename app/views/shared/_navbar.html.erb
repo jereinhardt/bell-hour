@@ -20,7 +20,7 @@
         <%= link_to "Classroom", user_path(current_user.id), class: "nav-link" %>
       </li>
       <li class="nav-item dropdown" data-behavior='notifications'>
-        <a class="fas fa-bell dropdown-toggle" type="button" id="navbarDropdown" data-toggle="dropdown" aria-hashpopup="true" aria-expanded="false"><span data-behavior="unread-count"></span></a>
+        <a class="fas fa-bell dropdown-toggle" type="button" data-behavior="notifications-link" id="navbarDropdown" data-toggle="dropdown" aria-hashpopup="true" aria-expanded="false"><span data-behavior="unread-count"></span></a>
         <div class="dropdown-menu dropdown-menu-right" id="notification-dropdown" aria-labelledby="navbarDropdown">
         </div>
       </li>

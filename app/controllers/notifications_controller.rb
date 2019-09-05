@@ -2,12 +2,12 @@ class NotificationsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @notifications = Notification.where(recipient: current_user).unread
+    @notifications = policy_scope(Notification)
   end
 
   def mark_as_read
-    @notifications = Notification.where(recipient: current_user).unread
+    @notifications = policy_scope(Notification)
     @notifications.update_all(read_at: Time.zone.now)
-    render josn: {success: true}
+    render json: {success: true}
   end
 end

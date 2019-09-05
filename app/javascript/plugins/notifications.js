@@ -7,11 +7,23 @@ class Notifications {
   }
 
   setup() {
+    document.querySelector("[data-behavior='notifications-link']").addEventListener('click', this.handleClick);
     return $.ajax({
-      url: "/api/v1/notifications.json",
+      url: "/api/v1/notifications",
       dataType: "JSON",
       method: "GET",
       success: this.handleSuccess
+    })
+  }
+
+  handleClick(event) {
+    return $.ajax({
+      url: "/api/v1/notifications/mark_as_read",
+      dataType: "JSON",
+      method: "POST",
+      success: function() {
+        return "[data-behavior='notifications-link']".text(0);
+      }
     })
   }
 
