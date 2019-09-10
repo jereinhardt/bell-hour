@@ -1,0 +1,35 @@
+<div class="white-card">
+  <h4><%= link_to "← User Setup", new_school_user_path(current_user.school_id) %></h4>
+</div>
+<div class="white-card">
+  <h2>Student Setup:</h2>
+  <p>Edit this section</p>
+</div>
+
+<div class="white-card">
+  <h2>New Student:</h2>
+  <%= simple_form_for [@school, @student] do |f| %>
+    <%= f.input :first_name, required: true, placeholder: "Enter first name" %>
+    <div id="error"></div>
+    <%= f.input :last_name, required: true, placeholder: "Enter first name" %>
+    <%= f.input :photo %>
+    <%= f.input :department_id, required: true, input_html: { autocomplete: "" }, placeholder: "Choose grade for student", as: :select, collection: @school.departments %>
+    <%= f.input :dismissal_type_id, required: true, input_html: { autocomplete: "" }, placeholder: "Choose dismissal type", as: :select, collection: @school.dismissal_types %>
+    <%= f.input :user_id, required: true, input_html: { autocomplete: "" }, placeholder: "Choose teacher", as: :select, collection: (@school.users).map {|u| [u, "#{u.teacher_name}"]} %>
+    <%= f.submit "Save student", class: "btn-flat", id: 'student-save' %>
+  <% end %>
+</div>
+
+<div class="white-card">
+  <h2>Current students:</h2>
+  <ul>
+    <% @school.users.each do |user| %>
+      <% if user.teacher %>
+        <h4><%= user.teacher_name %></h4>
+          <% user.students.each do |student| %>
+            <li><%= student.first_name %> <%= student.last_name %> <%= link_to "Edit", edit_dismissal_type_path(student.id) %> | <%= link_to "Delete", dismissal_type_path(student.id), method: :delete, data: { confirm: "Are you sure that you want to delete this student?" } %></li>
+          <% end %>
+      <% end %>
+    <% end %>
+  </ul>
+</div>

@@ -9,6 +9,10 @@ class StudentPolicy < ApplicationPolicy
     record.school == user.school
   end
 
+  def create?
+    record.school == user.school && user.admin
+  end
+
   def dismiss?
     record.school == user.school && record.with_teacher == user || user.admin
   end

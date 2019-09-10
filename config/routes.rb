@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     resources :departments, only: [:new, :create]
     resources :dismissal_types, only: [:new, :create]
     resources :users, only: [:new, :create]
+    resources :students, only: [:new, :create]
   end
 
   resources :departments, only: [:index, :show, :edit, :update, :destroy] do
@@ -25,7 +26,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :students, only: [:index, :show] do
+  resources :students, only: [:index, :show, :edit, :update, :destroy] do
     member do
       patch :take
       patch :dismiss

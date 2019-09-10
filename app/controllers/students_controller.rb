@@ -1,5 +1,5 @@
 class StudentsController < ApplicationController
-  before_action :set_student, except: [:index, :take_attendance]
+  before_action :set_student, except: [:index, :new, :create, :take_attendance]
 
   def index
     students = policy_scope(Student)
@@ -12,6 +12,21 @@ class StudentsController < ApplicationController
 
   def show
 
+  end
+
+  def new
+    set_school
+    @student = Student.new
+    @student.school = @school
+    authorize @student
+  end
+
+  def create
+    set_school
+    @student = @school.students.build(student_params)
+    authorize @student
+    @student.save
+    redirect_to new_school_student_path(current_user.school_id)
   end
 
   def update
@@ -53,6 +68,10 @@ class StudentsController < ApplicationController
   end
 
   private
+
+  def set_school
+    @school = School.find(params[:school_id])
+  end
 
   def set_user
     @user = User.find(params[:user_id])
