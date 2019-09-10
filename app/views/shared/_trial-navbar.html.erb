@@ -1,0 +1,37 @@
+<div class="navbar fixed-top">
+  <!-- Logo and home link -->
+  <%= link_to departments_path, class: "navbar-brand" do %>
+    <%= image_tag "https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/logo.png", class: "avatar" %>
+  <% end %>
+
+  <!-- Search form -->
+  <%= form_tag students_path, method: :get, class: "form-inline" do %>
+    <div>
+      <%= text_field_tag :query, params[:query], class: "form-control", placeholder: "Student Search" %>
+    </div>
+    <div>
+      <%= submit_tag "Search", class: "btn-ghost" %>
+    </div>
+  <% end %>
+
+  <!-- Navbar options -->
+  <div class="navbar-end">
+    <div>
+      <%= link_to "Classroom", user_path(current_user.id) %>
+    </div>
+
+    <div class="nav-item dropdown" id="alerts" data-behavior='notifications'>
+      <a class="fas fa-bell dropdown-toggle" type="button" data-behavior="notifications-link" id="navbarDropdown" data-toggle="dropdown" aria-hashpopup="true" aria-expanded="false"><span data-behavior="unread-count"></span></a>
+      <div class="dropdown-menu dropdown-menu-right" id="notification-dropdown" aria-labelledby="navbarDropdown">
+      </div>
+    </div>
+
+    <div class="nav-item dropdown">
+      <%= image_tag current_user.photo, class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+        <%= link_to "Edit profile", "#", class: "dropdown-item" %>
+        <%= link_to "Another action", "#", class: "dropdown-item" %>
+      </div>
+    </div>
+  </div>
+</div>

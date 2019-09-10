@@ -1,0 +1,12 @@
+<div class="white-card">
+  <h2>Edit <%= @dt.name %></h2>
+  <div class="form-fields">
+    <%= simple_form_for [@school, @dt] do |f| %>
+      <%= f.input :name, required: true, placeholder: "Walker, Bus Rider, After School, etc." %>
+      <div id="error"></div>
+      <%= f.submit "Save dismissal type", class: "btn-flat", id: 'dismissal-save' %>
+    <% end %>
+  </div>
+</div>
+
+<%= javascript_pack_tag 'dismissalTypeSaveError' %>

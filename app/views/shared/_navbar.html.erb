@@ -4,6 +4,8 @@
     <%= image_tag "https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/logo.png" %>
   <% end %>
 
+  <!-- search form -->
+
   <%= form_tag students_path, method: :get, class: "form-inline" do %>
     <div>
       <%= text_field_tag :query, params[:query], class: "form-control", placeholder: "Student Search" %>
@@ -13,24 +15,26 @@
     </div>
   <% end %>
 
+  <!-- navbar options -->
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <%= link_to "Classroom", user_path(current_user.id), class: "nav-link" %>
-      </li>
-      <li class="nav-item dropdown" data-behavior='notifications'>
+    <div class="navbar-nav mr-auto">
+
+      <%= link_to "Classroom", user_path(current_user.id), class: "nav-link nav-item active" %>
+
+      <div class="nav-item dropdown" data-behavior='notifications'>
         <a class="fas fa-bell dropdown-toggle" type="button" data-behavior="notifications-link" id="navbarDropdown" data-toggle="dropdown" aria-hashpopup="true" aria-expanded="false"><span data-behavior="unread-count"></span></a>
         <div class="dropdown-menu dropdown-menu-right" id="notification-dropdown" aria-labelledby="navbarDropdown">
         </div>
-      </li>
-      <li class="nav-item dropdown">
+      </div>
+
+      <div class="nav-item dropdown">
         <%= image_tag current_user.photo, class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          <%= link_to "Action", "#", class: "dropdown-item" %>
+          <%= link_to "Edit profile", "#", class: "dropdown-item" %>
           <%= link_to "Another action", "#", class: "dropdown-item" %>
         </div>
-      </li>
-    </ul>
+      </div>
+    </div>
   </div>
 </div>

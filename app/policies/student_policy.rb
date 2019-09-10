@@ -22,7 +22,7 @@ class StudentPolicy < ApplicationPolicy
   end
 
   def take?
-    record.school == user.school && record.teacher != user
+    record.school == user.school && record.with_teacher != user
   end
 
   def send_to_teacher?

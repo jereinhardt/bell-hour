@@ -1,0 +1,27 @@
+<div class="white-card">
+  <h4 class="text-right"><%= link_to "Department Setup →", new_school_department_path(current_user.school_id) %></h4>
+</div>
+<div class="white-card">
+  <h2>Dismissal Setup:</h2>
+  <p>This is where you can create, edit, and delete the "Dismissal Types" for your school. Dismissal types are all of the different ways in which students can be dismissed by. Typically it is their means of going home, however, after school programs can also be dismissal types.</p>
+</div>
+
+  <div class="white-card">
+    <h2>New Dismissal Type:</h2>
+    <%= simple_form_for [@school, @dt] do |f| %>
+      <%= f.input :name, required: true, placeholder: "Walker, Bus Rider, After School, etc." %>
+      <div id="error"></div>
+      <%= f.submit "Save dismissal type", class: "btn-flat", id: 'dismissal-save' %>
+    <% end %>
+  </div>
+
+  <div class="white-card">
+    <h2>Current Dismissal Types:</h2>
+    <ul>
+      <% @school.dismissal_types.each do |dt| %>
+        <li><%= dt.name %> <%= link_to "Edit", edit_dismissal_type_path(dt.id) %> | <%= link_to "Delete", dismissal_type_path(dt.id), method: :delete, data: { confirm: "Note that if you delete the #{dt.name} dismissal type, you must update the #{dt.name} students as well." } %></li>
+      <% end %>
+    </ul>
+  </div>
+
+<%= javascript_pack_tag 'dismissalTypeSaveError' %>

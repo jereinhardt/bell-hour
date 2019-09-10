@@ -3,9 +3,17 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-  resources :departments, only: [:index, :show]
+  resources :school, only: [] do
+    resources :departments, only: [:new, :create]
+    resources :dismissal_types, only: [:new, :create]
+    resources :users, only: [:new, :create]
+  end
 
-  resources :users, only: :show do
+  resources :departments, only: [:index, :show, :edit, :update, :destroy] do
+    resources :users, only: [:new, :create]
+  end
+
+  resources :users, only: [:show, :edit, :update, :destroy] do
     member do
       patch :give_class_to
       patch :take_back_class
@@ -28,7 +36,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :dismissal_types do
+  resources :dismissal_types, only: [:edit, :update, :destroy] do
     member do
       patch :dismiss_type_with
     end

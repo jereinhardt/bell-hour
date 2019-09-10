@@ -12,10 +12,22 @@
   <%= render "shared/class-actions" %>
 <% end %>
 
+<div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="btn btn-secondary active">
+    <input type="radio" name="options" id="option1" autocomplete="off" checked>Classroom
+  </label>
+  <label class="btn btn-secondary">
+    <input type="radio" name="options" id="option2" autocomplete="off">Dismissal
+  </label>
+</div>
+
 <% if @user.department.grade %>
   <%= render "shared/student-section" %>
+<% else %>
+  <%= render "shared/visiting" %>
 <% end %>
 
-<%= render "shared/visiting" %>
+<%= render "shared/dismissal" %>
+
 
 

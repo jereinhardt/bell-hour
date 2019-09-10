@@ -1,0 +1,13 @@
+<div class="white-card">
+  <h2>Edit <%= @department.name %></h2>
+  <div class="form-fields">
+    <%= simple_form_for @department do |f| %>
+      <%= f.input :name, required: true, placeholder: "Name of department" %>
+      <div id="error"></div>
+      <%= f.input :grade, as: :boolean %><p>Check box if this department is a grade.<br>(Ex: Kindergarten, 1st Grade, 4th Grade, etc.)</p>
+      <%= f.submit "Save department", class: "btn-flat", id: 'department-save' %>
+    <% end %>
+  </div>
+</div>
+
+<%= javascript_pack_tag 'departmentSaveError' %>

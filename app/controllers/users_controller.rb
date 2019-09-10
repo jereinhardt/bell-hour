@@ -1,8 +1,32 @@
 class UsersController < ApplicationController
-  before_action :set_user, except: :take_back_class
+  before_action :set_user, except: [:take_back_class, :new, :create]
 
   def show
     @students = current_user.students
+  end
+
+  def new
+    set_school
+    @user = User.new
+    @user.school = @school
+    @user.photo = 'default_profile.jpg'
+    authorize @user
+  end
+
+  def create
+    set_school
+    @user = @school.users.build(user_params)
+    authorize @user
+    @user.save
+    redirect_to new_school_user_path(current_user.school_id)
+  end
+
+  def edit
+
+  end
+
+  def update
+
   end
 
   def give_class_to
@@ -30,5 +54,13 @@ class UsersController < ApplicationController
   def set_user
     @user = User.find(params[:id])
     authorize @user
+  end
+
+  def set_school
+    @school = School.find(params[:school_id])
+  end
+
+  def user_params
+    params.require(:user).permit(:email, :first_name, :last_name, :teacher_name, :admin, :teacher, :department_id, :photo)
   end
 end

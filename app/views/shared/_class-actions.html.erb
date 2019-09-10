@@ -18,14 +18,5 @@
     </div>
 
     <%= link_to "Take back your class", take_back_class_user_path(current_user.id), method: "patch", class: "btn btn-flat" %>
-
-    <div class="dropdown">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dismiss all:</button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <% current_user.school.dismissal_types.each do |dt| %>
-          <%= link_to "#{dt.name}", dismiss_type_with_dismissal_type_path(dt.id), method: "patch", class: "dropdown-item" %>
-        <% end %>
-      </div>
-    </div>
   </div>
 </div>

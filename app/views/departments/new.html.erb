@@ -1,0 +1,40 @@
+<div class="white-card">
+  <h4><%= link_to "← Dismissal Setup", new_school_dismissal_type_path(current_user.school_id) %> <%= link_to "User Setup →", new_school_user_path(current_user.school_id), class: "text-right" %></h4>
+</div>
+
+<div class="white-card">
+  <h2>Department Setup:</h2>
+  <p>Departments are needed to organize the staff in this application. Departments are going to categorize everyone who will be interacting with the students. This includes grades, kindergarten through 5th Grade, as well as other departments such as Art, Gym, Clinic, and Office. Every user in the system will belong to a department.</p>
+</div>
+
+<div class="white-card">
+  <h2>New Department:</h2>
+  <%= simple_form_for [@school, @department] do |f| %>
+    <%= f.input :name, required: true, placeholder: "Name of department" %>
+    <div id="error"></div>
+    <%= f.input :grade, as: :boolean %><p>Check box if this department is a grade.<br>(Ex: Kindergarten, 1st Grade, 4th Grade, etc.)</p>
+    <%= f.submit "Save department", class: "btn-flat", id: 'department-save' %>
+  <% end %>
+</div>
+
+<div class="white-card">
+  <h2>Current Departments:</h2>
+  <ul>
+    <h4>Grades:</h4>
+    <% @school.departments.each do |department| %>
+      <% if department.grade %>
+        <li><%= department.name %> <%= link_to "Edit", edit_department_path(department.id) %> | <%= link_to "Delete", department_path(department.id), method: :delete, data: { confirm: "By deleting this department, you will also delete the students and teachers (users) under this department. Are you sure you want to delete this department?" } %></li>
+      <% end %>
+    <% end %>
+  </ul>
+  <ul>
+    <h4>Other Departments:</h4>
+    <% @school.departments.each do |department| %>
+      <% if !department.grade %>
+        <li><%= department.name %> <%= link_to "Edit", edit_department_path(department.id) %> | <%= link_to "Delete", department_path(department.id), method: :delete, data: { confirm: "By deleting this department, you will also delete the faculty (users) under this department. Are you sure you want to delete this department?" } %></li>
+      <% end %>
+    <% end %>
+  </ul>
+</div>
+
+<%= javascript_pack_tag 'departmentSaveError' %>
