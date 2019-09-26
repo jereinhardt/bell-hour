@@ -1,0 +1,23 @@
+<div class="white-card">
+  <div class="chat">
+    <% if @messages %>
+      <% @messages.each do |message| %>
+        <% if message.user == current_user %>
+          <div class="messages">
+            <%= message.body %>
+            <%= time_ago_in_words(message.created_at) %>
+          </div>
+        <% else %>
+          <div class="others-messages">
+            <%= message.body %>
+            <%= time_ago_in_words(message.created_at) %>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+    <%= simple_form_for [@conversation, @message], class: "form-inline" do |f| %>
+      <%= f.input :body %>
+      <%= f.submit "Send message", class: "btn-flat" %>
+    <% end %>
+  </div>
+</div>

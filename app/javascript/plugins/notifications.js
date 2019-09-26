@@ -4,7 +4,18 @@ class Notifications {
     if (this.notifications.length > 0) {
       this.setup();
     }
+    this.setPollingTimeout();
   }
+
+  setPollingTimeout() {
+    this.poll = setTimeout(() => { this.pollForUpdates() }, 5000)
+  }
+
+  pollForUpdates() {
+    // Logic for getting data from server
+    this.setup().done(() => this.setPollingTimeout())
+  }
+
 
   setup() {
     document.querySelector("[data-behavior='notifications-link']").addEventListener('click', this.handleClick);

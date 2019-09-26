@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   root to: 'departments#index'
 
+  resources :conversations, only: [:index, :create] do
+    resources :messages, only: [:index, :new, :create]
+  end
+
   devise_for :users
 
   resources :school, only: [] do

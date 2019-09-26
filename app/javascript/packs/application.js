@@ -18,4 +18,4 @@
 import 'bootstrap';
 import Notifications from '../plugins/notifications';
 
-let x = new Notifications()
+new Notifications()

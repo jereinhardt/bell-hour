@@ -16,9 +16,9 @@
 
   <!-- Navbar options -->
   <div class="navbar-end">
-    <div>
-      <%= link_to "Classroom", user_path(current_user.id) %>
-    </div>
+    <%= link_to "Classroom", user_path(current_user.id) %>
+
+    <%= link_to "Messages", conversations_path %>
 
     <div class="nav-item dropdown" id="alerts" data-behavior='notifications'>
       <a class="fas fa-bell dropdown-toggle" type="button" data-behavior="notifications-link" id="navbarDropdown" data-toggle="dropdown" aria-hashpopup="true" aria-expanded="false"><span data-behavior="unread-count"></span></a>

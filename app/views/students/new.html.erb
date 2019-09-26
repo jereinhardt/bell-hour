@@ -13,9 +13,9 @@
     <div id="error"></div>
     <%= f.input :last_name, required: true, placeholder: "Enter first name" %>
     <%= f.input :photo %>
-    <%= f.input :department_id, required: true, input_html: { autocomplete: "" }, placeholder: "Choose grade for student", as: :select, collection: @school.departments %>
-    <%= f.input :dismissal_type_id, required: true, input_html: { autocomplete: "" }, placeholder: "Choose dismissal type", as: :select, collection: @school.dismissal_types %>
-    <%= f.input :user_id, required: true, input_html: { autocomplete: "" }, placeholder: "Choose teacher", as: :select, collection: (@school.users).map {|u| [u, "#{u.teacher_name}"]} %>
+    <%= f.input :department_id, required: true, input_html: { autocomplete: "" }, placeholder: "Choose grade for student", as: :select, collection: @school.departments.map {|u| ["#{u.name}", u.id]} %>
+    <%= f.input :dismissal_type_id, required: true, input_html: { autocomplete: "" }, placeholder: "Choose dismissal type", as: :select, collection: @school.dismissal_types.map {|u| ["#{u.name}", u.id]} %>
+    <%= f.input :user_id, required: true, input_html: { autocomplete: "" }, placeholder: "Choose teacher", as: :select, collection: (@school.users).map {|u| ["#{u.teacher_name}", u.id]} %>
     <%= f.submit "Save student", class: "btn-flat", id: 'student-save' %>
   <% end %>
 </div>

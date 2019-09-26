@@ -18,6 +18,8 @@ class StudentsController < ApplicationController
     set_school
     @student = Student.new
     @student.school = @school
+    @student.photo = "default_profile.jpg"
+    @student.present = false
     authorize @student
   end
 
@@ -57,13 +59,13 @@ class StudentsController < ApplicationController
   def take
     #current user takes student from other user
     Notification.create(recipient: @student.with_teacher, faculty: current_user, action: "took", notifiable: @student)
-    @student.update(previously_with_id: @student.with_teacher_id, with_teacher_id: current_user.id)
+    @student.update(with_teacher_id: current_user.id)
     redirect_to student_path(@student.id)
   end
 
   def send_to_teacher
     set_user
-    @student.update(with_teacher_id: @user.id, previously_with_id: current_user.id)
+    @student.update(with_teacher_id: @user.id)
     redirect_to student_path(@student.id)
   end
 
@@ -83,6 +85,6 @@ class StudentsController < ApplicationController
   end
 
   def student_params
-    params.require(:student).permit(:with_teacher_id, :teacher_id, :present, :dismissal_type, :photo, :previously_with_id)
+    params.require(:student).permit(:user_id, :dismissal_type_id, :photo, :department_id, :first_name, :last_name)
   end
 end
