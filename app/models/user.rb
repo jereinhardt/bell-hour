@@ -9,5 +9,7 @@ class User < ApplicationRecord
   has_many :students
   has_many :notifications, foreign_key: :recipient_id
   has_many :students_with, foreign_key: :with_teacher_id
+  has_many :user_conversations
+  has_many :conversations, through: :user_conversations
 
 end
