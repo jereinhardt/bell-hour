@@ -166,5 +166,21 @@ admin_email = 1
   admin_email += 1
 end
 
+(0..2).each do |i|
+  user_1 = User.offset(i).first
+  user_2 =
+    if i == 0
+      User.second
+    elsif i == 1
+      User.third
+    else
+      User.first
+    end
+  conversation = Conversation.create!({users: [user_1, user_2]})
+  conversation.messages.create!(sender: user_1, body: "First message")
+  conversation.messages.create!(sender: user_2, body: "Second message")
+end
+
+
 p 'Task completed!'
 
