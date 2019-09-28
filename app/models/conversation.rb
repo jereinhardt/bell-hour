@@ -3,11 +3,18 @@ class Conversation < ApplicationRecord
   has_many :user_conversations
   has_many :users, through: :user_conversations
 
-  scope :between, -> (sender_id, recipient_id) do
-    # SELECT * FROM conversations
-    #   JOIN user_conversations ON user_conversations.conversation_id = conversations.id
-    #   WHERE user_conversations.user_id IN (#{sender_id}, #{recipient_id})
+  def self.between(sender, recipient)
     joins(:user_conversations).
-      where(user_conversations: { user_id: [sender_id, recipient_id] })
+      where(user_conversations: sender.user_conversations).
+      where(user_conversations: { user: recipient }).
+      first
+  end
+
+  def other_participating_user(user)
+    users.where.not(id: user.id).first
+  end
+
+  def mark_as_read_by_user!(user)
+    user_conversations.find_by(user: user).update!(read_at: Time.current)
   end
 end

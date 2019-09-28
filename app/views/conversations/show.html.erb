@@ -1,8 +1,8 @@
 <div class="white-card">
   <div class="chat">
-    <% if @messages %>
-      <% @messages.each do |message| %>
-        <% if message.user == current_user %>
+    <% if @conversation.messages.any? %>
+      <% @conversation.messages.each do |message| %>
+        <% if message.sender == current_user %>
           <div class="messages">
             <%= message.body %>
             <%= time_ago_in_words(message.created_at) %>

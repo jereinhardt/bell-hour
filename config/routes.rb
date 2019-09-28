@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   root to: 'departments#index'
 
-  resources :conversations, only: [:index, :create] do
-    resources :messages, only: [:index, :new, :create]
+  resources :conversations, only: [:index, :show, :create] do
+    resources :messages, only: [:create]
   end
 
   devise_for :users
