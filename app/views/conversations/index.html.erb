@@ -6,21 +6,16 @@
       <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">New Message:</button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         <% @users.each do |user| %>
-          <% if user != current_user %>
-            <%= link_to "Message #{user.teacher_name}", conversations_path(sender_id: current_user.id, recipient_id: user.id), method: "post", class: "dropdown-item" %>
-          <% end %>
+          <%= link_to "Message #{user.teacher_name}", conversations_path(recipient_id: user.id), method: "post", class: "dropdown-item" %>
         <% end %>
       </div>
     </div>
   </div>
 
   <% @conversations.each do |conversation| %>
-    <% if conversation.sender_id == current_user.id %>
-      <% recipient = User.find(conversation.recipient_id) %>
-    <% else %>
-      <% recipient = User.find(conversation.sender_id) %>
-    <% end %>
+    <% recipient = conversation.other_participating_user(current_user) %>
     <div>
+      <%= recipient.last_name %>
       <%= image_tag recipient.photo, alt: "User Photo" %>
     </div>
   <% end %>

@@ -1,11 +1,20 @@
 class Conversation < ApplicationRecord
-  belongs_to :sender, :foreign_key => :sender_id, class_name: 'User'
-  belongs_to :recipient, :foreign_key => :recipient_id, class_name: 'User'
-
   has_many :messages, dependent: :destroy
-  validates_uniqueness_of :sender_id, :scope => :recipient_id
+  has_many :user_conversations
+  has_many :users, through: :user_conversations
 
-  scope :between, -> (sender_id, recipient_id) do
-    where("(conversations.sender_id = ? AND conversations.recipient_id =?) OR (conversations.sender_id = ? AND conversations.recipient_id =?)", sender_id, recipient_id, recipient_id, sender_id)
+  def self.between(sender, recipient)
+    joins(:user_conversations).
+      where(user_conversations: sender.user_conversations).
+      where(user_conversations: { user: recipient }).
+      first
+  end
+
+  def other_participating_user(user)
+    users.where.not(id: user.id).first
+  end
+
+  def mark_as_read_by_user!(user)
+    user_conversations.find_by(user: user).update!(read_at: Time.current)
   end
 end

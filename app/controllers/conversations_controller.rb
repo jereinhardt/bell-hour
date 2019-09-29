@@ -1,23 +1,61 @@
 class ConversationsController < ApplicationController
+  before_action :set_conversation, only: [:show]
+  before_action :mark_conversation_as_read, only: [:show]
 
   def index
-    @users = policy_scope(User)
-    @conversations = policy_scope(Conversation)
+    @users = policy_scope(User).
+      where.not(id: current_user.id).
+      order(last_name: :asc)
+    @conversations = policy_scope(Conversation).includes(:users)
+  end
+
+  def show
+    @message = @conversation.messages.new
+    authorize(@conversation)
   end
 
   def create
-    if Conversation.between(params[:sender_id], params[:recipient_id]).present?
-      @conversation = Conversation.between(params[:sender_id], params[:recipient_id]).first
+    if existing_conversation.present?
+      redirect_to_existing_conversation
     else
-      @conversation = Conversation.create!(conversation_params)
+      create_conversation
     end
-    authorize @conversation
-    redirect_to conversation_messages_path(@conversation)
+  end
+
+  def set_conversation
+    @conversation = ConversationPresenter.new(
+      policy_scope(Conversation).find(params[:id])
+    )
+  end
+
+  def mark_conversation_as_read
+    @conversation.mark_as_read_by_user!(current_user)
   end
 
   private
 
-  def conversation_params
-    params.permit(:sender_id, :recipient_id)
+  def redirect_to_existing_conversation
+    authorize(existing_conversation)
+    redirect_to conversation_path(existing_conversation)
+  end
+
+  def create_conversation
+    @conversation = Conversation.new(users: [current_user, recipient])
+    authorize(@conversation)
+    if @conversation.save
+      redirect_to conversation_path(@conversation)
+    else
+      flash[:notice] = "Something went wrong!"
+      render :index
+    end
+  end
+
+  def existing_conversation
+    @existing_conversation ||=
+      Conversation.between(current_user, recipient)
+  end
+
+  def recipient
+    @recipient ||= User.find(params[:recipient_id])
   end
 end
