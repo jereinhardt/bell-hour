@@ -1,6 +1,6 @@
 <div class="white-card">
   <div class="header">
-    <h2>Mailbox:</h2>
+    <h2>Inbox:</h2>
 
     <div class="dropdown">
       <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">New Message:</button>
@@ -14,9 +14,16 @@
 
   <% @conversations.each do |conversation| %>
     <% recipient = conversation.other_participating_user(current_user) %>
-    <div>
-      <%= recipient.last_name %>
-      <%= image_tag recipient.photo, alt: "User Photo" %>
+    <div class="conversation-card">
+      <%= image_tag recipient.photo, alt: "User Photo", class: 'avatar-large' %>
+      <div class="conversation-details">
+        <div class="messenger">
+          <p><%= link_to "Conversation with #{recipient.teacher_name}", conversation_path(conversation)  %></p>
+        </div>
+        <div class="conversation-time">
+          <%= time_ago_in_words(conversation.messages.last.created_at) %>
+        </div>
+      </div>
     </div>
   <% end %>
 </div>

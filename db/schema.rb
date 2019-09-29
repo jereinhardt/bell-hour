@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2019_09_28_041645) do
 
   create_table "departments", force: :cascade do |t|
     t.string "name"
-    t.bigint "school_id"
+    t.integer "school_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "grade"
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 2019_09_28_041645) do
 
   create_table "dismissal_types", force: :cascade do |t|
     t.string "name"
-    t.bigint "school_id"
+    t.integer "school_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["school_id"], name: "index_dismissal_types_on_school_id"
@@ -108,6 +108,4 @@ ActiveRecord::Schema.define(version: 2019_09_28_041645) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "departments", "schools"
-  add_foreign_key "dismissal_types", "schools"
 end
