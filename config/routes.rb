@@ -48,5 +48,5 @@ Rails.application.routes.draw do
   end
 
   resources :notifications, only: [:index]
-  resource :notifications, only: [:index, :update]
+  resource :notifications, only: [:update]
 end
