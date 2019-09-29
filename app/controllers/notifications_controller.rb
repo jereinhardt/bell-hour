@@ -2,11 +2,19 @@ class NotificationsController < ApplicationController
 
   def index
     @notifications = policy_scope(Notification)
+
+    respond_to do |format|
+      format.js
+    end
   end
 
-  def mark_as_read
+  def update
     @notifications = policy_scope(Notification)
+    authorize(@notifications)
     @notifications.update_all(read_at: Time.zone.now)
-    render json: {success: true}
+
+    respond_to do |format|
+      format.js
+    end
   end
 end

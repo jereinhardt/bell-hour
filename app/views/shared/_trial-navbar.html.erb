@@ -21,8 +21,10 @@
     <%= link_to "Messages", conversations_path %>
 
     <div class="nav-item dropdown" id="alerts" data-behavior='notifications'>
-      <a class="fas fa-bell dropdown-toggle" type="button" data-behavior="notifications-link" id="navbarDropdown" data-toggle="dropdown" aria-hashpopup="true" aria-expanded="false"><span data-behavior="unread-count"></span></a>
-      <div class="dropdown-menu dropdown-menu-right" id="notification-dropdown" aria-labelledby="navbarDropdown">
+      <%= link_to "#", class: "fas fa-bell dropdown-toggle", type: "button", id: "navbarDropdown", data: { behavior: "notifications-link", toggle: "dropdown", remote_url: notifications_path(format: :js) }, aria: { hashpopup: "true", expanded: "false" } do %>
+        <span data-behavior="unread-count"></span>
+      <% end %>
+      <div class="dropdown-menu dropdown-menu-right" id="notification-dropdown" data-notifications-dropdown="true" aria-labelledby="navbarDropdown">
       </div>
     </div>
 
