@@ -3,21 +3,33 @@
     <% if @conversation.messages.any? %>
       <% @conversation.messages.each do |message| %>
         <% if message.sender == current_user %>
-          <div class="messages">
-            <%= message.body %>
-            <%= time_ago_in_words(message.created_at) %>
+          <div class="message-holder">
+            <div class="messages">
+              <div class="body">
+                <%= message.body %>
+              </div>
+              <div class="message-time">
+                <%= time_ago_in_words(message.created_at) %>
+              </div>
+            </div>
           </div>
         <% else %>
-          <div class="others-messages">
-            <%= message.body %>
-            <%= time_ago_in_words(message.created_at) %>
+          <div class="others-message-holder">
+            <div class="others-messages">
+              <div class="body">
+                <%= message.body %>
+              </div>
+              <div class="message-time">
+                <%= time_ago_in_words(message.created_at) %>
+              </div>
+            </div>
           </div>
         <% end %>
       <% end %>
     <% end %>
-    <%= simple_form_for [@conversation, @message], class: "form-inline" do |f| %>
-      <%= f.input :body %>
-      <%= f.submit "Send message", class: "btn-flat" %>
-    <% end %>
   </div>
+  <%= simple_form_for [@conversation, @message], class: "form-inline" do |f| %>
+    <%= f.input :body, input_html: { rows: "1" }, label: false %>
+    <%= f.submit "Send message", class: "btn-flat" %>
+  <% end %>
 </div>

@@ -21,13 +21,17 @@
   </label>
 </div>
 
-<% if @user.department.grade %>
-  <%= render "shared/student-section" %>
-<% else %>
-  <%= render "shared/visiting" %>
-<% end %>
+<div data-toggle-view-type="student">
+  <% if @user.department.grade %>
+    <%= render "shared/student-section" %>
+  <% else %>
+    <%= render "shared/visiting" %>
+  <% end %>
+</div>
 
-<%= render "shared/dismissal" %>
+<div class="hidden" data-toggle-view-type="dismissal">
+  <%= render "shared/dismissal" %>
+</div>
 
 
 
