@@ -5,7 +5,7 @@ class NotificationPolicy < ApplicationPolicy
     end
   end
 
-  def mark_as_read?
-    user
+  def update?
+    record.count == record.where(recipient: user).count
   end
 end

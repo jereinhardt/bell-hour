@@ -4,7 +4,11 @@ class Notifications {
     if (this.notifications.length > 0) {
       this.setup();
     }
-    this.setPollingTimeout();
+  }
+
+  setup() {
+    this.pollForUpdates();
+    $("[data-behavior='notifications-link']").on("click", this.markAsRead);
   }
 
   setPollingTimeout() {
@@ -12,39 +16,21 @@ class Notifications {
   }
 
   pollForUpdates() {
-    // Logic for getting data from server
-    this.setup().done(() => this.setPollingTimeout())
+    this.getNotifications().done(() => this.setPollingTimeout())
   }
 
 
-  setup() {
-    document.querySelector("[data-behavior='notifications-link']").addEventListener('click', this.handleClick);
-    return $.ajax({
-      url: "/api/v1/notifications",
-      dataType: "JSON",
-      method: "GET",
-      success: this.handleSuccess
-    })
+  getNotifications() {
+    return $.get("/notifications.js")
   }
 
-  handleClick(event) {
-    return $.ajax({
-      url: "/api/v1/notifications/mark_as_read",
-      dataType: "JSON",
-      method: "POST",
-      success: function() {
-        return "[data-behavior='notifications-link']".text(0);
-      }
-    })
-  }
-
-  handleSuccess(data) {
-    const notificationDropdown = document.getElementById('notification-dropdown');
-    data.forEach((notification) => {
-      const dropDownNotification = `<a class="dropdown-item" href="/students/${notification.notifiable.id}">${notification.faculty} ${notification.action} ${notification.notifiable.type}</a>`;
-      notificationDropdown.insertAdjacentHTML('beforeend', dropDownNotification);
-    })
-    $("[data-behavior='unread-count']").text(data.length)
+  markAsRead(event) {
+    const url = event.currentTarget.dataset.remoteUrl;
+    $.ajax({
+      url: url,
+      method: "PUT",
+      data: { authenticity_token: $('meta[name="csrf-token"]').attr("content") }
+    });
   }
 }
 
