@@ -1,0 +1,7 @@
+<%= @admin_user.full_name %> would like you to join your school on Bell Hour!
+
+Bell Hour is an application that helps you and other school faculty members keep track of your students.  With Bell Hour, everyone in your faculty can easily keep find where students are located, and what teacher they are with.
+
+To join the rest of your school, please sign up for a Bell Hour account using the link below:
+
+<%= new_school_user_url(@user_candidate.school, uuid: @user_candidate.uuid) %>

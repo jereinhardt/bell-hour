@@ -6,27 +6,15 @@ class UsersController < ApplicationController
   end
 
   def new
-    set_school
-    @user = User.new
-    @user.school = @school
-    @user.photo = 'default_profile.jpg'
-    authorize @user
   end
 
   def create
-    set_school
-    @user = @school.users.build(user_params)
-    authorize @user
-    @user.save
-    redirect_to new_school_user_path(current_user.school_id)
   end
 
   def edit
-
   end
 
   def update
-
   end
 
   def give_class_to

@@ -5,16 +5,20 @@ class UserPolicy < ApplicationPolicy
     end
   end
 
+  def new?
+    true
+  end
+
+  def create?
+    true
+  end
+
   def show?
     record.school == user.school
   end
 
   def create?
     record.school == user.school && user.admin
-  end
-
-  def update?
-
   end
 
   def give_class_to?

@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     resources :departments, only: [:new, :create]
     resources :dismissal_types, only: [:new, :create]
     resources :users, only: [:new, :create]
+    resources :user_candidates, only: [:index, :new, :create]
     resources :students, only: [:new, :create]
   end
 
