@@ -4,6 +4,18 @@
 
 <div class="white-card">
   <%= simple_form_for [@school, @user] do |f| do %>
-
+    <%= hidden_field_tag :uuid, params[:uuid] %>
+    <%= f.input :first_name, required: true, placeholder: "Lauren" %>
+    <%= f.input :last_name, required: true, placeholder: "Cupp" %>
+    <%= f.input :teacher_name, required: true, placeholder: "Mrs. Cupp" %>
+    <%= f.input :email, required: true, placeholder: "lcupp@elementaryschool.org" %>
+    <%= f.input :department,
+      required: true,
+      input_html: { autocomplete: "" },
+      placeholder: "Choose department",
+      as: :select,
+      collection: department_options(@school.departments)
+    %>
+    <%= f.submit "Create Account", class: "btn-flat" %>
   <% end %>
 </div>

@@ -12,17 +12,16 @@ class User < ApplicationRecord
   has_many :user_conversations
   has_many :conversations, through: :user_conversations
 
-  def self.from_candidate(user_candidate)
+  def self.build_from_candidate(user_candidate)
     attributes = user_candidate.attributes.symbolize_keys.slice(
       :email,
       :first_name,
       :last_name,
       :teacher_name,
       :teacher,
-      :photo
-    ).merge(
-      department: user_candidate.department
-      school: user_candidate.school
+      :photo,
+      :department_id,
+      :school_id
     )
     new(attributes)
   end

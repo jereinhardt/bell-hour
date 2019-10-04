@@ -10,17 +10,22 @@
 <div class="white-card">
   <h2>New User:</h2>
   <%= simple_form_for [@school, @user] do |f| %>
-    <%= f.input :first_name, required: true, placeholder: "Lauren" %>
+    <%= f.input :first_name, required: false, placeholder: "Lauren" %>
     <div id="error"></div>
-    <%= f.input :last_name, required: true, placeholder: "Cupp" %>
+    <%= f.input :last_name, required: false, placeholder: "Cupp" %>
     <div id="error"></div>
-    <%= f.input :teacher_name, required: true, placeholder: "Mrs. Cupp" %>
+    <%= f.input :teacher_name, required: false, placeholder: "Mrs. Cupp" %>
     <div id="error"></div>
     <%= f.input :email, required: true, placeholder: "lcupp@elementaryschool.org" %>
     <div id="error"></div>
     <%= f.input :teacher, as: :boolean %>
-    <%= f.input :department, required: true, required: true,
-                input_html: { autocomplete: "" }, placeholder: "Choose department", as: :select, collection: @school.departments %>
+    <%= f.input :department,
+      required: true,
+      input_html: { autocomplete: "" },
+      placeholder: "Choose department",
+      as: :select,
+      collection: department_options(@school.departments)
+    %>
     <div id="error"></div>
     <%= f.submit "Save user", class: "btn-flat", id: 'user-save' %>
   <% end %>

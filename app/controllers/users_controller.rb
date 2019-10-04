@@ -1,14 +1,28 @@
 class UsersController < ApplicationController
-  before_action :set_user, except: [:take_back_class, :new, :create]
+  before_action :set_user, except: [:take_back_class]
+  before_action :set_school
 
   def show
     @students = current_user.students
   end
 
   def new
+    user_candidate = UserCandidate.find_by!(uuid: params[:uuid])
+    @user = User.from_candidate(user_candidate)
+    authorize(@user)
   end
 
   def create
+    user_creation =
+      UserCreation.new(user_candidate: user_candidate, user_params)
+    if user_creation.perform
+      flash[:success] = t(".success")
+      redirect_to root_path
+    else
+      @user = user_creation.user
+      flash[:info] = t(".failure")
+      render "new"
+    end
   end
 
   def edit
@@ -49,6 +63,19 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:email, :first_name, :last_name, :teacher_name, :admin, :teacher, :department_id, :photo)
+    params.require(:user).permit(
+      :email,
+      :first_name,
+      :last_name,
+      :teacher_name,
+      :admin,
+      :teacher,
+      :department_id,
+      :photo
+    ).merge(school: @school)
+  end
+
+  def user_candidate
+    @user_candidate ||= UserCandidate.find_by(uuid: params[:uuid])
   end
 end
