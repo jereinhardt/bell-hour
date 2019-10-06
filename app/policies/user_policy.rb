@@ -5,14 +5,6 @@ class UserPolicy < ApplicationPolicy
     end
   end
 
-  def new?
-    true
-  end
-
-  def create?
-    true
-  end
-
   def show?
     record.school == user.school
   end

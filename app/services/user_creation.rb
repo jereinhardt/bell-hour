@@ -1,5 +1,5 @@
 class UserCreation
-  def initialize(user_candidate:, params = {})
+  def initialize(user_candidate, params = {})
     @user_candidate = user_candidate
     @user_params = params
   end
@@ -22,7 +22,10 @@ class UserCreation
 
   def merged_params
     if user_candidate.present?
-      user_params.merge(teacher: user_candidate.teacher)
+      user_params.merge(
+        teacher: user_candidate.teacher,
+        admin: user_candidate.admin
+      )
     else
       user_params
     end

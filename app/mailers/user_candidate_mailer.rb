@@ -1,4 +1,5 @@
 class UserCandidateMailer < ApplicationMailer
+  layout "mailer"
 
   def send_invitation(user_candidate, admin_user)
     @user_candidate = user_candidate

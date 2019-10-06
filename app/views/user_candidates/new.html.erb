@@ -3,13 +3,13 @@
 </div>
 
 <div class="white-card">
-  <h2>User Setup:</h2>
-  <p>Here is where you may setup the accounts for all of the users who will be using the app. Be sure to note that a user should only be marked as a teacher if their department is a grade. (That does not include departments such as Art, Music, or Gym.) No users marked as a teacher should also be marked as an admin. Admin is only for faculty members in the office.</p>
+  <h2><%= t(".header") %></h2>
+  <p><%= t(".information") %></p>
 </div>
 
 <div class="white-card">
   <h2>New User:</h2>
-  <%= simple_form_for [@school, @user] do |f| %>
+  <%= simple_form_for [@school, @user_candidate] do |f| %>
     <%= f.input :first_name, required: false, placeholder: "Lauren" %>
     <div id="error"></div>
     <%= f.input :last_name, required: false, placeholder: "Cupp" %>
@@ -19,7 +19,8 @@
     <%= f.input :email, required: true, placeholder: "lcupp@elementaryschool.org" %>
     <div id="error"></div>
     <%= f.input :teacher, as: :boolean %>
-    <%= f.input :department,
+    <%= f.input :admin, as: :boolean %>
+    <%= f.input :department_id,
       required: true,
       input_html: { autocomplete: "" },
       placeholder: "Choose department",
@@ -33,24 +34,12 @@
 
 <div class="white-card">
   <h2>Current Users:</h2>
-  <% @school.departments.each do |department| %>
-    <% if department.grade %>
-      <ul>
-        <h4><%= department.name %></h4>
-        <% department.users.each do |user| %>
-          <li><%= user.teacher_name %></li>
-        <% end %>
-      </ul>
-    <% end %>
-  <% end %>
-  <% @school.departments.each do |department| %>
-    <% if !department.grade %>
-      <ul>
-        <h4><%= department.name %></h4>
-        <% department.users.each do |user| %>
-          <li><%= user.teacher_name %></li>
-        <% end %>
-      </ul>
-    <% end %>
+  <% @departments.each do |department| %>
+    <ul>
+      <h4><%= department.name %></h4>
+      <% department.user_candidates.each do |user| %>
+        <li><%= user.email%></li>
+      <% end %>
+    </ul>
   <% end %>
 </div>

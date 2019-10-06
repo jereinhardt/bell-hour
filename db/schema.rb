@@ -82,6 +82,7 @@ ActiveRecord::Schema.define(version: 2019_10_03_022044) do
   create_table "user_candidates", force: :cascade do |t|
     t.string "email", null: false
     t.boolean "teacher", default: false, null: false
+    t.boolean "admin", default: false, null: false
     t.string "first_name"
     t.string "last_name"
     t.string "teacher_name"

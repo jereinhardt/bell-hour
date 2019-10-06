@@ -1,15 +1,9 @@
 class UserCandidatePolicy < ApplicationPolicy
-  class Scope < Scope
-    def resolve
-      scope.where(school: user.school)
-    end
-  end
-
   def new?
     user_is_admin_of_school?
   end
 
-  def create
+  def create?
     user_is_admin_of_school?
   end
 

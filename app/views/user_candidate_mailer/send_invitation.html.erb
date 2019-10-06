@@ -1,0 +1,5 @@
+<h3><center><%= t(".headline", name: @admin_user.full_name) %></center></h3>
+<p><%= t(".main_body") %></p>
+<p><%= t(".join") %></p>
+<br>
+<center><%= link_to t(".cta"), new_school_user_url(@user_candidate.school, uuid: @user_candidate.uuid) %></center>

@@ -3,8 +3,9 @@ class UserCandidatesController < ApplicationController
 
   def new
     @user_candidate =
-      @school.user_candidates.new(photo: 'default_profile.jpg')
+      @school.user_candidates.new(photo: User::DEFAULT_PHOTO)
     authorize(@user_candidate)
+    @departments = departments
   end
 
   def create
@@ -12,11 +13,12 @@ class UserCandidatesController < ApplicationController
       @school.user_candidates.new(user_candidate_params)
     authorize(@user_candidate)
     if @user_candidate.save
-      # send email
-      flash[:success] = t(".success", email: @user_candidate.email)
-      redirect_to school_user_candidates_path(@school)
+      UserCandidateMailer.send_invitation(@user_candidate, current_user)
+      flash[:notice] = t(".success", email: @user_candidate.email)
+      redirect_to new_school_user_candidate_path(@school)
     else
-      flash[:info] = t(".error")
+      @departments = departments
+      flash[:alert] = t(".failure")
       render "new"
     end
   end
@@ -24,7 +26,17 @@ class UserCandidatesController < ApplicationController
   private
 
   def set_school
-    @school = School.find(params[:school_id])
+    @school = School.
+      includes(departments: :user_candidates).
+      find(params[:school_id])
+  end
+
+  def departments
+    @school.
+      departments.
+      with_user_candidates.
+      grades_first.
+      distinct
   end
 
   def user_candidate_params
@@ -34,7 +46,7 @@ class UserCandidatesController < ApplicationController
       :teacher_name,
       :email,
       :teacher,
-      :department
+      :department_id
     )
   end
 end
