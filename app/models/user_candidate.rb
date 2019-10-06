@@ -9,6 +9,8 @@ class UserCandidate < ApplicationRecord
   private
 
   def generate_uuid
-    self.uuid = SecureRandom.uuid unless self.uuid.present?
+    unless self.uuid.present?
+      self.uuid = SecureRandom.urlsafe_base64
+    end
   end
 end
