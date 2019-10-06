@@ -8,7 +8,6 @@ class UsersController < ApplicationController
 
   def new
     skip_authorization
-    user_candidate = UserCandidate.find_by!(uuid: params[:uuid])
     if user_candidate.user.present?
       redirect_to(root_path) and return
     end
@@ -77,6 +76,7 @@ class UsersController < ApplicationController
   end
 
   def user_candidate
-    @user_candidate ||= UserCandidate.find_by(uuid: params[:uuid])
+    @user_candidate ||=
+      @school.user_candidates.find_by!(uuid: params[:uuid])
   end
 end
