@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action :set_school
+  before_action :set_user, expect: [:take_back_class, :new, :create]
+  before_action :set_school, only: [:new, :create]
   enforce_signed_out_only only: [:new, :create]
 
   def show
@@ -78,5 +79,10 @@ class UsersController < ApplicationController
   def user_candidate
     @user_candidate ||=
       @school.user_candidates.find_by!(uuid: params[:uuid])
+  end
+
+  def set_user
+    @user = User.find(params[:id])
+    authorize(@user)
   end
 end
