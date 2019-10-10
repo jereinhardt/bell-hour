@@ -13,10 +13,6 @@ class UserPolicy < ApplicationPolicy
     record.school == user.school && user.admin
   end
 
-  def update?
-
-  end
-
   def give_class_to?
     record.school == user.school && user.teacher
   end

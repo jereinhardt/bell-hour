@@ -1,0 +1,45 @@
+<div class="white-card">
+  <h4><%= link_to "← Department Setup", new_school_department_path(current_user.school_id) %> <%= link_to "Student Setup →", new_school_student_path(current_user.school_id), class: "text-right" %></h4>
+</div>
+
+<div class="white-card">
+  <h2><%= t(".header") %></h2>
+  <p><%= t(".information") %></p>
+</div>
+
+<div class="white-card">
+  <h2>New User:</h2>
+  <%= simple_form_for [@school, @user_candidate] do |f| %>
+    <%= f.input :first_name, required: false, placeholder: "Lauren" %>
+    <div id="error"></div>
+    <%= f.input :last_name, required: false, placeholder: "Cupp" %>
+    <div id="error"></div>
+    <%= f.input :teacher_name, required: false, placeholder: "Mrs. Cupp" %>
+    <div id="error"></div>
+    <%= f.input :email, required: true, placeholder: "lcupp@elementaryschool.org" %>
+    <div id="error"></div>
+    <%= f.input :teacher, as: :boolean %>
+    <%= f.input :admin, as: :boolean %>
+    <%= f.input :department_id,
+      required: true,
+      input_html: { autocomplete: "" },
+      placeholder: "Choose department",
+      as: :select,
+      collection: department_options(@school.departments)
+    %>
+    <div id="error"></div>
+    <%= f.submit "Save user", class: "btn-flat", id: 'user-save' %>
+  <% end %>
+</div>
+
+<div class="white-card">
+  <h2>Current Users:</h2>
+  <% @departments.each do |department| %>
+    <ul>
+      <h4><%= department.name %></h4>
+      <% department.user_candidates.each do |user| %>
+        <li><%= user.email%></li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>

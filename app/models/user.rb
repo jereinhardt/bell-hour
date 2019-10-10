@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  DEFAULT_PHOTO = 'default_profile.jpg'.freeze
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :recoverable,
@@ -12,4 +13,21 @@ class User < ApplicationRecord
   has_many :user_conversations
   has_many :conversations, through: :user_conversations
 
+  def self.build_from_candidate(user_candidate)
+    attributes = user_candidate.attributes.symbolize_keys.slice(
+      :email,
+      :first_name,
+      :last_name,
+      :teacher_name,
+      :teacher,
+      :photo,
+      :department_id,
+      :school_id
+    )
+    new(attributes)
+  end
+
+  def full_name
+    [first_name, last_name].join(" ")
+  end
 end

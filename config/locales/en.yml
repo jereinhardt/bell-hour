@@ -30,4 +30,29 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  users:
+    create:
+      success: "Welcome to Bell Hour!"
+  user_candidates:
+    new:
+      header: "User Setup:"
+      information: >
+        Here is where you may setup the accounts for all of the users who will be 
+        using the app. Please fill in their information, and we will send them an 
+        invitation to complete their account and join your school on Bell Hour. 
+        Please provide at least an email address, their department, and whether 
+        they should be considered a teacher or admin.  Be sure to note that a user 
+        should only be marked as a teacher if their department is a grade. 
+        (That does not include departments such as Art, Music, or Gym.) 
+        No users marked as a teacher should also be marked as an admin. Admin is 
+        only for faculty members in the office.
+    create:
+      success: An invitation to join Bell-Hour has been sent to %{email}.
+      failure: Make sure you fill out all the required fields.
+  user_candidate_mailer:
+    send_invitation:
+      cta: Join Your School Now!
+      headline: "%{name} would like you to join your school on Bell Hour!"
+      join: "To join the rest of your school, please sign up for a Bell Hour account using the link below:"
+      main_body: Bell Hour is an application that helps you and other school faculty members keep track of your students.  With Bell Hour, everyone in your faculty can easily find where students are located, and what teacher they are with.
+      subject: "%{name} invites you to join your school on Bell Hour"

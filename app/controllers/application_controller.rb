@@ -15,7 +15,16 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def self.enforce_signed_out_only(opts = {})
+    skip_before_action :authenticate_user!, opts
+    before_action :redirect_if_signed_in, opts
+  end
+
   def skip_pundit?
     devise_controller? || params[:controller] =~ /(^(rails_)?admin)|(^pages$)/
+  end
+
+  def redirect_if_signed_in
+    redirect_to(root_path) if signed_in?
   end
 end

@@ -1,32 +1,30 @@
 class UsersController < ApplicationController
-  before_action :set_user, except: [:take_back_class, :new, :create]
+  before_action :set_school
+  enforce_signed_out_only only: [:new, :create]
 
   def show
     @students = current_user.students
   end
 
   def new
-    set_school
-    @user = User.new
-    @user.school = @school
-    @user.photo = 'default_profile.jpg'
-    authorize @user
+    skip_authorization
+    if user_candidate.user.present?
+      redirect_to(root_path) and return
+    end
+    @user = User.build_from_candidate(user_candidate)
   end
 
   def create
-    set_school
-    @user = @school.users.build(user_params)
-    authorize @user
-    @user.save
-    redirect_to new_school_user_path(current_user.school_id)
-  end
-
-  def edit
-
-  end
-
-  def update
-
+    skip_authorization
+    user_creation = UserCreation.new(user_candidate, user_params)
+    if user_creation.perform
+      sign_in(user_creation.user)
+      flash[:notice] = t(".success")
+      redirect_to root_path
+    else
+      @user = user_creation.user
+      render "new"
+    end
   end
 
   def give_class_to
@@ -51,16 +49,34 @@ class UsersController < ApplicationController
 
   private
 
-  def set_user
-    @user = User.find(params[:id])
-    authorize @user
-  end
-
   def set_school
     @school = School.find(params[:school_id])
   end
 
   def user_params
-    params.require(:user).permit(:email, :first_name, :last_name, :teacher_name, :admin, :teacher, :department_id, :photo)
+    params.require(:user).permit(
+      :email,
+      :first_name,
+      :last_name,
+      :teacher_name,
+      :admin,
+      :teacher,
+      :department_id,
+      :photo,
+      :password,
+      :password_confirmation
+    ).merge(predetermined_params)
+  end
+
+  def predetermined_params
+    {
+      school: @school,
+      photo: User::DEFAULT_PHOTO
+    }
+  end
+
+  def user_candidate
+    @user_candidate ||=
+      @school.user_candidates.find_by!(uuid: params[:uuid])
   end
 end

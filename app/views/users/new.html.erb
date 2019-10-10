@@ -1,51 +1,23 @@
 <div class="white-card">
-  <h4><%= link_to "← Department Setup", new_school_department_path(current_user.school_id) %> <%= link_to "Student Setup →", new_school_student_path(current_user.school_id), class: "text-right" %></h4>
+  <h2>Create Your Account</h2>
 </div>
 
 <div class="white-card">
-  <h2>User Setup:</h2>
-  <p>Here is where you may setup the accounts for all of the users who will be using the app. Be sure to note that a user should only be marked as a teacher if their department is a grade. (That does not include departments such as Art, Music, or Gym.) No users marked as a teacher should also be marked as an admin. Admin is only for faculty members in the office.</p>
-</div>
-
-<div class="white-card">
-  <h2>New User:</h2>
   <%= simple_form_for [@school, @user] do |f| %>
+    <%= hidden_field_tag :uuid, params[:uuid] %>
     <%= f.input :first_name, required: true, placeholder: "Lauren" %>
-    <div id="error"></div>
     <%= f.input :last_name, required: true, placeholder: "Cupp" %>
-    <div id="error"></div>
     <%= f.input :teacher_name, required: true, placeholder: "Mrs. Cupp" %>
-    <div id="error"></div>
     <%= f.input :email, required: true, placeholder: "lcupp@elementaryschool.org" %>
-    <div id="error"></div>
-    <%= f.input :teacher, as: :boolean %>
-    <%= f.input :department, required: true, required: true,
-                input_html: { autocomplete: "" }, placeholder: "Choose department", as: :select, collection: @school.departments %>
-    <div id="error"></div>
-    <%= f.submit "Save user", class: "btn-flat", id: 'user-save' %>
-  <% end %>
-</div>
-
-<div class="white-card">
-  <h2>Current Users:</h2>
-  <% @school.departments.each do |department| %>
-    <% if department.grade %>
-      <ul>
-        <h4><%= department.name %></h4>
-        <% department.users.each do |user| %>
-          <li><%= user.teacher_name %></li>
-        <% end %>
-      </ul>
-    <% end %>
-  <% end %>
-  <% @school.departments.each do |department| %>
-    <% if !department.grade %>
-      <ul>
-        <h4><%= department.name %></h4>
-        <% department.users.each do |user| %>
-          <li><%= user.teacher_name %></li>
-        <% end %>
-      </ul>
-    <% end %>
+    <%= f.input :password, required: true %>
+    <%= f.input :password_confirmation, required: true %>
+    <%= f.input :department_id,
+      required: true,
+      input_html: { autocomplete: "" },
+      placeholder: "Choose department",
+      as: :select,
+      collection: department_options(@school.departments)
+    %>
+    <%= f.submit "Create Account", class: "btn-flat" %>
   <% end %>
 </div>
