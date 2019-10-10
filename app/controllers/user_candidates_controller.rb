@@ -13,7 +13,7 @@ class UserCandidatesController < ApplicationController
       @school.user_candidates.new(user_candidate_params)
     authorize(@user_candidate)
     if @user_candidate.save
-      UserCandidateMailer.send_invitation(@user_candidate, current_user)
+      UserCandidateMailer.send_invitation(@user_candidate, current_user).deliver_later
       flash[:notice] = t(".success", email: @user_candidate.email)
       redirect_to new_school_user_candidate_path(@school)
     else

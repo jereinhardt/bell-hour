@@ -48,6 +48,7 @@ en:
         only for faculty members in the office.
     create:
       success: An invitation to join Bell-Hour has been sent to %{email}.
+      failure: Make sure you fill out all the required fields.
   user_candidate_mailer:
     send_invitation:
       cta: Join Your School Now!
