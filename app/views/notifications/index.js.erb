@@ -1,5 +1,1 @@
 document.querySelector("[data-behavior='unread-count']").innerText = "<%= @notifications.count %>";
-
-<% @notifications.each do |notification| %>
-  document.querySelector("[data-notifications-dropdown]").insertAdjacentHTML("beforeend", "<%=j render notification %>");
-<% end %>

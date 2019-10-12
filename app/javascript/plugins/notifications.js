@@ -8,7 +8,7 @@ class Notifications {
 
   setup() {
     this.pollForUpdates();
-    $("[data-behavior='notifications-link']").on("click", this.markAsRead);
+    $("[data-behavior='notifications-link']").on("click", this.getNotificationsAndMarkAsRead);
   }
 
   setPollingTimeout() {
@@ -16,15 +16,15 @@ class Notifications {
   }
 
   pollForUpdates() {
-    this.getNotifications().done(() => this.setPollingTimeout())
+    this.getNotificationsCount().done(() => this.setPollingTimeout())
   }
 
 
-  getNotifications() {
+  getNotificationsCount() {
     return $.get("/notifications.js")
   }
 
-  markAsRead(event) {
+  getNotificationsAndMarkAsRead(event) {
     const url = event.currentTarget.dataset.remoteUrl;
     $.ajax({
       url: url,
