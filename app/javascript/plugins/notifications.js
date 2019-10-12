@@ -25,12 +25,14 @@ class Notifications {
   }
 
   getNotificationsAndMarkAsRead(event) {
-    const url = event.currentTarget.dataset.remoteUrl;
-    $.ajax({
-      url: url,
-      method: "PUT",
-      data: { authenticity_token: $('meta[name="csrf-token"]').attr("content") }
-    });
+    if ( link.getAttribute("aria-expanded") === "false" ) {
+      const url = event.currentTarget.dataset.remoteUrl;
+      $.ajax({
+        url: url,
+        method: "PUT",
+        data: { authenticity_token: $('meta[name="csrf-token"]').attr("content") }
+      });
+    }
   }
 }
 
