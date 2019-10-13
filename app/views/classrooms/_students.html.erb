@@ -1,0 +1,43 @@
+<div class="white-card">
+  <h2>Present:</h2>
+  <div class="holder">
+    <% user.students.with_teacher(user).each do |student| %>
+      <div class="thumbnail">
+        <%= image_tag student.photo, alt: "student picture", class: "avatar-large" %>
+        <p><%= link_to "#{student.first_name} #{student.last_name}", student_path(student.id) %></p>
+        <% if current_user != student.with_teacher %>
+          <%= link_to "Take #{student.first_name}", take_student_path(student.id), method: "patch", class: "btn-ghost" %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="white-card">
+  <h2>Absent:</h2>
+  <div class="holder">
+    <% user.students.absent do |student| %>
+      <div class="thumbnail">
+        <%= image_tag student.photo, alt: "student picture", class: "avatar-large" %>
+        <p><%= link_to "#{student.first_name} #{student.last_name}", student_path(student.id) %></p>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="white-card">
+  <h2>Away:</h2>
+  <div class="holder">
+    <% user.students.away_from_teacher(user).each do |student| %>
+      <div class="thumbnail">
+        <%= image_tag student.photo, alt: "student picture", class: "avatar-large" %>
+        <p><%= link_to "#{student.first_name} #{student.last_name}", student_path(student.id) %></p>
+        <% if current_user != student.with_teacher %>
+          <%= link_to "Take #{student.first_name}", take_student_path(student.id), method: "patch", class: "btn-ghost" %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<%= render "classrooms/visiting", user: user %>

@@ -13,25 +13,14 @@
 <% end %>
 
 <div class="btn-group btn-group-toggle" data-toggle="buttons">
-  <label class="btn btn-secondary active">
-    <input type="radio" name="options" id="option1" autocomplete="off" checked>Classroom
-  </label>
-  <label class="btn btn-secondary">
-    <input type="radio" name="options" id="option2" autocomplete="off">Dismissal
-  </label>
+  <%= link_to "Classroom", user_classroom_path(@user, type: ClassroomsController::SHOW_DEFAULT, format: :js), remote: true, class: "btn btn-secondary active" %>
+  <%= link_to "Dismissal", user_classroom_path(@user, type: ClassroomsController::SHOW_DISMISSAL, format: :js), remote: true, class: "btn btn-secondary" %>
 </div>
 
-<div data-toggle-view-type="student">
+<div data-classroom-view="true">
   <% if @user.department.grade %>
-    <%= render "shared/student-section" %>
+    <%= render "classrooms/students", user: @user %>
   <% else %>
-    <%= render "shared/visiting" %>
+    <%= render "classrooms/visiting", user: @user %>
   <% end %>
 </div>
-
-<div class="hidden" data-toggle-view-type="dismissal">
-  <%= render "shared/dismissal" %>
-</div>
-
-
-

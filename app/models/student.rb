@@ -12,4 +12,25 @@ class Student < ApplicationRecord
     using: {
       tsearch: { prefix: true } # <-- now `superman batm` will return something!
     }
+
+  scope :with_teacher, -> (teacher_user) {
+    where(present: true).where(with_teacher: teacher_user)
+  }
+  scope :away_from_teacher, -> (teacher_user) {
+    where(present: true).where.not(with_teacher: teacher_user)
+  }
+  scope :visiting_teacher, -> (teacher_user) {
+    where(present: true).
+      where(with_teacher: teacher_user).
+      where.not(teacher: teacher_user)
+  }
+  scope :absent, -> { where(present: false) }
+
+  def self.by_dismissal_type
+    all.group_by { |student| student.dismissal_type.name }
+  end
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 end

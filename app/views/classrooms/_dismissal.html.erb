@@ -1,0 +1,13 @@
+<% user.students.by_dismissal_type.each do |dismissal_type_name, students| %>
+  <div class="white-card">
+    <h2><%= dismissal_type_name %></h2>
+    <div class="holder">
+      <% students.each do |student| %>
+        <div class="thumbnail">
+          <%= image_tag student.photo, alt: "student picture", class: "avatar-large" %>
+          <p><%= link_to student.full_name, student_path(student.id) %></p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

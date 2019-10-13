@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       patch :give_class_to
       patch :take_back_class
     end
+    resource :classroom, only: [:show]
     resources :students, only: [] do
       member do
         patch :send_to_teacher

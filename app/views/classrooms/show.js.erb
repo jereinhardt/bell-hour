@@ -1,0 +1,3 @@
+<% if rendered_partial.present? %>
+  document.querySelector("[data-classroom-view]").innerHTML = "<%=j render(rendered_partial, user: @teacher_user)%>";
+<% end %>
